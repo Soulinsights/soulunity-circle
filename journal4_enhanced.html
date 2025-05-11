@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoulUnity — Sacred Journal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap');
+        
+        :root {
+            --lavender: #d8c4e8;
+            --dusty-rose: #e8c4d8;
+            --peach: #f8d4b8;
+            --beige: #f4e9d8;
+            --sky-blue: #c4e8f8;
+            --soft-text: #5a5a72;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--soft-text);
+            background-color: #f8f5f2;
+        }
+        
+        /* Journal Card Styles */
+        .journal-card {
+            transition: all 0.4s ease;
+            background-color: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(5px);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+        
+        .journal-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .journal-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, var(--lavender), var(--sky-blue));
+        }
+        
+        .journal-card-icon {
+            transition: all 0.4s ease;
+        }
+        
+        .journal-card:hover .journal-card-icon {
+            transform: scale(1.1);
+        }
+        
+        /* Modal Styles */
+        .journal-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+        
+        .journal-modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .journal-modal-content {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            width: 90%;
+            max-width: 700px;
+            max-height: 90vh;
+            padding: 30px;
+            position: relative;
+            transform: translateY(20px) scale(0.95);
+            transition: all 0.3s ease;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+            overflow-y: auto;
+        }
+        
+        .journal-modal-overlay.active .journal-modal-content {
+            transform: translateY(0) scale(1);
+        }
+        
+        .journal-modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--soft-text);
+            transition: transform 0.3s ease;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .journal-modal-close:hover {
+            transform: rotate(90deg);
+            background-color: rgba(216, 196, 232, 0.2);
+        }
+        
+        .journal-modal-date {
+            color: #8a6ea8;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+        
+        .journal-modal-body {
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+        
+        /* Background pattern for journal section */
+        .journal-section-bg {
+            background-image: radial-gradient(circle, rgba(216, 196, 232, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        
+        /* Journal Page Styles */
+        .journal-page-header {
+            background: linear-gradient(135deg, rgba(216, 196, 232, 0.3) 0%, rgba(196, 232, 248, 0.3) 100%);
+        }
+        
+        .journal-search {
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(5px);
+        }
+        
+        .journal-tag {
+            transition: all 0.3s ease;
+        }
+        
+        .journal-tag:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Pagination Styles */
+        .pagination-link {
+            transition: all 0.3s ease;
+        }
+        
+        .pagination-link:hover:not(.active) {
+            background-color: rgba(216, 196, 232, 0.2);
+        }
+        
+        .pagination-link.active {
+            background: linear-gradient(to right, var(--lavender), var(--sky-blue));
+            color: white;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .journal-modal-content {
+                padding: 20px;
+            }
+            
+            .journal-modal-body {
+                font-size: 1rem;
+            }
+            
+            .journal-grid {
+                grid-template-columns: 1fr !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Content (Homepage with Journal Preview) -->
+    
+    <!-- Journal Page (Hidden by default) -->
+    <div id="journal-page">
+        <!-- Journal Header -->
+        <header class="journal-page-header py-16 px-4">
+            <div class="max-w-6xl mx-auto">
+                <div class="flex flex-col md:flex-row justify-between items-center mb-12">
+                    <div>
+                        <h1 class="text-4xl md:text-5xl font-bold mb-2 font-serif">Sacred Journal</h1>
+                        <p class="text-xl text-gray-600">Wisdom from our collective journey</p>
+                    </div>
+                    <button onclick="showHomepage()" class="mt-6 md:mt-0 flex items-center text-purple-600 hover:text-purple-800 transition-colors">
+                        <a href="index - new - Kopie (2).html" class="..."><i class="fas fa-arrow-left mr-2"></i> Back to Home</a>
+                    </button>
+                </div>
+                
+                <!-- Search and Filter -->
+                <div class="journal-search p-4 rounded-lg shadow-sm mb-8">
+                    <div class="flex flex-col md:flex-row gap-4">
+                        <div class="flex-1">
+                            <div class="relative">
+                                <input type="text" placeholder="Search journal entries..." class="w-full pl-10 pr-4 py-3 rounded-full border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-300">
+                                <i class="fas fa-search absolute left-3 top-3.5 text-gray-400"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <select class="w-full md:w-auto px-4 py-3 rounded-full border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-300">
+                                <option>All Categories</option>
+                                <option>Meditation</option>
+                                <option>Nature</option>
+                                <option>Community</option>
+                                <option>Wisdom</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-2 mt-4">
+                        <span class="journal-tag inline-block px-3 py-1 bg-purple-50 text-purple-600 rounded-full text-sm cursor-pointer">#spirituality</span>
+                        <span class="journal-tag inline-block px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-sm cursor-pointer">#reflection</span>
+                        <span class="journal-tag inline-block px-3 py-1 bg-green-50 text-green-600 rounded-full text-sm cursor-pointer">#studentlife</span>
+                        <span class="journal-tag inline-block px-3 py-1 bg-yellow-50 text-yellow-600 rounded-full text-sm cursor-pointer">#awakening</span>
+                        <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-sm cursor-pointer">#guidance</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <!-- All Journal Entries -->
+        <section class="py-12 px-4">
+            <div class="max-w-6xl mx-auto">
+                <div class="journal-grid grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Journal Entry 1 -->
+                    <!-- Journal Entry 1 -->
+                    <div class="journal-card p-6 cursor-pointer" onclick="openJournalModal('My LiFe', 'Sunday, 4 October 2015', 'journal10')">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center mr-4 journal-card-icon">
+                                <i class="fas fa-book text-xl text-purple-500"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg">My LiFe</h3>
+                                <p class="text-sm text-gray-500">Sunday, 4 October 2015</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 mb-4">I am just a normal kid who once believed , logic and science was the only world to explore. But my experience taught me ...</p>
+                        <div class="flex flex-wrap gap-2 mt-2">
+                            <span class="journal-tag inline-block px-3 py-1 bg-green-50 text-green-600 rounded-full text-xs">#reflection</span>
+                    <span class="journal-tag inline-block px-3 py-1 bg-purple-50 text-purple-600 rounded-full text-xs">#spirituality</span>
+                        </div>
+                        <div class="text-right mt-3">
+                            <span class="inline-block px-4 py-2 bg-purple-50 text-purple-600 rounded-full text-sm font-medium">Read More →</span>
+                        </div>
+                    </div>
+                    
+                    
+                    <!-- Journal Entry 2 -->
+                    <!-- Journal Card: BtEch. -->
+                    <div class="journal-card p-6 cursor-pointer" onclick="openJournalModal('BtEch.', 'Tuesday, 6 October 2015', 'journal11')">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center mr-4 journal-card-icon">
+                                <i class="fas fa-book text-xl text-purple-500"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg">BtEch.</h3>
+                                <p class="text-sm text-gray-500">Tuesday, 6 October 2015</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 mb-4">I joined  Amrita School of Engineering in the year 2011 to do my undergraduate in mechanical engineering. I met the most...</p>
+                        <div class="flex flex-wrap gap-2 mt-2">
+                            <span class="journal-tag inline-block px-3 py-1 bg-yellow-50 text-yellow-600 rounded-full text-xs">#studentlife</span>
+                    <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#awakening</span>
+                    <span class="journal-tag inline-block px-3 py-1 bg-green-50 text-green-600 rounded-full text-xs">#reflection</span>
+                        </div>
+                        <div class="text-right mt-3">
+                            <span class="inline-block px-4 py-2 bg-purple-50 text-purple-600 rounded-full text-sm font-medium">Read More →</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Journal Entry 3 -->
+                    <!-- Journal Card: MtEch -->
+                    <div class="journal-card p-6 cursor-pointer" onclick="openJournalModal('MtEch', 'Thursday, 8 October 2015', 'journal12')">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center mr-4 journal-card-icon">
+                                <i class="fas fa-book text-xl text-purple-500"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg">MtEch</h3>
+                                <p class="text-sm text-gray-500">Thursday, 8 October 2015</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 mb-4">Gate qualified , I joined GEC-Barton Hill(BH) on 3rd Aug 2015. I was not sure what awaited me there but it was during my...</p>
+                        <div class="flex flex-wrap gap-2 mt-2">
+                            <span class="journal-tag inline-block px-3 py-1 bg-yellow-50 text-yellow-600 rounded-full text-xs">#studentlife</span>
+                    <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#awakening</span>
+                    <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#guidance</span>
+                        </div>
+                        <div class="text-right mt-3">
+                            <span class="inline-block px-4 py-2 bg-purple-50 text-purple-600 rounded-full text-sm font-medium">Read More →</span>
+                        </div>
+                    </div>
+
+                    <!-- Journal Entry 4 -->
+                    <!-- Journal Card: Trip To RameSwaRam -->
+                    <div class="journal-card p-6 cursor-pointer" onclick="openJournalModal('Trip To RameSwaRam', 'Saturday, 10 October 2015', 'journal13')">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center mr-4 journal-card-icon">
+                                <i class="fas fa-book text-xl text-purple-500"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg">Trip To RameSwaRam</h3>
+                                <p class="text-sm text-gray-500">Saturday, 10 October 2015</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 mb-4">The whole trip to Rameswaram I Wrote my thoughts in a book. This journey is what made me write this blog. This Post incl...</p>
+                        <div class="flex flex-wrap gap-2 mt-2">
+                            <span class="journal-tag inline-block px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-xs">#travel</span>
+                    <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#realization</span>
+                    <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#journal</span>
+                        </div>
+                        <div class="text-right mt-3">
+                            <span class="inline-block px-4 py-2 bg-purple-50 text-purple-600 rounded-full text-sm font-medium">Read More →</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Additional Journal Entries -->
+                    <!-- Journal Entry 5 -->
+                    <!-- Journal Card: Trip To Vallikavu -->
+                    <div class="journal-card p-6 cursor-pointer" onclick="openJournalModal('Trip To Vallikavu', 'October 7', 'journal14')">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center mr-4 journal-card-icon">
+                                <i class="fas fa-book text-xl text-purple-500"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg">Trip To Vallikavu</h3>
+                                <p class="text-sm text-gray-500">October 7</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 mb-4">**I am here to buy my transcript and LOR. It is my second night here. I never expected it would take this long. I was in...</p>
+                        <div class="flex flex-wrap gap-2 mt-2">
+                            <span class="journal-tag inline-block px-3 py-1 bg-yellow-50 text-yellow-600 rounded-full text-xs">#studentlife</span>
+                    <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#observation</span>
+                    <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#truth</span>
+                        </div>
+                        <div class="text-right mt-3">
+                            <span class="inline-block px-4 py-2 bg-purple-50 text-purple-600 rounded-full text-sm font-medium">Read More →</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Journal Entry 6 -->
+                    <!-- Journal Card: The Pattern -->
+                    <div class="journal-card p-6 cursor-pointer" onclick="openJournalModal('The Pattern', 'Wednesday, 21 October 2015', 'journal15')">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center mr-4 journal-card-icon">
+                                <i class="fas fa-book text-xl text-purple-500"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg">The Pattern</h3>
+                                <p class="text-sm text-gray-500">Wednesday, 21 October 2015</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 mb-4">Once you begin observing, it becomes really interesting. YOU Will understand You are never Alone , there are always mast...</p>
+                        <div class="flex flex-wrap gap-2 mt-2">
+                            <span class="journal-tag inline-block px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-xs">#travel</span>
+                    <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#ritual</span>
+                    <span class="journal-tag inline-block px-3 py-1 bg-green-50 text-green-600 rounded-full text-xs">#reflection</span>
+                        </div>
+                        <div class="text-right mt-3">
+                            <span class="inline-block px-4 py-2 bg-purple-50 text-purple-600 rounded-full text-sm font-medium">Read More →</span>
+                        </div>
+                    </div>
+
+                    <!-- Journal Card: GoD is EveryWhere -->
+                    <div class="journal-card p-6 cursor-pointer" onclick="openJournalModal('GoD is EveryWhere', 'Wednesday, 21 October 2015', 'journal16')">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center mr-4 journal-card-icon">
+                                <i class="fas fa-book text-xl text-purple-500"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg">GoD is EveryWhere</h3>
+                                <p class="text-sm text-gray-500">Wednesday, 21 October 2015</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 mb-4">**We have been hearing this since our childhood. WE all know God is in bricks ,in every stones ,all plants and animals ....</p>
+                        <div class="flex flex-wrap gap-2 mt-2">
+                            <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#innerwork</span>
+                    <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#growth</span>
+                    <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#society</span>
+                        </div>
+                        <div class="text-right mt-3">
+                            <span class="inline-block px-4 py-2 bg-purple-50 text-purple-600 rounded-full text-sm font-medium">Read More →</span>
+                        </div>
+                    </div>
+
+                    <!-- Journal Card: PennyLess Journey -->
+                    <div class="journal-card p-6 cursor-pointer" onclick="openJournalModal('PennyLess Journey', 'Wednesday, 4 November 2015', 'journal17')">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center mr-4 journal-card-icon">
+                                <i class="fas fa-book text-xl text-purple-500"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg">PennyLess Journey</h3>
+                                <p class="text-sm text-gray-500">Wednesday, 4 November 2015</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 mb-4">**It was the day, Mylu and I planned to go out for a spiritual journey I lost my ATM card. It actually  disappeared. I g...</p>
+                        <div class="flex flex-wrap gap-2 mt-2">
+                            <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#insight</span>
+                    <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#family</span>
+                    <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#karma</span>
+                        </div>
+                        <div class="text-right mt-3">
+                            <span class="inline-block px-4 py-2 bg-purple-50 text-purple-600 rounded-full text-sm font-medium">Read More →</span>
+                        </div>
+                    </div>
+
+                    <!-- Journal Card: November 7 -->
+                    <div class="journal-card p-6 cursor-pointer" onclick="openJournalModal('November 7', 'Saturday, 7 November 2015', 'journal18')">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center mr-4 journal-card-icon">
+                                <i class="fas fa-book text-xl text-purple-500"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg">November 7</h3>
+                                <p class="text-sm text-gray-500">Saturday, 7 November 2015</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 mb-4">**I am home , in my happy peaceful village Alanallur. Today was a Great day. Learned lot of things. Each day gives me ne...</p>
+                        <div class="flex flex-wrap gap-2 mt-2">
+                            <span class="journal-tag inline-block px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-xs">#travel</span>
+                    <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#tradition</span>
+                    <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#realization</span>
+                        </div>
+                        <div class="text-right mt-3">
+                            <span class="inline-block px-4 py-2 bg-purple-50 text-purple-600 rounded-full text-sm font-medium">Read More →</span>
+                        </div>
+                    </div>
+
+                    <!-- Journal Card: Counselling Day -->
+                    <div class="journal-card p-6 cursor-pointer" onclick="openJournalModal('Counselling Day', 'Sunday, 13 December 2015', 'journal19')">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center mr-4 journal-card-icon">
+                                <i class="fas fa-book text-xl text-purple-500"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg">Counselling Day</h3>
+                                <p class="text-sm text-gray-500">Sunday, 13 December 2015</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 mb-4">**  Its been long. Yesterday was the day i anticipated the most. My counseling. My uncle booked an appointment and i wen...</p>
+                        <div class="flex flex-wrap gap-2 mt-2">
+                            <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#destiny</span>
+                    <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#divineplan</span>
+                    <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#guidance</span>
+                        </div>
+                        <div class="text-right mt-3">
+                            <span class="inline-block px-4 py-2 bg-purple-50 text-purple-600 rounded-full text-sm font-medium">Read More →</span>
+                        </div>
+                    </div>
+
+                    <!-- Journal Card: Around Me -->
+                    <div class="journal-card p-6 cursor-pointer" onclick="openJournalModal('Around Me', '18 December 2015', 'journal20')">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center mr-4 journal-card-icon">
+                                <i class="fas fa-book text-xl text-purple-500"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg">Around Me</h3>
+                                <p class="text-sm text-gray-500">18 December 2015</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 mb-4">**  Society around me consist of two type of people. The first type live in a reality in which they are being brought up...</p>
+                        <div class="flex flex-wrap gap-2 mt-2">
+                            <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#balance</span>
+                    <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#surrender</span>
+                    <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#unlearning</span>
+                        </div>
+                        <div class="text-right mt-3">
+                            <span class="inline-block px-4 py-2 bg-purple-50 text-purple-600 rounded-full text-sm font-medium">Read More →</span>
+                        </div>
+                    </div>
+
+                    <!-- Journal Card: Its 2016 -->
+                    <div class="journal-card p-6 cursor-pointer" onclick="openJournalModal('Its 2016', 'Friday, 8 January 2016', 'journal21')">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center mr-4 journal-card-icon">
+                                <i class="fas fa-book text-xl text-purple-500"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg">Its 2016</h3>
+                                <p class="text-sm text-gray-500">Friday, 8 January 2016</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 mb-4">** A new year. But i don't feel it that way,  because each day is a new day,  each moment a new moment,  then what is sp...</p>
+                        <div class="flex flex-wrap gap-2 mt-2">
+                            <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#purpose</span>
+                    <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#direction</span>
+                    <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#lettinggo</span>
+                        </div>
+                        <div class="text-right mt-3">
+                            <span class="inline-block px-4 py-2 bg-purple-50 text-purple-600 rounded-full text-sm font-medium">Read More →</span>
+                        </div>
+                    </div>
+
+                    <!-- Journal Card: Hippieness -Our Culture. -->
+                    <div class="journal-card p-6 cursor-pointer" onclick="openJournalModal('Hippieness -Our Culture.', 'Wednesday, 27 January 2016', 'journal22')">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center mr-4 journal-card-icon">
+                                <i class="fas fa-book text-xl text-purple-500"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg">Hippieness -Our Culture.</h3>
+                                <p class="text-sm text-gray-500">Wednesday, 27 January 2016</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 mb-4">**  Yesterday was a wonderful day. January 26. The day my soul came to this human form. Now when i look backward i feel ...</p>
+                        <div class="flex flex-wrap gap-2 mt-2">
+                            <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#consciousness</span>
+                    <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#evolution</span>
+                    <span class="journal-tag inline-block px-3 py-1 bg-purple-50 text-purple-600 rounded-full text-xs">#oneness</span>
+                        </div>
+                        <div class="text-right mt-3">
+                            <span class="inline-block px-4 py-2 bg-purple-50 text-purple-600 rounded-full text-sm font-medium">Read More →</span>
+                        </div>
+                    </div>
+
+                    <!-- Journal Card: **Date:** Wednesday, 27 January 2016 -->
+                    <div class="journal-card p-6 cursor-pointer" onclick="openJournalModal('**Date:** Wednesday, 27 January 2016', 'Wednesday, 27 January 2016', 'journal23')">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center mr-4 journal-card-icon">
+                                <i class="fas fa-book text-xl text-purple-500"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg">**Date:** Wednesday, 27 January 2016</h3>
+                                <p class="text-sm text-gray-500">Wednesday, 27 January 2016</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 mb-4">** ove_i believe is a pure energy that can give us happiness. That is the only language the soul can understand. How can...</p>
+                        <div class="flex flex-wrap gap-2 mt-2">
+                            <span class="journal-tag inline-block px-3 py-1 bg-green-50 text-green-600 rounded-full text-xs">#forgiveness</span>
+                    <span class="journal-tag inline-block px-3 py-1 bg-green-50 text-green-600 rounded-full text-xs">#truth</span>
+                    <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#release</span>
+                        </div>
+                        <div class="text-right mt-3">
+                            <span class="inline-block px-4 py-2 bg-purple-50 text-purple-600 rounded-full text-sm font-medium">Read More →</span>
+                        </div>
+                    </div>
+
+
+
+                
+                <!-- Pagination -->
+                <div class="flex justify-center mt-16">
+                    <div class="flex items-center gap-1">
+                        <button class="pagination-link w-10 h-10 rounded-full flex items-center justify-center">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="pagination-link active w-10 h-10 rounded-full flex items-center justify-center">1</button>
+                        <button class="pagination-link w-10 h-10 rounded-full flex items-center justify-center">2</button>
+                        <button class="pagination-link w-10 h-10 rounded-full flex items-center justify-center">3</button>
+                        <button class="pagination-link w-10 h-10 rounded-full flex items-center justify-center">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Journal Modal Templates -->
+    <div id="journal10" class="journal-modal-overlay">
+        <div class="journal-modal-content">
+          <button class="journal-modal-close" onclick="closeJournalModal()">&times;</button>
+          <h2 class="text-2xl md:text-3xl font-bold mb-2 font-serif">My LiFe</h2>
+          <p class="journal-modal-date">Sunday, 4 October 2015</p>
+          <div class="journal-modal-body">
+            <p class="mb-4">I am just a normal kid who once believed , logic and science was the only world to explore. But my experience taught me spirituality, inside Us ,is a new whole word to EXPlore.</p>
+      <p class="mb-4">**Humans are Wonderful creatures . We have the power to THINk that no other creatures have. We all know it yet we like to stay limited to where we think. **</p>
+      <p class="mb-4">Firstly, What do I mean by being spiritual ??</p>
+      <p class="mb-4">Being spiritual is nothing but only a stage in which you see yourself as an observer . You see the World through the eyes of your SoUl.Through those eyes , You see the Experience of our Body. Learn from that who It actually Is. And finally attain state of enlightment.</p>
+      <p class="mb-4">What I define EnliGhtment.?</p>
+      <p class="mb-4">It is just a realization of the TrUth. We are no different - But HiM itself born just To experience HIM.</p>
+      <p class="mb-4">In each stage You Grow more. Your growth never Ends.</p>
+      <p class="mb-4">Beginning from</p>
+      <p class="mb-4">Infant , then to a child , then to an adult and finally to spiritual.</p>
+      <p class="mb-4">We all know GroWth depends on TiMe.</p>
+      <p class="mb-4">But what is TiME??</p>
+      <p class="mb-4">Is it our Hours or Minutes or Age or Year or Decades  or Lifetimes We travel.</p>
+      <p class="mb-4">**Nothing actually. **</p>
+      <p class="mb-4">**Time is only a measure of how much knowledge we aquire. **</p>
+      <p class="mb-4">**How do we acquire it ? - Through our experience in HuMan Form. **</p>
+      <p class="mb-4">Then how can people say , only after being old or only when you live a life followed by the guidelines of the society - Marriage , Children and Family , You ATTain the stage of SpiRituality.</p>
+      <p class="mb-4">You don't need to go through all these guidelines to reach that spiritual state. It will come to you depending on Your previous Learnings.</p>
+      <p class="mb-4">But that doesn't mean We DoNt have to go through those when we Attain Spirituality. It depends because Our SoUl chose , what you should be and what to encounter , to understand its-SelF in human Form. All it need is to know What it Is.That is what I say to people who think I will change with Time , I am sure Time can only Teach me More. Your logical minds may change with time but once spiritual you will never change , only evolve.</p>
+      <p class="mb-4">In each lifetime we ( I mean our SoUL ) Experience  cycles of events of birth and death through which we LeARn , We acquire Knowledge.</p>
+      <p class="mb-4">**Its progress only depends on what you learned in one lifetime. **</p>
+      <p class="mb-4">So what is wrong if I had spiritual thoughts NOW?</p>
+      <p class="mb-4">I never fear that thought because. i beleive Nothing happens by coincidence Just embrace it. You will believe IT.</p>
+      <p class="mb-4">**What I am going to tell here is completely based on my experience ,precisely my point of view. I never say this is the truth because your truth depends on the reality you live , Views you have. **</p>
+      <p class="mb-4">**We create our realities with our views and We live in it. **</p>
+      <p class="mb-4">We Choose things That suits our reality - we choose What defines RIghT and WroNg.</p>
+      <p class="mb-4">**What Defines  Happiness and Sadness. **</p>
+      <p class="mb-4">Thats what we all do ryt!</p>
+      <p class="mb-4">**Then who gets to decide which reality is right or wrong. **</p>
+      <p class="mb-4">**Every Path We choose is Perfect for OuR SoUl in the time NoW. **</p>
+      <p class="mb-4">What I learned from my Reality  , My views is that - there is no Right or Wrong. There is no Happiness or Sadness . There is no Do or Don'ts.</p>
+      <p class="mb-4">We have the Power to choose Between things. For SoUl has only One language -Love and one feeling - Peace.</p>
+      <p class="mb-4">By coosing what your Soul Wants You become Spiritual. You do things What your Soul Wants. You find Answers that Soul Wish. You see Through your Soul.</p>
+      <p class="mb-4">By Being Spiritual ,never hinders what you are born to acheieve but will Just make Your World more Divine.</p>
+      <p class="mb-4">**What I am going to tell You is completely my view point and I what I Learned. **</p>
+      <p class="mb-4">**And why I am saying this is Not to change your viewpoint , but just to make you think WHAT IF there is another reality...? **</p>
+      <p class="mb-4">**That 'What If ' is the beginning. Once you Begin to think this , then Your SouL will Find all the answers it seek. **</p>
+      <p class="mb-4">**It will be laid in front of your naked eye , all you need is to just observe and understand. **</p>
+      <p class="mb-4">Each moment GiVes DoTS for you to join . You need not join all the dots to get an answer , but you will definitely connect the DOTs you need. You need not to do anything   just Understand when it Connects .</p>
+      <p class="mb-4">**My first DOT was when i was in my tenth. I was not a brilliant student but performed averagely. It was my board exam results. I was worried about them but to my surprise I got 88.4% of marks. **</p>
+      <p class="mb-4">**I thought it was a some coincidence and I was happy. **</p>
+      <p class="mb-4">**I joined My highschool in IES Public School , Trichur. I had an habit of Forgetting My past. I realized this Only after JoinIng my Btech , whereby where out people who could remember even their childhood days. **</p>
+      <p class="mb-4">I seriously remembered Nothing . Then came  my next DOT .It appeared during the plus two Results, I was shocked by my marks - 90.4% . I thought I must be very lucky.</p>
+      <p class="mb-4">I was not much of a GoD worshipper NoR supported any spiritual activities. But I prayed occasionally during times I need , just like every one. Then gradually even that stopped. But I believed in my luck. And wondered how far this luck will go On.</p>
+      <p class="mb-4">It was from my college life I got more DOTS to follow and finally now I write this Blog connecting those Dots.</p>
+      <p class="mb-4">I aM Happy With the Answer I Got. I know What my Soul wants and What I will Be.</p>
+      <p class="mb-4">**My journey Is Going To Begin and I Am Waiting. **</p>
+      <p class="mb-4">You may IgnoRe what I Say , but I am sure Your Soul Will be Happy.</p>
+      <p class="mb-4">That will make Me HappY.</p>
+            <div class="mt-6 flex flex-wrap gap-2">
+              <span class="journal-tag inline-block px-3 py-1 bg-green-50 text-green-600 rounded-full text-xs">#reflection</span>
+      <span class="journal-tag inline-block px-3 py-1 bg-purple-50 text-purple-600 rounded-full text-xs">#spirituality</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+
+      <div id="journal11" class="journal-modal-overlay">
+        <div class="journal-modal-content">
+          <button class="journal-modal-close" onclick="closeJournalModal()">&times;</button>
+          <h2 class="text-2xl md:text-3xl font-bold mb-2 font-serif">BtEch.</h2>
+          <p class="journal-modal-date">Tuesday, 6 October 2015</p>
+          <div class="journal-modal-body">
+            <p class="mb-4">I joined  Amrita School of Engineering in the year 2011 to do my undergraduate in mechanical engineering. I met the most wonderful friends in my life who is responsible and has influenced me in many ways , that changed my views at looking the world. Thanks to you guys , you have all given me your knowledge through which I could experience what I was.</p>
+      <p class="mb-4">**That is the reason I told you I believed I forgot my past but actually I never did. I just needn't to remember it because everything , everyone I met and will meet ,was going into my experience - to my soul. **</p>
+      <p class="mb-4">How can I forget what is in my soul.</p>
+      <p class="mb-4">**So how can I forget everyone. I never could . **</p>
+      <p class="mb-4">I never did had any ambition or dream before joining this college.But now I do have both. Presently my ambition is to become an successful engineer and my dream to get enlightenment. How I had this thought , thats what I said - stop listening to what others say. Nothing happens by coincidence or accident ,so every thought you have happens for a reason. Just don't leave it .</p>
+      <p class="mb-4">My next DOT came during my gate exams. To be honest I copied and qualified the exam , which is considered tough to clear the first time. Again I thought i must be lucky. Then I got placement which I never expected but i would say it came to me as-my next DOT. I know a lot guys get placement but my case was some different. I never thought about the result. It just happened.</p>
+      <p class="mb-4">It was only because of those drugs maybe marijuana ,mushroom or acid which showed me the beautiful world of peacefulness. I was filled with it. I felt there are things happening without our control.I thought Do We have any role in it ??</p>
+      <p class="mb-4">Then I began connecting those dots.</p>
+      <p class="mb-4">** First I thought it was my mind. I started to believe in Mind than logic or brain.I learned how to keep my mind free - from thoughts  and worries. I understood there was no need of anything , because everything happened when it should happen.We have the only role of experiencing. My friends told I would change with time . But I never worried. I knew everything was happening for a reason. **</p>
+      <p class="mb-4">Even when I felt crazy , I was surrounded with crazy people who always inspired me and still do. Especially Boss , Myluu , Ayobi...  Thanks a lot guys.</p>
+      <p class="mb-4">Even then i Was not able to go to Trance state without a Joint or Trance Music. Later i learned both were just tools to open that window. We never need them to keep it Open. I lost 3 mobile phones during my 3 years in college. Everyone told it was because of my carelessness. But i knew there was something behind  this drama going on.They were my DOT to connect. So i decided not to use mobile phones until i get a reason. Now i now it was for me to understand , all it need is our mind , once you learn to focus it , the rest becomes mere tools , instruments to amplify the result.</p>
+      <p class="mb-4">**  And yes I finally  stand finding the naked truth, which i got while connecting the dots. A world where there is no sadness , no worries , no tension , and a way to successful living is possible for everyone just changing your one view. Its up to you to find out but know that i am telling this only because i experienced it and i am sure a lot of people might be experiencing same.**</p>
+      <p class="mb-4">**I am writing this only to tell you we all are born with the gift . Never think you are wrong. **</p>
+      <p class="mb-4">It was my Mtech life where HE gave me proofs for my belief.</p>
+      <p class="mb-4">#Kootala, Kartha , Daman, Sanu , Anoj , Vasu , Ajii , Escoo , Rohith, Karthaa, Akshay-  thanks for hearing whatever i have to say. You all touched my SoUl.</p>
+            <div class="mt-6 flex flex-wrap gap-2">
+              <span class="journal-tag inline-block px-3 py-1 bg-yellow-50 text-yellow-600 rounded-full text-xs">#studentlife</span>
+      <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#awakening</span>
+      <span class="journal-tag inline-block px-3 py-1 bg-green-50 text-green-600 rounded-full text-xs">#reflection</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <!-- Modal: MtEch -->
+    <div id="journal12" class="journal-modal-overlay">
+        <div class="journal-modal-content">
+          <button class="journal-modal-close" onclick="closeJournalModal()">&times;</button>
+          <h2 class="text-2xl md:text-3xl font-bold mb-2 font-serif">MtEch</h2>
+          <p class="journal-modal-date">Thursday, 8 October 2015</p>
+          <div class="journal-modal-body">
+            <p class="mb-4">Gate qualified , I joined GEC-Barton Hill(BH) on 3rd Aug 2015. I was not sure what awaited me there but it was during my time here HE gave me proofs and I started to believe. Till this time I believed it was my mind And luck which brought me to this life.</p>
+      <p class="mb-4">**It was my first class in BH. We had an open class programme for all Mtech students .The class was taken by Mahadevan Pillai. The things he told actually shocked Me. It was like he read my mind .He told about enlightenment and god. How his life was changed by books he read . And he even told about a book 'Many life Many Masters'- by Brain Weiss. That was my next DOT. **</p>
+      <p class="mb-4">Now I understood what waited for me - nothing but answers I always seeked. I stayed with my friend Nidin who had a very religious and spiritual mother. She treated me like her son because everyone was Son of Jesus for her. It was from this home I learned about Christianity and Spirituality. It was from this home my journey of spirituality began. As i reached home after the first class , I was very excited to read the book. I searched over the internet and found the eBook. I downloaded and began reading. It was an interesting book where I learned about after death  , Masters and the truth, our life continues. Our soul travels from one body to another to experience itself. We are immortals. That book really opened my mind. I understood it was not my MInD or luck but masters who were guiding me for me to find the truth ,about myself Or  helping me to connect my DOTS.</p>
+      <p class="mb-4">**I was happy but I felt my answers were never complete. I was ready to wait because the book told me -only time will bring you everything , And through knowledge we approach god. Actually this was my first book that I completed reading. I never read novels or fictions. But when I read this book, I felt I was not reading anything new but was just remembering what was hidden in me. I could feel the change happening in me. I was never feared of the change and I accepted it. **</p>
+      <p class="mb-4">**Everyone around you guides you in some way or other , help you in the way they never imagine , for our soul to find answers . **</p>
+      <p class="mb-4">First it was my professor who told me about the book and then 'Mylat ' who told me about 'Conversation with God' - by Donald Nasch. My next DOT. I downloaded the eBook which I felt was waiting for me to download. And I began reading. Each words of that booked touched my soul. I felt this is what my soul was seeking for. I understood GoD communicates with EverYOne through many methods.</p>
+      <p class="mb-4">" The question is not to whom I Talk , But who listens "</p>
+      <p class="mb-4">**This quote from that book stayed in my MiND. I understood No one here is born different. Everyone takes different paths. But our Ultimate Checkpoint is The point where we Understand we Are no Different ,But HiM - born in this form just to realize what HE is -Experience his Ultimate gift: Unlimited Potential And Unconditional Love. **</p>
+      <p class="mb-4">I learned we are SOuls which live in a 3dimensional world- God The father - God the Son - God the holy Spirit.</p>
+      <p class="mb-4">**The path we choose in each lifetime helps us understand HIM better and Faster. Our Soul continues this journey until it Finally Understand Its SElF. **</p>
+      <p class="mb-4">** Now I do  believe I don't  need life long meditations to find all answers. All I need to do is ObserVe where this path will TaKe me.**</p>
+      <p class="mb-4">**The words which your soul needs , it finds it .Even when you are not doing anything. All are doing this in some way or other. But our views remain limited . You may not find it interesting when you read the books I read , but when you begin the search you will find it in TIME. **</p>
+      <p class="mb-4">Where does we get this KnOwledge?</p>
+      <p class="mb-4">**And when you find them, Just learn. Once you start learning our progress begins. Everything you find later , will support what you Learned. **</p>
+      <p class="mb-4">It is never coincidence or Accident.</p>
+      <p class="mb-4">Its for you to find it. We have been living in a reality build up by the society .They define happiness as what suits their reality or what their experience has taught them and expect others , especialy their children , to go with that  reality. They Won't understand it now , but they will ,if not now in any-other lifetime . When our soul leaves this body , what we consider as dead , we are actually evolving. Learning in spiritual state is faster than when we are in a realm of relativity. In physical form it takes time. So when our Soul evolves , after leaving our body it understands whether the path we choose , the views we believed , the reality we made , Is what YoU actually are. When You Have not learned it , Your SoUl  choose what to learn and through which experience you could Understand it , and comes to next life. We are immortals who are born just to experience this cycle of birth and death , just to understand this truth - We Are HiM. And the learning never Ends. All we can do is Learn as much we can , so that we can progress better next lifetime.</p>
+      <p class="mb-4">Once your view becomes this, everything that follows will lead you to this path.</p>
+      <p class="mb-4">Just don't fear to walk through it.</p>
+      <p class="mb-4">All it takes is  trust and listen to what we Feel , What we hear inside US.</p>
+      <p class="mb-4">The things I told you now are the things that stayed in my mind , because I needed it NOW. Look how it connects.</p>
+      <p class="mb-4">I never thought of writing a book or a blog 2 months back , but now I am sure he is guiding me in each step. So I choose to flow with It.</p>
+      <p class="mb-4">The things in the book , I never felt like reading anything new , but like something which was burried in me - beneath the reality society made me to live with. I felt my Soul was in the right way . All I have to do was wait.</p>
+      <p class="mb-4">I joined College of Engineering Trivandrum to do Mtech in Propulsion engineering for the spot admission (10 sep 2015). All thanks to Sanu whose one message -</p>
+      <p class="mb-4">**" It will give You more exposure "  made me go there and I choose the stream . I had the confidence to face that challenge. And now I think it was for my soul to meet everyone ,Learn from everyone. **</p>
+      <p class="mb-4">Johny , Mathew , Melvin , Midhun , Anne - though you blame me I am small , I am sure I know all of you from some other life time. I met you guys to make my base , my reality firm, which would not have happened if i was some where else. This is my great exposure. You guys had the mind to hear my views , and shared every precious experience with me.Know that My soul is evolving at each stage and I grow more and more spiritual each moment. All are in my SoUl and there is no soul I will ever forget for you all taught me what I am. That help is immeasurable.</p>
+      <p class="mb-4">**Till now I told you How my views changed because he guided me to believe in him , that - We ARE HIM. Now I will tell you how he started to communicate with me. **</p>
+      <p class="mb-4">That was the answer I saw connecting the dots. I was sure of it because NOw all DoTs did connect.</p>
+      <p class="mb-4">I was never lucky , nothing was coincidence , all was his bread crumps for me to Follow.</p>
+      <p class="mb-4">That is why I told ,all you need is  FAITH , and any one QUestion :</p>
+      <p class="mb-4">WHO Am I ?</p>
+      <p class="mb-4">What is Reality ?</p>
+      <p class="mb-4">What if WE are GOD.......</p>
+      <p class="mb-4">**#thanks to kootala , vasu , Nidin , Arun , Anand , Sanu , Mylat , Boss , Ajith , Anoj , Rohith , Ayobi , Happy , Sanjay , Sidharth and everyone who had the mind to listen to me. **</p>
+      <p class="mb-4">**All I could see was your souls. **</p>
+      <p class="mb-4">**I am HapPY if I was able to connect one of your DoTS. Rest is for you to Join. **</p>
+      <p class="mb-4">**You never need to Do anything. **</p>
+      <p class="mb-4">It will come to you. Our Father never want US to suffer but just to Realize the TRUtH.</p>
+      <p class="mb-4">**   We are Never Different - Just OnE - The great Knowledge - With great GiFTs - Moving through cycles of LiFETiMe , Experiencing AnD Evolving in each STage.**</p>
+            <div class="mt-6 flex flex-wrap gap-2">
+              <span class="journal-tag inline-block px-3 py-1 bg-yellow-50 text-yellow-600 rounded-full text-xs">#studentlife</span>
+      <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#awakening</span>
+      <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#guidance</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <!-- Modal: Trip To RameSwaRam -->
+    <div id="journal13" class="journal-modal-overlay">
+        <div class="journal-modal-content">
+          <button class="journal-modal-close" onclick="closeJournalModal()">&times;</button>
+          <h2 class="text-2xl md:text-3xl font-bold mb-2 font-serif">Trip To RameSwaRam</h2>
+          <p class="journal-modal-date">Saturday, 10 October 2015</p>
+          <div class="journal-modal-body">
+            <p class="mb-4">The whole trip to Rameswaram I Wrote my thoughts in a book. This journey is what made me write this blog. This Post includes What I wrote during that Trip.</p>
+      <p class="mb-4">The journey to Rameswaram Begins.</p>
+      <p class="mb-4">I do not know the reason why I choose this journey , for all I know now is , my SoUl wishes to experience it.</p>
+      <p class="mb-4">"Nothing happens by coincidence or accident in GoDs World"</p>
+      <p class="mb-4">Keeping this in mind , I express my deep love to Arvind , who told me about the train , which I am now and also to Melvin , who gave me a head start dropping me in TVM bus-stand.</p>
+      <p class="mb-4">" I , YOu and HIM are OnE. We are all part of HiM and finally will MerGe to him "</p>
+      <p class="mb-4">I donot know what this trip will bring me But all I know is its worth exploring.</p>
+      <p class="mb-4">"FEAR- this is the feeling that seperates Us from the ultimate truth - We are HiM."</p>
+      <p class="mb-4">Removing fear is not easy as it says. Expressing LovE is the only way I Found. When you express Love ( Not to someone specific , but to everyone) , there will be no place for fear.</p>
+      <p class="mb-4">" Love , Charity , Hope , and Faith"</p>
+      <p class="mb-4">These are the four traits we learn in each lifetime. We have to know it much in order to progress faster. I have hope that this journey will bring all that my SouL is seeking for , and I have FaiTh , My Father is Guiding Me - Always.</p>
+      <p class="mb-4">Train departed @8:30 from TVM Central.</p>
+      <p class="mb-4">" The realm of relativity was created so that I can experience My Self, though it seems ReAl. Only by knowing What I am NoT - You can know - What I Am "</p>
+      <p class="mb-4">Experience is what you came here for and out of it were you to create your self. From the beginning of journey I was hoping to complete my Conversations With God during my time in train.But now I think this is an end to that because</p>
+      <p class="mb-4">**"If you can tell the World who You are and What you believe without breaking stride or hesitating , you are happy with yourself .There is no reason to continue much further , because you have created a self - Which needs no Improvement " **</p>
+      <p class="mb-4">**                                  - GoD**</p>
+      <p class="mb-4">I believe God is -I am- All That Is. Everything is just an experience and I am ready to face it.</p>
+      <p class="mb-4">**ThankYou FATHER , for guiding me.Now I realize it was all you ,  showing me the path , leaving me DOTS . It is true drugs opened the window but thanks for making me understand **</p>
+      <p class="mb-4">**" Its your MinD which can Open that Window to me. Drugs were just a Tool for that. Now use the greatest gifts you have to know me. " **</p>
+      <p class="mb-4">**You told me to trust my instincts and thanks to you I accepted it. I became more open. I began Loving everyone I could ,as they are all my SOul Mates . I started walking your way , a way I felt I could experience My self. I knew always I was normal even when others considered me abnormal or teased me. **</p>
+      <p class="mb-4">Now I ask you FAThER , show me a way , I can tell everyone , make them understand We are all You.</p>
+      <p class="mb-4">I pray to make me a channel through which they can understand you better. For my brothers live in this realm of relativity , they are ruled by their logic , brain and what they see. Make their logic the truth , fill their mind your soul . Together We will live in Harmony . I promise You.</p>
+      <p class="mb-4">" They do not believe ME , because my promises seems too easy to be true. If they believe I , YoU and all are same , where would it leave their religion , Culture. Tell them Surrender not to ME but to the truth and I will show them the Way. "</p>
+      <p class="mb-4">Soul has only one language - Love. To know what is Love God created something of opposite Polarity - Fear. Every feelings we have will be the derivative of these two . When yu choose LoVe you choose language of your Soul else you choose to be Human - still learning Fear only to know what is Love.</p>
+      <p class="mb-4">" Love is my language and you my way to experience My knowledge. Good - Bad , Wrong - Right , Pain - Joy all exist in your relative world to hide what you actually are. We both choose this relative world because only going through this can I understand What I am. That is called Liberation "</p>
+      <p class="mb-4">"You are already helping me SoN. As I told You , everything derives from this first thought. When the first thought becomes that of fear - Fear of me - believing Me instead You as Me , the rest makes it impossible to trust Your Self - Trust Me. Know that I do not need your prayers , your charity  , Your love , All I need Is you to realise the truth."</p>
+      <p class="mb-4">" I have given you all the tools. The power of Love , the will to choose , everything to Understand me. Yet you fail because you can't Win without knowing you have everything.This journey is for you , to know you have everything and you are me. Never fear my SoN , for I will never leave You. How can I my SON to struggle "</p>
+      <p class="mb-4">Nagercoil Jn -@22:25. I decided to go to sleep awaiting the experience of tomorrow.</p>
+      <p class="mb-4">**Train a arrived at Madhurai Jn -@ 5:30. The next Raneswaram Passenger is at 6:55 It is worth waiting. Outside the station , I found a guy - who people might call mad - who was half naked and singing *</p>
+      <p class="mb-4">" Namah sivaya .... Namah sivaya ..... Lokam motham Onnne...."</p>
+      <p class="mb-4">What I felt was even he knew the universal fact.</p>
+      <p class="mb-4">We are All OnE - 'Lokam' might me the emptiness I am speaking.He was happy.</p>
+      <p class="mb-4">**But then where does it leave all the material possessions , money , Vehicles which people thought made them happy. I could see this mans soul is more happy , more peaceful than anyone who say think they are Normal , they are lucky to be born with Money or Any possessions. **</p>
+      <p class="mb-4">Who gets to know the soul fast is What I define LuckY.</p>
+      <p class="mb-4">**Shankaracharya , Agasthyamuni , Buddha , Jesus , Sreenarayana Guru all were Lucky to know their SeLf even living in this relative world. They are not different from Us. They had the mind to hear what their soul wants. We all have the Gift , yet we choose Not to use it .. Why ?? **</p>
+      <p class="mb-4">I also met a guy Sreehari , who seems like a baba or sage. His hometown is Ayodhya and his peace ness great. He told me Kerala is much beautiful and cleaner than Ayodhya , which is an Ancient place. He is also to Rameswaram. Hope we will meet again if it is needed.</p>
+      <p class="mb-4">I switched off my mobile . Now I don't care about material time, as for me time is Now - to experience.</p>
+      <p class="mb-4">"Life is not a game. Because there is no Win or Loss in this. You will always Win. Its just a process of understanding and Evolving."</p>
+      <p class="mb-4">One and half Hour more to Rameswaram...</p>
+      <p class="mb-4">"There are thousands of reasons for you to be happy yet you choose to live in saddest ones.Again I tell You , love is the only language I know. Live in Love , Be happy. Forget the Safest Ones. For all things happen for a Reason - Your soul to experience Me. You are my Son , I did not send you to struggle , only to know me "</p>
+      <p class="mb-4">I see a lot of faces in the train , all unfamiliar ones , yet I feel a lot of connections because I know their Souls. Their exterior was only unfamiliar. They might me ny friends , family or teacher in some lifetime. I'm happy I m with them. My FATHER taught me - Never Judge others. Their decision will be Perfect for their soul in the time NoW. Observe and Learn what you must -</p>
+      <p class="mb-4">I make a promise FATHER , this lifetime I will live remembering that. I will never judge but Also assist any Souls who need my Help . For I am You - Everything - All that is.</p>
+      <p class="mb-4">" I will show you the way my Son. never Fear .Remember You are only here because of your parents. Finishing Karma to them comes your first priority. Patience and Faith I will guide You."</p>
+      <p class="mb-4">The main problems is most of the people Think Inside instead of thinking from Inside. That creates the problem .That is the reason why most of them doesn't listen to you.</p>
+      <p class="mb-4">Pamban Bridge -</p>
+      <p class="mb-4">**Through these Windows , I could feel the fresh Energy . Each view is Mind blowing. Each Wind is cooling. Each sunrise is energizing. Wonderful creation Father. Then imagine how Wonderful You - His ultimate creation Will be. **</p>
+      <p class="mb-4">Reached Rameswaram @10:30.</p>
+      <p class="mb-4">I took an Auto to Rameshwar Temple after having my breakfast. Reaching here , I did a 22 Holy bath . For me it was for my Soul to Liberate From the bondness Of my Logical Mind.</p>
+      <p class="mb-4">After this , I meditated in the Temple for Some Time. I felt myself recharging and became more spiritual. I felt happiness because all I could feel was Innerpeace the language of my Soul. Thanks to You Father.</p>
+      <p class="mb-4">Even between the murmuring of Waves , I could find the Peace. The sea is so Beautiful. I could see the Sea respecting Humans by washing their feet. nothing gives me more pleasure than meditating here , hearing the sound of these waves.</p>
+      <p class="mb-4">It is 1800. The rameswaram -madhurai passenger departs now. This is an end to this journey and bggining of a spiritual Journey. Thanks Father , for proving You and Me are same. We all are OnE. This World is a drama You live. Come out of it You will realise his Beauty.The time of fear has Ended. From today , Your voice will be My voice. Your actions will be Mine. Your thoughts will be Mine. Together We will try to restore Humanity one Last Time. Nomatter what Humans Will be Destroyed. Not maybe in this lifetime but it will Happen .We will watch it from another Dimension. All it need is so Simple - One realisation of truth.</p>
+      <p class="mb-4">Now at Madurai Junction. Tvm passenger departs at 2305.Outside I met an astrologer ( one with parrot) who told me my time was bad & I could make it good by doing something.</p>
+      <p class="mb-4">This is how fear comes. Emotion is the only enerygy in motion. One emotion spread out to the universe Permanently. When many similar emotions cross each other they form pure energy. Masters all have known this and they Used emotion of Love to replace that Emotion of Fear which other People have. That is all what they did. Even when others were Sad , they could understand their sadness and be happy so that , their positive Vibe could replace the negative they are creating. For know no path we choose is wrong , no view we have is bad , in our world everyone is perfect travelling different paths to One point. Everyone will understand this in One lifetime or Other. Once you understand this nothing can make you sad , you can't choose BaD because it would make us Not him which is Impossible.</p>
+      <p class="mb-4">Many people make a living by feeding on people fear. Every religion , every culture is build on this fear - Fear to god. That doesn't mean we have to follow that. There is only One Sin in this World - Doing what others Say , Hearing others instead of your Self. Who can you trust more than Your own Self.</p>
+      <p class="mb-4">Reached TvM Central @ 0700.</p>
+      <p class="mb-4">"Thus I have shown You money , phones , time , culture , humans , nature , animals are just a drama where you can understand Your self.Behind that drama is nothing but the great emptiness , You and I are part of. You are Never alone. We are just observers of what is happening in this realm of relativity we have chosen to experience. So just do that with Love . I will guide You always."</p>
+            <div class="mt-6 flex flex-wrap gap-2">
+              <span class="journal-tag inline-block px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-xs">#travel</span>
+      <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#realization</span>
+      <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#journal</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <!-- Modal: Trip To RameSwaRam -->
+    <div id="journal14" class="journal-modal-overlay">
+        <div class="journal-modal-content">
+          <button class="journal-modal-close" onclick="closeJournalModal()">&times;</button>
+          <h2 class="text-2xl md:text-3xl font-bold mb-2 font-serif">Trip To RameSwaRam</h2>
+          <p class="journal-modal-date">October 7</p>
+          <div class="journal-modal-body">
+            <p class="mb-4">**I am here to buy my transcript and LOR. It is my second night here. I never expected it would take this long. I was in fear that i lost classes there . Now I feel happy why I came here. I am here to learn how others are. I learned - Some believe in science behind spirituality. Without science No spirituality. According to me they are people who believe in logic , I NEVER say they are wrong  , this is my point of view. You have your point of view and that will be always perfect for you. Its views that make us what we are. Everyone live in their reality in the way they think perfect. That is the freedom GoD gave us because He knows ,We are Him , so How can we forget that.Why do HE need Others to tell us what we are. NEVER . We have our own reality- to know , to experience -what our SOuL is. Everyone understands that from their reality. **</p>
+      <p class="mb-4">**But then what is the actual SIN in this world?? **</p>
+      <p class="mb-4">Hearing what others say and trying to pursue their reality ,which will never be yours and forgeting what your reality is.</p>
+      <p class="mb-4">**                INSTEAD**</p>
+      <p class="mb-4">**just observe and compare yours with His reality. **</p>
+      <p class="mb-4">ONLY COMPARE never JUDGE.</p>
+      <p class="mb-4">**Then ask **</p>
+      <p class="mb-4">**What YOU are compared to that reality. **</p>
+      <p class="mb-4">Just that QUESTION, your soul will begin to find answers. You have the freedom to do whatever you want .You will be satisfied , i gaurantee .Do Always what makes YOU happy.</p>
+      <p class="mb-4">Do everything with Feeling of LoVe.</p>
+      <p class="mb-4">**That will make YOur decision HIs decision. **</p>
+      <p class="mb-4">You have already created the reality with which you should live- before coming to this life form -  just to experience it while you can . One Spiritual view will never Hinder what you will be. It will Just make your life PEACEFUL. Because thats only the feeling WE - OUR SOUL has.</p>
+      <p class="mb-4">**Today I rewrite one of my sentence- " I thought everyone believed the same " , but now I am SURE there are people who have my views. I am sure all our life will be a motivation to others , which will definitely make a change. **</p>
+      <p class="mb-4">It all takes ONE question , ONE thought - whether I am GoD - you will find the answer. The naked truth in front.</p>
+      <p class="mb-4">The Society is brilliant. Even God would have never Imagined Humans could create this reality. We Created this World , this reality , Now thats enough.</p>
+      <p class="mb-4">**Now restart your thoughts thinking **</p>
+      <p class="mb-4">YOU are GOd- with the only Language LoVE - born as a part of him to EXPERiENCE him fully through this reality ,we made- BELeIVING we are NOT him but different.</p>
+      <p class="mb-4">We have been brought up in a society which expect us to follow certain guidelines to attain enlightment or to understand that we all are HIM. This is the reason why when Buddha , Jesus or any master you name came and told - everything , everyone is one - the great emptiness - society saw them as an Outcast , sometimes as GOD. They would have never want anyone to consider them as god , all they needed , what I believe , was for everyone to understand the truth.</p>
+      <p class="mb-4">But I am sure we people could bring a change. Every moment is a dot for you. You don't need every dots to connect to find an answer. When you TRY to connect your dots , they will connect. YoU will UnDerSTand.</p>
+      <p class="mb-4">---#Night with Anoj , Mylu , Vasu</p>
+            <div class="mt-6 flex flex-wrap gap-2">
+              <span class="journal-tag inline-block px-3 py-1 bg-yellow-50 text-yellow-600 rounded-full text-xs">#studentlife</span>
+      <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#observation</span>
+      <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#truth</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <!-- Modal: Trip To RameSwaRam -->
+    <!-- Modal: The Pattern -->
+    <div id="journal15" class="journal-modal-overlay">
+        <div class="journal-modal-content">
+        <button class="journal-modal-close" onclick="closeJournalModal()">&times;</button>
+        <h2 class="text-2xl md:text-3xl font-bold mb-2 font-serif">The Pattern</h2>
+        <p class="journal-modal-date">Wednesday, 21 October 2015</p>
+        <div class="journal-modal-body">
+            <p class="mb-4">Once you begin observing, it becomes really interesting. YOU Will understand You are never Alone , there are always masters around you guiding you , showing the right path. All you need is to Observe.</p>
+    <p class="mb-4">**I look for a series of number pattern which I will describe below , which guide me when I am in doubt of the reality I am living. All are just validation for me to never give up. Always remember that we live in a 3 Dimensional World: God the Father - God the Son - God the holy spirit. Our Father has all Knowledge. We the Son can experience that Knowledge. And Holy spirit Can compare the experience and knowledge and Understand whether we chose the right path as the SON . Only once we leave our body, we understand this. That is the reason i told you **</p>
+    <p class="mb-4">**Every One chooses a path which will be perfect for their SoUl in the time NOW. **</p>
+    <p class="mb-4">In our world there is only LoVe. So whenever You feel doubt about Your self , Spirits will accompany you . Know that HE will never leave any puzzles or mazes for you to solve , HE will just lay down the naked truth in a way you will definitely understand. But when you do , start believing. Have faith. Rest Your Soul will find itself.</p>
+    <p class="mb-4">111-Monitor your thoughts carefully, and be sure to think only what you want. This sequence is a sign that there is a gate of opportunity opening up and your thoughts are manifested into form at record speeds. The 111 is like a bright light of a flash bulb. It means the universe has just taken a snapshot of your thoughts and is manifesting into form. Are you pleased with what thoughts the universe has captured?? Of not its time to correct your thoughts.</p>
+    <p class="mb-4">222-Our newly planted ideas are beginning to grow into reality. Keep watering and nurturing them and soon they will push through the soil so you can see evidence of manifestation. In other words, don't quit five minutes before the miracle. Your manifestation is soon going to be evident to you.So keep up the good work.Keep holding positive thoughts , keep affirming and continue visualizing.</p>
+    <p class="mb-4">333-The ascended masters are near you ,desiring you to know you have their help, love and companionship. Call upon the ascended masters often,especially when you see the 3 pattern around you.Some of famous Ascended masters include Jesus , Moses ,Mary ,Quan Yin, Yogananda or any master you believe in.</p>
+    <p class="mb-4">444-The angels are surrounding you now, reassuring you of their love and help. Dont worry because the angels help is nearby.</p>
+    <p class="mb-4">555-Buckle your seat belts.A major life change is upon you. This change should not be viewed as positive or negative, since all change is a natural part of life's flow. Perhaps this change is an answer to your prayer,so continue seeing and feeling yourself at peace.</p>
+    <p class="mb-4">666-Your thoughts are out of balance right now,focused too much on the material world. This number sequence asks you to balance your thoughts between heaven and earth. The angels ask you to focus on spirit and service , and know that your material and emotional needs will automatically be met as a result.</p>
+    <p class="mb-4">777-The angels applaud you, congratulations , you're on a roll. Keep up the good work and know your wish is coming true.This is more miracles to occur.</p>
+    <p class="mb-4">888-A phase of your life is about to end, and this is a sign to give you forewarning to prepare.r sequence may mean you are winding up an emotional career , or a relationship phase. It also means there is a light at the end of tunnel.In addition it means "The crops are ripe. Don't wait to pick and enjoy them.". In other words don't procrastinate making your move or enjoying fruits of your labor.</p>
+            <div class="mt-6 flex flex-wrap gap-2">
+            <span class="journal-tag inline-block px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-xs">#travel</span>
+    <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#ritual</span>
+    <span class="journal-tag inline-block px-3 py-1 bg-green-50 text-green-600 rounded-full text-xs">#reflection</span>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <!-- Modal: GoD is EveryWhere -->
+    <div id="journal16" class="journal-modal-overlay">
+        <div class="journal-modal-content">
+        <button class="journal-modal-close" onclick="closeJournalModal()">&times;</button>
+        <h2 class="text-2xl md:text-3xl font-bold mb-2 font-serif">GoD is EveryWhere</h2>
+        <p class="journal-modal-date">Wednesday, 21 October 2015</p>
+        <div class="journal-modal-body">
+            <p class="mb-4">**We have been hearing this since our childhood. WE all know God is in bricks ,in every stones ,all plants and animals . Then why cant we realize We belong in that everywhere. We ,along with this entire universe form that everywhere. So we are GoD ryt!! **</p>
+    <p class="mb-4">**We are Him , that emptiness , that peace ness with all his power , with all his knowledge , born to experience that knowledge. **</p>
+    <p class="mb-4">If we have all his powers , Y are there people who are rich and poor? Y are there People who can sing better than others ? Y are there people Who can act? Y do some have great talent while some do not? Y do some can walk , talk ,see and hear while there are handicaped people??</p>
+    <p class="mb-4">We have all that knowledge , all that power But our soul chose to remember only some in one lifetime , so that it can experience that little completely.</p>
+    <p class="mb-4">**   Faith , Hope , Love and Charity. **</p>
+    <p class="mb-4">It doesn't mean one Love , a single charity  , a minute hope , a religious faith  . We have to experience each fully. Learn completely What Our SouL chose in that lifetime. Then once we leave this human body , our soul understands whether we have learnt that. Through the cycles of birth and death our soul wishes to experience everything in human form - every knowledge ( of love , charity , hope and Faith ).</p>
+    <p class="mb-4">People who think they are poor or rich , people who think they are perfect or handicapped , people who think they are talented or not ,think  what are we actually...</p>
+    <p class="mb-4">**Some are poor so that they can experience what is poor and live rich in the next lifetime- to experience that life. All we are doing is Learning. **</p>
+    <p class="mb-4">But once we choose to believe we are poor or we don't have any talent , our soul never learns what it came for - to experience what it is born. Then we become more human than god. By human I mean people who chose to believe they are not GoD and blame HIM for not having life others have. We all have it inside Us.</p>
+    <p class="mb-4">It is not to HiM we should ask , It is inside  we should Seek.</p>
+    <p class="mb-4">We seek Within , what we are born to experience. That is Hope.</p>
+    <p class="mb-4">You won't find it first . But with Faith that we will find it ,stabilises this hope. All it matters is not losing it , because only by knowing what it isnt,  we  learn what it is. Once having that faith ,Soul will find the answer for what it is born ;Soul will understand This Human form is only to experience HiM , His power.</p>
+    <p class="mb-4">There will be moments when we feel all this is wrong , but that are the times we should have faith more. Strong Hope to experience HiM.</p>
+    <p class="mb-4">**But we Humans chose to be Humans. We chose not to be God , only to unfufill what we came for. Only to keep that debt to the next lifetime. That debt will be completed only by experiencing what you didn't learn and what you chose to learn in that lifetime. In simple words , our life will be more hard in that lifetime. Instead of thinking what you want to become Now , ask what you want to be in next lifetime. Ask what you want to learn in this lifetime. Experience the life you have fully , with hope and faith. Charity and love will follow. But increasing the debt is what we Humans do Now. **</p>
+    <p class="mb-4">**Today He told me the answer for **</p>
+    <p class="mb-4">"Why will Humans be destroyed while the Nature will survive.??"</p>
+    <p class="mb-4">**" **</p>
+    <p class="mb-4">Why do you think Jesus was crucified while others who crucified him lived. Because only through that sacrifice could Jesus make other people understand we all are GoD. He chose to be crucified to make others realize this truth.</p>
+    <p class="mb-4">Why do you think mahabaratha War took place.</p>
+    <p class="mb-4">Why do you think Buddha , Sreenarayana Guru , Adi shankaracharya or any masters you can name ,came in their life time spreading this message. They never wanted people to follow them or think of them as God but just to know that we are not different from them .</p>
+    <p class="mb-4">We all have that power In us  But still once we are born in human form we choose to believe we are not HiM thereby choosing not to have his power or knowledge. Further there is no creature in this world which do much harm to this Nature.This has been going on so long. This is why Humans will be destroyed while the  nature will survive. It may not happen in this lifetime but it will happen definitely. We will see it from another dimension".</p>
+    <p class="mb-4">Now i can see, That is the reason why there are many people , friends I know , who believe we are the Same - HiM. There will be no more Jesus ,No more Krishna , No more budhha to tel you We are God. All we need to do is to believe it now so that we can still save this Humanity. We may not have powers they had because we don't need those powers now. God is sure what Jesus could do , we everyone could. With this power we are born with , we could change this world. So never loose hope or faith. Just believe. We can never let that Happen . It is all in our Hands. We are just an observer Like him for the experiences we chose. Just Learn from it instead of living in it.</p>
+    <p class="mb-4">"You are not born here to create but to remember, what every masters have told  , what your soul knows - You are not different but Me. Do what you came for with the power i have given you , with the knowledge I have.Experiencing it or not, you will join me but You will definitely miss those lifetimes as HumaNs. Never  make your Soul regret those moments. That will dissapoint me. "</p>
+            <div class="mt-6 flex flex-wrap gap-2">
+            <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#innerwork</span>
+    <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#growth</span>
+    <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#society</span>
+            </div>
+        </div>
+        </div>
+    </div>
+
+
+    <!-- Modal: PennyLess Journey -->
+    <div id="journal17" class="journal-modal-overlay">
+        <div class="journal-modal-content">
+        <button class="journal-modal-close" onclick="closeJournalModal()">&times;</button>
+        <h2 class="text-2xl md:text-3xl font-bold mb-2 font-serif">PennyLess Journey</h2>
+        <p class="journal-modal-date">Wednesday, 4 November 2015</p>
+        <div class="journal-modal-body">
+            <p class="mb-4">**It was the day, Mylu and I planned to go out for a spiritual journey I lost my ATM card. It actually  disappeared. I gave it to my friend Midhun bhai who used it to order some books. By evening it was missing. It was supposed to be in that room itself not anywhere else. But hours of searching the entire room , we couldn't find it. When Mylu first mentioned me about the trip I was happy because I had money with me (in ATM) . But when I lost it , I began to think what was the reason behind it. Then Mylu and I had the same feeling , maybe this trip was meant to be penny less journey. **</p>
+    <p class="mb-4">Money is a barrier that we had made so that no one thinks outside the society. It is a barrier that restricts us from free thinking or doing anything. We study , get a job , make money , have a family , live together and at some stage we feel why we need money,what is happiness. Only after finishing those guidelines we are to think spiritual. That is what our society want us to follow.So we decided to go on with the trip without having the fear of money in hand. I borrowed Rs 200 from my friend Melvin and Mylu did the same. I took a bus to TVM CENTRAL and met Mylu there. With a total of Rs 400 in hand we decided to board a train to Nagercoil. The train was at 1610. We had a tea and began the journey. We didn't take tickets because we needed to save what we had. Reached Nagercoil at 1810. We went outside and met our first friend - 2 puppies with a bell around the neck. They were so cute, had much fun and were happy.Our vibe could easily connect with theirs. Its difficult to get that connection easily with humans.</p>
+    <p class="mb-4">** Every creature has that awareness - GOD - in them. Its humans who doesn't know that or who never tries to understand that.That is the reason why we have so much problems- maybe religious , cultural or Racial problems. We are given the power to think with which we are to understand the power of that Supreme Energy. But instead of utilizing that we think a lot as humans . Where did it take Us.No where but to violence and only  destruction of our mother Nature. We are never happy , joyful and always in fear of something.**</p>
+    <p class="mb-4">**We came to know about a Nagaraja Temple from which the name Nagercoil was derived. It was a 2 km walk from the railway station. We reached there on time. It had idols of many Nagas, Lord Ganesha and Lord Krishna. We heard from the people around that there still lives 5 nagas behind that temple and the soil around it was white for 6 months and black for the rest 6 months. No one knew the reason but everyone knew there is some power related to that temple which could make any wish come true. After praying there for some time we decided to take a bus to Kanyakumari and spent the night there. We reached the bus stand and got the bus. **</p>
+    <p class="mb-4">**Today's world people worry about a lot of things , might be money , time , or things what they will do going some place. Instead of being happy for the experience awaiting them they live in a world created by  fear.Not knowing  It will create an entirely different outcome. Like energies attract like. When we choose to live in fear what we attract will be only fear. That is the reason why the world is as it is Now.We are the reason of our Own sufferings , pain  and struggles. What has it given us other than pain and sadness. This will never go on. Whether we choose to believe in this or Not Humans will never Survive after a period. **</p>
+    <p class="mb-4">Reached Kanyakumari at 2210. We sat near a closed shop so we could make our calls  Home. I never told my parents about this trip and Mylu had informed his parents that he was coming to Tvm to meet me. There we met 2 dogs which were quite similar to us. They were too looking for a shelter to spent the night. I extended my hand towards one and to my surprise it did the same. I felt like he was trying to  make a connection by giving an handshake. I felt happy. We were told that we could spent the night in front of the temple , so we sat beside the beach. The place was so peaceful and lonely at night. The energy flow was awesome. We sat there for some time,enjoying it and went to sleep. It was 0400 in the morning. We woke up hearing a Shiva song. The temple was going to open and people came rushing hearing that song. We entered the temple. The ring of the bell beside the idol was really energizing. Each beat created vibrations that could be felt anywhere inside the temple. After praying inside we went outside to see the Sunrise.</p>
+    <p class="mb-4">** But it started raining heavily and it ended only after the sunrise. So we missed it. But that didn't disappoint us because the whole journey was worth experiencing. We walked around the premises enjoying the ambiance of the weather. We spent time watching the sea and families playing in it. We had food and decided to return back. Our next train was from Kanyakumari at 1030. Reached TVM at 1245. The journey was safe , amazing by all means. What would have happened if i had stayed home because of the Atm card. All i did was remove that fear of money ,Rest GoD will take Care. So b happy every moment. Instead of being sad for something , know that you are never alone and nothing can go wrong when you have that faith. You are no one but HIM. How can you be sad , How can he leave you. So just have faith and live Happy.Spread good Vibes and Attract Good Vibes.**</p>
+    <p class="mb-4">Smile at the troubles and they will smile back at you..</p>
+            <div class="mt-6 flex flex-wrap gap-2">
+            <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#insight</span>
+    <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#family</span>
+    <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#karma</span>
+            </div>
+        </div>
+        </div>
+    </div>
+
+
+    <!-- Modal: November 7 -->
+    <div id="journal18" class="journal-modal-overlay">
+        <div class="journal-modal-content">
+        <button class="journal-modal-close" onclick="closeJournalModal()">&times;</button>
+        <h2 class="text-2xl md:text-3xl font-bold mb-2 font-serif">November 7</h2>
+        <p class="journal-modal-date">Saturday, 7 November 2015</p>
+        <div class="journal-modal-body">
+            <p class="mb-4">**I am home , in my happy peaceful village Alanallur. Today was a Great day. Learned lot of things. Each day gives me new things, new persons, new experiences, all through which i learn what i am, what this society is. **</p>
+    <p class="mb-4">Stop judging others instead Listen and Learn what You are. That is the only reason why you are born.Something i felt or came up while writing this post.</p>
+    <p class="mb-4">I always felt temples were a place where we could easily meditate, connect to the nature , feel that vibe and be positive. But todays world people go there to ask god for help, fearing him that something will go wrong if we don't pray. Instead of believing in the  self, for which the temples were build , it now develops fear.</p>
+    <p class="mb-4">** Our human body have 5 senses namely - skin, ear, eyes , tongue and nose. Before going to temple we bath - to make our skin fresh , in temples there are ringing bells - which make our ears feel fresh , an idol - which make our eyes focused , the smell of agarbathis -which make our nose fresh and finally prasadam or theertham to make our tongue fresh. Finally through all these senses becoming fresh and focused we become aware - we become more conscious , in this way we are meditating , we are knowing our self. Thanks to Sanjay for telling me this.So everything is just to control our senses and temple is a place where we could do it easily. That is the energy we feel when we visit a temple. Like the action of drugs, temple is a place where we could easily go into trance state. Now i understand why our Hindu culture chose to worship deities and made temples. **</p>
+    <p class="mb-4">But now i look at the world and see people living in fear might be the fear of god , fear of death , fear of money or fear of society. Instead of going to temple to energize our self , people go there asking god for fulfilling their needs , crying to god to answer their prayers , all making them disbelieve their self. But if this was true tell me why was the temples build ultimately aiming to know the self. By becoming conscious we are to understand that we are not just this human body , we are Our soul- God the son - born just to realize this truth. Living and adapting in the society around us we are to learn that. Society teaches you to become what you are. But instead today people live for the society instead of living in it. Living for it makes them fear it. Our society has chosen to be in that fear for too long. That is the fear that has long and firm roots within the society. Without that fear there is no society , no religion and people would never choose that. They never try to realize what is left  When everything is kept aside.</p>
+    <p class="mb-4">** That emptiness , that supreme power ,once feel we will understand we are no different but that energy itself- Which connects the entire universe , which is filled by it. Today most people measure their success with others. They think they are big failures just because their friends or relative have a good job or is in a good position. Why should we be worried?? Why do we have such an ego? **</p>
+    <p class="mb-4">We have it because from those feelings we are to understand what actually success is. What failure is. We all are traveling to the same destination but the paths we have chosen to travel are different. The real success is being a part of others success and making their soul progress faster.So be happy for others,knowing that you will achieve everything you have come here for.Patience is the only primary virtue you should have.  In time everything will come.</p>
+    <p class="mb-4">Also i learned OhM ॐ  is the symbol of that emptiness , that energy from which the entire universe came from (parabrahma). So it is the  base hindu culture, that the truth everything comes from one supreme energy, is build. Lord Krishna told Lord Arjuna during Mahabaratha War  " You may be Me but I am Not only You ". Thanks to Ajay krishna. Now i understand what Krishna meant - We are God But god is something More than We. Nature is God but God is not only Nature.God is that supreme energy from which we which everything is derived , our father , our Source of knowledge and power.</p>
+    <p class="mb-4">GoD is I AM , All that is.</p>
+    <p class="mb-4">**Also there is a story about the appearance of Lord Ganesh. Lord Ganesh as we know is depicted with a face of an elephant with his one teeth broken , long ears and small eyes. The broken teeth implies our knowledge which is never complete. In each cycles of lifetime we are acquiring knowledge which will never end until we have learned everything. The other full teeth denotes the spiritual life which is always complete, full and exists within Us. Long Ears denote to Hear more and Small eyes to see less. **</p>
+    <p class="mb-4">So where does everything connect. To the simple truth that we all are born from that supreme energy, in this human form travelling lifetimes just to learn we are that emptinesss-that love. We have the potential and every resources  to learn this truth.Instead of waiting for proofs to start the beginning.Learning from the society , learning from the people around ,we acquire knowledge through which we build our self. That knowing is what our soul wishes to experience in that lifetime. Through constant testing we can know what  our soul wants. What is important is to never lose faith. You may fail but when you do  be positive, have the mind to forgive yourself because everything happens for a reason. There is no need for any worries because we did not come here to struggle but just to learn what we are- what our soul is.We are doing that in our human form. Everyone is doing it whether they believe in it or not.But just do that by being the SoUl.</p>
+    <p class="mb-4">Without BeInG You can never BeGIn.</p>
+    <p class="mb-4">Tat Tvam Asi - In sabarimala temple the 18 steps signifies our 18 emotions or 18 chakras. When we climb each step it is like conquering our each emotions and when we reach the top , it means we have conquered all your senses , now what exist is that consciousness HIM-You become Me. That is why Tat Tvam Asi means  absolute equality of 'tat', the Ultimate Reality, Brahman, and 'tvam', the Self, Atman.(in Advaita)- We become our Self-Him. Now  I recall mylu telling me the plan to go to Sabarimala. Yes that was a DoT for me to connect. Connecting them i am deciding now to Go for It , knowing my self , having the faith that i could conquire all my emotions in this human form and live fully as My Self to the outside world.</p>
+    <p class="mb-4">Every hindu gods, every puranas have told the same. We are to become god through our Karmas. How to do our Karma your soul will know. But what we should do in Human form is nothing but to rest our mind , listen and have faith in our self. Then every action that follow will reflect our self and Never judge others. Everyone learns from their experience. We are our soul -god- that supreme energy , so there is never wrong or right. We are to find our  self through our experience. But do that with hope and love , then rest will automatically follow.</p>
+    <p class="mb-4">#thanks to Arjun, Anand, Sanjay , Arun , Ajay for giving me all these knowledge. Your experiences teaches me makes me know my self more.</p>
+    <p class="mb-4">#Against everyone who spread terrorism and violence in name of culture or religion , I cant resist writing this#</p>
+    <p class="mb-4">** I visit churches ,I visit temples,I visit mosques.I learned in Christian convent school , muslim school and Hindu School.  I study with  christian friends , I live with Muslim Friends and I have a Hindu family.I meditate in temples, I meditate to Azhar(Muslim Morning prayer - Waanq) ,I meditate in church.But nothing makes me superior or minor , Nothing makes me different from You, From Him , Nothing makes me believe in any religion , but every religion makes me learn , understand the truth that it is our self that we should believe in. No customs , No culture , No religion is bad when it is utilized in the proper way. Instead of claiming You are Superior , Killing everyone you think are Minor , Making everyone Follow Your Principle , You -the society, claim yourself brillant , smart. I may be speaking mad to You but who is really mad. My actions may be wrong to you because I dont care. Who are You to decide what is wrong and Right. I live in a world where i am comfortable  growing my self , Learn in a way from my mistakes , from friends , from the entire society around me.I do that without hurting others ,Killing others ,always helping others when i can. All i have to test me is My Body. I experience by knowing me ,not by making others know. I may smoke , i may drink , i get high always, but i do that only to know what i am , where the limit is , not to disturb others or make any sort of violence. If these habits make me Bad , If these views make me Mad , Then what are You. You tell me i dont have any experience but seeing You i feel , this  experience as Human , what you all believe is the limit is more than enough for me. When i grow i want to grow as my SouL. **</p>
+    <p class="mb-4">Society, Understand No one can be happy when this entire universe is suffering . Only because of your views , your thoughts and your way of forcing it on others. Instead of learning what you want , you try to teach what you have thinking You know everything. This entire lifetime is given you to learn never to teach by interfering others , killing others , making them follow yours. Spirituality is the only knowledge complete in you .Knowing that, acquire knowledge. Then Your entire views will change , the entire suffering will end. Spread Good vibes because Like attracts only Like.That is the Universal Law.When no one around you provides that, Nature will provide You. That is the reason why GoD has given us Nature , Animals and every people who are handicapped or couldn't talk , hear or see, babies, children only  for you to spread that good vibes. Never to make them Slaves to your beliefs and customs.</p>
+    <p class="mb-4">**Title**:ॐ-ശാന്തി / ॐ-Shanthi / ॐ-शांति</p>
+    <p class="mb-4">**Date:**Saturday, 14 November 2015</p>
+    <p class="mb-4">Location (optional):</p>
+    <p class="mb-4">**Body:****I am with my Anoj again at Vallikavu - Kollam. Today I have rohit also. We discussed a lot of thing. Each journey gives me new experience through which I understand my reality. I understood it can only begin from our generation our society have to learn what the reality is. It is our responsibility to make the society understand it is not the life we should focus , it is the process we should give more attention. Each moment is an experience to learn and know our self. It is not through our words we can make them understand but our life ,our experience that should make them realize.   **</p>
+    <p class="mb-4">Nature keeps everything in balance.</p>
+    <p class="mb-4">Mahabaratha-When the world was filled with Violence and when the truth was Misinterpreted , When people were confused to choose what was Right or Wrong , Nature Balanced It . Lord Krishna was born. He was only required.</p>
+    <p class="mb-4">**यदा यदा हि धर्मस्य ग्लानिर्भवति भारत । **</p>
+    <p class="mb-4">**        अभ्युत्थानमधर्मस्य तदात्मानं सृजाम्यहम् ॥४-७॥**</p>
+    <p class="mb-4">**      **</p>
+    <p class="mb-4">**     परित्राणाय साधूनां विनाशाय च दुष्कृताम् । **</p>
+    <p class="mb-4">**      धर्मसंस्थापनार्थाय सम्भवामि युगे युगे ॥४-८॥**</p>
+    <p class="mb-4">Yada yada hi dharmasya glanirbhavati bharata</p>
+    <p class="mb-4">** Abhythanamadharmasya tadatmanam srijamyaham**</p>
+    <p class="mb-4">**</p>
+    <p class="mb-4">Paritranaya sadhunang vinashay cha dushkritam</p>
+    <p class="mb-4">Dharmasangsthapanarthay sambhabami yuge yuge</p>
+    <p class="mb-4">The meaning of these two slokas is—[1]</p>
+    <p class="mb-4">Whenever there is decay of righteousness, O Bharata,</p>
+    <p class="mb-4">And there is exaltation of unrighteousness, then I Myself come forth ;</p>
+    <p class="mb-4">For the protection of the good, for the destruction of evil-doers,</p>
+    <p class="mb-4">For the sake of firmly establishing righteousness, I am born from age to age.</p>
+    <p class="mb-4">I here means the self not Krishna himself. This is where the interpretation went wrong. In each time Self will arise or the nature has to create to balance the odd.</p>
+    <p class="mb-4">Now this can be seen in Christianity also. When the whole of Israel was growing in fear , when the power remained Limited with only Jews , Jesus was born. Again to balance it. He balanced it by his crucification , by making people understand through him not to follow him or see him as god. He was happy in it.</p>
+    <p class="mb-4">Search deep , we can find this is the basis of any religion. But every time all messages were mis interpreted.</p>
+    <p class="mb-4">But now when I look i don't see people with any superpowers . I realize** I don't have any power**, I can't heal people, I can't teleport , I don't have telepathy because I don't need to , All i need is my SelF and people around me who believe in their Self.  To balance this whole society with such disbeliefs such mis interpretations ,** I don't need any Talents I just need a society with me** ,Who can spread Good Vibes - That positive Energy for the entire World .A Society who believes not in a single god , not an image , not an idol , not in a person but in that supreme awareness , in that power , who can realize we are not different but one , and our only duty is to learn . And our happiness is not limited to any Culture or Religion or Country but for the Entire beings , no conditions apply And We have a tool-** technology**, so that WE can bring everyone together , form a society to make others understand , get inspired.This time without misunderstanding , we should make them realize. We** don't need a leader or a Guru**  ,all we need is Us-this society -from where we  can all learn , we  can all share. When the society around us does not provide that vibe , We give them that vibe so that No self goes UnNoticed.</p>
+    <p class="mb-4">Now I understand why I was born here in India. In a place where there are so many Religion , so many Castes , so many Cultures , so many Languages, so diverse. I have so much exposure from where I can learn a lot. I have faith that i  have people with me ,people who have my similar views or experience.I have temples , churches , mosques to visit. I have Hindu friends , Muslim friends , Christian friends who make me realize my Self , understand my soul better . I have parents who gave me this choice of  free thinking ,  a sister who is a living  god , a brother who is an ideal man for a society our ancestors have created , a hometown where I can express all my views.</p>
+    <p class="mb-4">I am happy with this life and I find happiness in sharing what I am. If you are happy in what you are , if you have something that makes you realize your self , If you have any experience that made you understand it, Now its time to share. Comment below.</p>
+    <p class="mb-4">Only we can make others understand , so let's do It.</p>
+    <p class="mb-4">You all form my society ,  my courage ,  my inspiration , my motivation. I have a lot to learn and help me understand it.</p>
+    <p class="mb-4">Posted by Unknown at 22:09 No comments:</p>
+    <p class="mb-4">Email ThisBlogThis!Share to XShare to FacebookShare to Pinterest</p>
+    <p class="mb-4">Saturday, 7 November 2015</p>
+    <p class="mb-4">November 7</p>
+    <p class="mb-4">**I am home , in my happy peaceful village Alanallur. Today was a Great day. Learned lot of things. Each day gives me new things, new persons, new experiences, all through which i learn what i am, what this society is. **</p>
+    <p class="mb-4">Stop judging others instead Listen and Learn what You are. That is the only reason why you are born.Something i felt or came up while writing this post.</p>
+    <p class="mb-4">I always felt temples were a place where we could easily meditate, connect to the nature , feel that vibe and be positive. But todays world people go there to ask god for help, fearing him that something will go wrong if we don't pray. Instead of believing in the  self, for which the temples were build , it now develops fear.</p>
+    <p class="mb-4">** Our human body have 5 senses namely - skin, ear, eyes , tongue and nose. Before going to temple we bath - to make our skin fresh , in temples there are ringing bells - which make our ears feel fresh , an idol - which make our eyes focused , the smell of agarbathis -which make our nose fresh and finally prasadam or theertham to make our tongue fresh. Finally through all these senses becoming fresh and focused we become aware - we become more conscious , in this way we are meditating , we are knowing our self. Thanks to Sanjay for telling me this.So everything is just to control our senses and temple is a place where we could do it easily. That is the energy we feel when we visit a temple. Like the action of drugs, temple is a place where we could easily go into trance state. Now i understand why our Hindu culture chose to worship deities and made temples. **</p>
+    <p class="mb-4">But now i look at the world and see people living in fear might be the fear of god , fear of death , fear of money or fear of society. Instead of going to temple to energize our self , people go there asking god for fulfilling their needs , crying to god to answer their prayers , all making them disbelieve their self. But if this was true tell me why was the temples build ultimately aiming to know the self. By becoming conscious we are to understand that we are not just this human body , we are Our soul- God the son - born just to realize this truth. Living and adapting in the society around us we are to learn that. Society teaches you to become what you are. But instead today people live for the society instead of living in it. Living for it makes them fear it. Our society has chosen to be in that fear for too long. That is the fear that has long and firm roots within the society. Without that fear there is no society , no religion and people would never choose that. They never try to realize what is left  When everything is kept aside.</p>
+    <p class="mb-4">** That emptiness , that supreme power ,once feel we will understand we are no different but that energy itself- Which connects the entire universe , which is filled by it. Today most people measure their success with others. They think they are big failures just because their friends or relative have a good job or is in a good position. Why should we be worried?? Why do we have such an ego? **</p>
+    <p class="mb-4">We have it because from those feelings we are to understand what actually success is. What failure is. We all are traveling to the same destination but the paths we have chosen to travel are different. The real success is being a part of others success and making their soul progress faster.So be happy for others,knowing that you will achieve everything you have come here for.Patience is the only primary virtue you should have.  In time everything will come.</p>
+    <p class="mb-4">Also i learned OhM ॐ  is the symbol of that emptiness , that energy from which the entire universe came from (parabrahma). So it is the  base hindu culture, that the truth everything comes from one supreme energy, is build. Lord Krishna told Lord Arjuna during Mahabaratha War  " You may be Me but I am Not only You ". Thanks to Ajay krishna. Now i understand what Krishna meant - We are God But god is something More than We. Nature is God but God is not only Nature.God is that supreme energy from which we which everything is derived , our father , our Source of knowledge and power.</p>
+    <p class="mb-4">GoD is I AM , All that is.</p>
+    <p class="mb-4">**Also there is a story about the appearance of Lord Ganesh. Lord Ganesh as we know is depicted with a face of an elephant with his one teeth broken , long ears and small eyes. The broken teeth implies our knowledge which is never complete. In each cycles of lifetime we are acquiring knowledge which will never end until we have learned everything. The other full teeth denotes the spiritual life which is always complete, full and exists within Us. Long Ears denote to Hear more and Small eyes to see less. **</p>
+    <p class="mb-4">So where does everything connect. To the simple truth that we all are born from that supreme energy, in this human form travelling lifetimes just to learn we are that emptinesss-that love. We have the potential and every resources  to learn this truth.Instead of waiting for proofs to start the beginning.Learning from the society , learning from the people around ,we acquire knowledge through which we build our self. That knowing is what our soul wishes to experience in that lifetime. Through constant testing we can know what  our soul wants. What is important is to never lose faith. You may fail but when you do  be positive, have the mind to forgive yourself because everything happens for a reason. There is no need for any worries because we did not come here to struggle but just to learn what we are- what our soul is.We are doing that in our human form. Everyone is doing it whether they believe in it or not.But just do that by being the SoUl.</p>
+    <p class="mb-4">Without BeInG You can never BeGIn.</p>
+    <p class="mb-4">Tat Tvam Asi - In sabarimala temple the 18 steps signifies our 18 emotions or 18 chakras. When we climb each step it is like conquering our each emotions and when we reach the top , it means we have conquered all your senses , now what exist is that consciousness HIM-You become Me. That is why Tat Tvam Asi means  absolute equality of 'tat', the Ultimate Reality, Brahman, and 'tvam', the Self, Atman.(in Advaita)- We become our Self-Him. Now  I recall mylu telling me the plan to go to Sabarimala. Yes that was a DoT for me to connect. Connecting them i am deciding now to Go for It , knowing my self , having the faith that i could conquire all my emotions in this human form and live fully as My Self to the outside world.</p>
+    <p class="mb-4">Every hindu gods, every puranas have told the same. We are to become god through our Karmas. How to do our Karma your soul will know. But what we should do in Human form is nothing but to rest our mind , listen and have faith in our self. Then every action that follow will reflect our self and Never judge others. Everyone learns from their experience. We are our soul -god- that supreme energy , so there is never wrong or right. We are to find our  self through our experience. But do that with hope and love , then rest will automatically follow.</p>
+    <p class="mb-4">#thanks to Arjun, Anand, Sanjay , Arun , Ajay for giving me all these knowledge. Your experiences teaches me makes me know my self more.</p>
+    <p class="mb-4">#Against everyone who spread terrorism and violence in name of culture or religion , I cant resist writing this#</p>
+    <p class="mb-4">I visit churches ,I visit temples,I visit mosques.I learned in Christian convent school , muslim school and Hindu School.  I study with  christian friends , I live with Muslim Friends and I have a Hindu family.I meditate in temples, I meditate to Azhar(Muslim Morning prayer - Waanq) ,I meditate in church.But nothing makes me superior or minor , Nothing makes me different from You, From Him , Nothing makes me believe in any religion , but every religion makes me learn , understand the truth that it is our self that we should believe in. No customs , No culture , No religion is bad when it is utilized in the proper way. Instead of claiming You are Superior , Killing everyone you think are Minor , Making everyone Follow Your Principle , You -the society, claim yourself brillant , smart. I may be speaking mad to You but who is really mad. My actions may be wrong to you because I dont care. Who are You to decide what is wrong and Right. I live in a world where i am comfortable  growing my self , Learn in a way from my mistakes , from friends , from the entire society around me.I do that without hurting others ,Killing others ,always helping others when i can. All i have to test me is My Body. I experience by knowing me ,not by making others know. I may smoke , i may drink , i get high always, but i do that only to know what i am , where the limit is , not to disturb others or make any sort of violence. If these habits make me Bad , If these views make me Mad , Then what are You. You tell me i dont have any experience but seeing You i feel , this  experience as Human , what you all believe is the limit is more than enough for me. When i grow i want to grow as my SouL.</p>
+    <p class="mb-4">Society, Understand No one can be happy when this entire universe is suffering . Only because of your views , your thoughts and your way of forcing it on others. Instead of learning what you want , you try to teach what you have thinking You know everything. This entire lifetime is given you to learn never to teach by interfering others , killing others , making them follow yours. Spirituality is the only knowledge complete in you .Knowing that, acquire knowledge. Then Your entire views will change , the entire suffering will end. Spread Good vibes because Like attracts only Like.That is the Universal Law.When no one around you provides that, Nature will provide You. That is the reason why GoD has given us Nature , Animals and every people who are handicapped or couldn't talk , hear or see, babies, children only  for you to spread that good vibes. Never to make them Slaves to your beliefs and customs.</p>
+    <p class="mb-4">Posted by Unknown at 17:02 No comments:</p>
+    <p class="mb-4">Email ThisBlogThis!Share to XShare to FacebookShare to Pinterest</p>
+    <p class="mb-4">Wednesday, 4 November 2015</p>
+    <p class="mb-4">PennyLess Journey</p>
+    <p class="mb-4">**It was the day, Mylu and I planned to go out for a spiritual journey I lost my ATM card. It actually  disappeared. I gave it to my friend Midhun bhai who used it to order some books. By evening it was missing. It was supposed to be in that room itself not anywhere else. But hours of searching the entire room , we couldn't find it. When Mylu first mentioned me about the trip I was happy because I had money with me (in ATM) . But when I lost it , I began to think what was the reason behind it. Then Mylu and I had the same feeling , maybe this trip was meant to be penny less journey. **</p>
+    <p class="mb-4">Money is a barrier that we had made so that no one thinks outside the society. It is a barrier that restricts us from free thinking or doing anything. We study , get a job , make money , have a family , live together and at some stage we feel why we need money,what is happiness. Only after finishing those guidelines we are to think spiritual. That is what our society want us to follow.So we decided to go on with the trip without having the fear of money in hand. I borrowed Rs 200 from my friend Melvin and Mylu did the same. I took a bus to TVM CENTRAL and met Mylu there. With a total of Rs 400 in hand we decided to board a train to Nagercoil. The train was at 1610. We had a tea and began the journey. We didn't take tickets because we needed to save what we had. Reached Nagercoil at 1810. We went outside and met our first friend - 2 puppies with a bell around the neck. They were so cute, had much fun and were happy.Our vibe could easily connect with theirs. Its difficult to get that connection easily with humans.</p>
+    <p class="mb-4">** Every creature has that awareness - GOD - in them. Its humans who doesn't know that or who never tries to understand that.That is the reason why we have so much problems- maybe religious , cultural or Racial problems. We are given the power to think with which we are to understand the power of that Supreme Energy. But instead of utilizing that we think a lot as humans . Where did it take Us.No where but to violence and only  destruction of our mother Nature. We are never happy , joyful and always in fear of something.**</p>
+    <p class="mb-4">**We came to know about a Nagaraja Temple from which the name Nagercoil was derived. It was a 2 km walk from the railway station. We reached there on time. It had idols of many Nagas, Lord Ganesha and Lord Krishna. We heard from the people around that there still lives 5 nagas behind that temple and the soil around it was white for 6 months and black for the rest 6 months. No one knew the reason but everyone knew there is some power related to that temple which could make any wish come true. After praying there for some time we decided to take a bus to Kanyakumari and spent the night there. We reached the bus stand and got the bus. **</p>
+    <p class="mb-4">**Today's world people worry about a lot of things , might be money , time , or things what they will do going some place. Instead of being happy for the experience awaiting them they live in a world created by  fear.Not knowing  It will create an entirely different outcome. Like energies attract like. When we choose to live in fear what we attract will be only fear. That is the reason why the world is as it is Now.We are the reason of our Own sufferings , pain  and struggles. What has it given us other than pain and sadness. This will never go on. Whether we choose to believe in this or Not Humans will never Survive after a period. **</p>
+    <p class="mb-4">Reached Kanyakumari at 2210. We sat near a closed shop so we could make our calls  Home. I never told my parents about this trip and Mylu had informed his parents that he was coming to Tvm to meet me. There we met 2 dogs which were quite similar to us. They were too looking for a shelter to spent the night. I extended my hand towards one and to my surprise it did the same. I felt like he was trying to  make a connection by giving an handshake. I felt happy. We were told that we could spent the night in front of the temple , so we sat beside the beach. The place was so peaceful and lonely at night. The energy flow was awesome. We sat there for some time,enjoying it and went to sleep. It was 0400 in the morning. We woke up hearing a Shiva song. The temple was going to open and people came rushing hearing that song. We entered the temple. The ring of the bell beside the idol was really energizing. Each beat created vibrations that could be felt anywhere inside the temple. After praying inside we went outside to see the Sunrise.</p>
+    <p class="mb-4">** But it started raining heavily and it ended only after the sunrise. So we missed it. But that didn't disappoint us because the whole journey was worth experiencing. We walked around the premises enjoying the ambiance of the weather. We spent time watching the sea and families playing in it. We had food and decided to return back. Our next train was from Kanyakumari at 1030. Reached TVM at 1245. The journey was safe , amazing by all means. What would have happened if i had stayed home because of the Atm card. All i did was remove that fear of money ,Rest GoD will take Care. So b happy every moment. Instead of being sad for something , know that you are never alone and nothing can go wrong when you have that faith. You are no one but HIM. How can you be sad , How can he leave you. So just have faith and live Happy.Spread good Vibes and Attract Good Vibes.**</p>
+    <p class="mb-4">Smile at the troubles and they will smile back at you..</p>
+            <div class="mt-6 flex flex-wrap gap-2">
+            <span class="journal-tag inline-block px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-xs">#travel</span>
+    <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#tradition</span>
+    <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#realization</span>
+            </div>
+        </div>
+        </div>
+    </div>
+    
+    <!-- Modal: Counselling Day -->
+    <div id="journal19" class="journal-modal-overlay">
+        <div class="journal-modal-content">
+        <button class="journal-modal-close" onclick="closeJournalModal()">&times;</button>
+        <h2 class="text-2xl md:text-3xl font-bold mb-2 font-serif">Counselling Day</h2>
+        <p class="journal-modal-date">Sunday, 13 December 2015</p>
+        <div class="journal-modal-body">
+            <p class="mb-4">**</p>
+    <p class="mb-4">Its been long. Yesterday was the day i anticipated the most. My counseling. My uncle booked an appointment and i went to see the counselor. Counselor asked me what was my problem. I told him the truth , i didn't know what my problem was and i didn't feel i have any problem. I just have an idea which people find odd. I and doctor talked for quite a long time. He told me that all my ideas did not have proofs , they hanged in thin air. I told him my experience was my proof , why do i need something more than that. When Logic or brain is considered as the reference point of the reality , you need evidence or proofs to accept something. But in my reality reference point is Spirituality. That doesn't need an logical explanations or evidences. My experience is enough for it. Nothing teaches you more than your experience. Hearing this Counselor told me a story. There were 10 people in a room. 9 people told it was day but 1 person disagreed. He told it was Night. So How does he have a reality because reality existed with majority. I was shocked hearing this. I told him how is reality based on majority , it depends on person and it might change from person to person. For that 1 person, his reality made him feel it was night. That doesn't mean he do not have a reality but his reality is different from the rest 9. Hearing this the counselor told me to meet another doctor because this discussion needed to reach a conclusion. He told my uncle i was biased and i needed to meet with a psychiatrist. So we went and met one. I told everything to the psychiatrist. He told me unless i hurt any people and i was happy, there was no problem in believing in what i felt. He also recommended me some blood tests to know whether drinking and smoking has any affect on my body. I agreed and i was happy first because i felt the doctor could understand me.But later knowing what he told my uncle i was sad. I told him i was hearing my own sound loaud and clear telling me things , he felit it was a symptom of auditory hallucinations caused due to effect of weed on the nervous system. Stopping weed will cause the body to react and may even lead to depression from which i cant escape. So he recommended me some medicines for 3 weeks and to meet him after that. Now i realized he connected my thoughts with my use of weed. And stopping it produced side effects which included these thoughts. I never felt any side effects using weed , and i felt more released and enjoyable while using it. I could concentrate more in my studies or on any activities. But if using it questioned my reality i should stop it. I decided to prove them that weed was not the reason , it might be a tool which came along , but even without it my reality would exist. My thoughts would be the same. So this day is the beginning of my sober days to follow. Right now i have to show them weed is not the reason , its my destiny to know these things. No medicine , no advice , no doctors can change my destiny. I have accepted to live in this reality and i will. Time will prove them that everyone is important. Everyone has their own reality. Its not majority but individual people should be given importance. #Ohm Shanthi..</p>
+            <div class="mt-6 flex flex-wrap gap-2">
+            <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#destiny</span>
+    <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#divineplan</span>
+    <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#guidance</span>
+            </div>
+        </div>
+        </div>
+    </div>
+    
+
+    <!-- Modal: Around Me -->
+    <div id="journal20" class="journal-modal-overlay">
+        <div class="journal-modal-content">
+        <button class="journal-modal-close" onclick="closeJournalModal()">&times;</button>
+        <h2 class="text-2xl md:text-3xl font-bold mb-2 font-serif">Around Me</h2>
+        <p class="journal-modal-date">18 December 2015</p>
+        <div class="journal-modal-body">
+            <p class="mb-4">**</p>
+    <p class="mb-4">Society around me consist of two type of people. The first type live in a reality in which they are being brought up. They believe god as an invisible force different from himself ,living always by finding mistakes in what other people are doing. There are exceptions but now I am talking about the majority. This group gives out lot of negative vibes because even if they have everything they need,they are never satisfied. They need more and more because they think life is a competition and in order to win they need certain things like fame or money or both. Their dreams never get fulfilled because they are always bothered by the life of others. They believe thoughts produce outcome and they are never ready to believe in destiny. Further they mistake love with possessiveness. The other type of people are people who have doubt in which reality to believe. They know something exist other than what they see , but is afraid to or fear to trust what they feel inside them. But they are happy and listens to everything.They are flexible for most of things. There are also exceptions but majority is willing to have conversations. I seem to stand in the middle of these. The fact is I don't give a shit what people believe because its their life and its up to them to find a way to complete it. Everyone completes their life in some way or other. But what bothers me is not letting people to live their life. The first type of people includes our parents , relatives and all people around us who are not even willing to hear what other group has to say. For them the other group does not exist or they like to see it that way. The steering is in their hands(They are the majority)  and they tend to drive the rest people. But they do not realize the fact that it wont be long when we will come in action. It doesn't matter in which reality you live , but live not hurting others , giving others their complete freedom because you don't have the right to make anyone slaves to your customs or habits. Live happily and discuss the matters which we are not sure about instead of assuming what we don't know is wrong. Only through discussion truth arise , and shutting your ears and mouth is not a solution. It have been long we are traveling this cycle of birth and death. All for one reason to know your self completely ,learn whatever we can , become happy and fulfill what our soul has come to achieve. But instead of doing so , currently the world is filled with mis beliefs , ego , violence , all in the name of religion , caste or  power. Humanity is getting destroyed completely . The nature which was meant to provide us with positive energy is now giving negative energy because we are destroying it by our actions. It wont be long before the whole humanity vanishes. It has been planned but i think god has given us one more chance. It is up to us to decide- either ignore everything and wait for the the destruction or start believing in your self and spread positive vibes. Never think you cant make a change. For those who live in doubt of their reality i request you just  to have faith and patience. Everything will be shown to you. You just need to embrace it when it comes. Never fear what others think because what others think or do can never effect your destiny. Our soul shines like a diamond which we clouded by our thoughts and feelings. Remove your thoughts and stay calm. Your soul will tell you what it wants. Trust that and that will reveal your destiny. Destiny will come to you whether you wish it or not. Its up to you to accept it and live with it by being happy. Your attitude is all that matters. Stop looking at the clock and wondering how much time you are wasting or how much time you have. Its not the numbers or digits but the knowledge which is the measure of time. That knowledge is not something you seek outside but within. All experience you get add to that knowledge . This human body you have is only a vessel through which you get that experience. So stop hurting others and our mother nature. Its time to believe in your self. Its not thoughts but action that give you experience.</p>
+    <p class="mb-4">#Ohm-Shanthi</p>
+            <div class="mt-6 flex flex-wrap gap-2">
+            <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#balance</span>
+    <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#surrender</span>
+    <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#unlearning</span>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <!-- Modal: Its 2016 -->
+    <div id="journal21" class="journal-modal-overlay">
+        <div class="journal-modal-content">
+        <button class="journal-modal-close" onclick="closeJournalModal()">&times;</button>
+        <h2 class="text-2xl md:text-3xl font-bold mb-2 font-serif">Its 2016</h2>
+        <p class="journal-modal-date">Friday, 8 January 2016</p>
+        <div class="journal-modal-body">
+            <p class="mb-4">** A new year. But i don't feel it that way,  because each day is a new day,  each moment a new moment,  then what is special for this year. Each day, we are becoming new,  learning new thing,  meeting new people and having a new experience. So each day we are growing. Each experience make us grow and it will never end. This life is given to us to experience things in a new way,  in a way that our soul is happy and can make other souls happy. So try to do that daily and we can feel our soul becoming more happy and more energized. Today i am going to share something that caught my eye recently. It is 6 sentences that Jesus spoke before his crucification. I am interpreting them as how i felt when reading them. Its nothing offensive,  i am just sharing what i felt. They are as follows:</p>
+    <p class="mb-4">1." Father forgive them,  for they do not know what they do. "</p>
+    <p class="mb-4">Jesus is asking his father - the almighty,  the source from which we are derived- to forgive everyone, because they are acting blindly not knowing- we all are ONE,  we are derived from ONE and finally goes to that ONE.  Hurting Jesus wont do them any good,  it will only effect them. Jesus understands this and that is the reason why he is asking forgiveness  because he knows their mistake is also his mistake. Forgiving them is like forgiving yourself.Everyone is a part of his Father. His soul has fully realized why it has come in that human form. He was born to guide people and when people around him cannot understand him he accepts what is given to him and asks forgiveness for everyone.</p>
+    <p class="mb-4">2. "Truly, I say to you, today you will be with me in paradise."</p>
+    <p class="mb-4">It is told Jesus is speking these words to 2 robbers standing beside him. Jesus knows its time for him to leave his body and begin his journey to the spiritual world. That is what he meant by paradise. It might be not heaven he meant (because there is no thing like heaven or hell) but the spiritual state attained after leaving the body,  becoming the soul itself. In that state you devoid all human feelings,  your only feeling becomes peace and that is of course a state of paradise. He wishes his fellow people who realizes him for what he is and who does not that all will be with him when he becomes his soul. Jesus is wishing that other souls attain the same state he is going to attain after death - A state of paradise.</p>
+    <p class="mb-4">3. Jesus said to his mother "Women, this is your son. " Then he said to his disciples "This is your mother ".</p>
+    <p class="mb-4">Here Jesus is calling his mother 'women', what is understood here is Jesus is not speaking these words but his soul is. His soul is telling his mother to see everyone as her son and asking his friends to see his mother as their own mother.Jesus doesn't want his mother to be sad seeing his situation. To make her happy he is saying that she wont miss her son because everyone is her son and she is mother to everyone. Those are the words of positiveness and comfort even when his physical suffering.</p>
+    <p class="mb-4">4."My god,  my god why have you forsaken me ".</p>
+    <p class="mb-4">Its the pain indulged making Jesus speak out these words. Here we can see him speaking words that he is feeling. His human body is inflicted with pain and at that moment he is thinking completely from human point of view. Even then his feelings are of Love ,  he is never punishing or angry at anyone who is the reason behind his pain, he is never afraid of death,  all he is doing is asking his father whether he has forgot him. His pain is being indicated and understood from these words.</p>
+    <p class="mb-4">5. "I Thirst "</p>
+    <p class="mb-4">It is again human expression of his physical sufferings. The wounds inflicted upon him is now scourging, the crowning of thorns, pinning on cross especially after 3 hour walk from Jerusalem to Golgotha , he is speaking these words. His pain is unimaginable from these words. Jesus thirsts in spiritual level also. His thirst for love when he is not getting anything from around him,  not even from his father who has forsaken him for a humanity that doesn't understand his words.</p>
+    <p class="mb-4">6. "Father, into your hands i commend my spirits"</p>
+    <p class="mb-4">He is speaking these words just before he dies. He is handing over his spirit,  his soul to his father. His soul has done everything that he has come for only with love. Even then the people could not understand him. His crucification was what he got.</p>
+    <p class="mb-4">Today his words are being interpreted in many ways. There is a religion in his name. He never might have wanted that. Actually he never saw what was coming in future because no soul is given the power to know the future. All he wanted was everyone to understand we all come from one and there is no use of living in pain or hurting others. Jesus is a real master and i respect him for what he is. The basis of Christianity should be his ways not him.</p>
+    <p class="mb-4">#Ohmshanthi</p>
+            <div class="mt-6 flex flex-wrap gap-2">
+            <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#purpose</span>
+    <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#direction</span>
+    <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#lettinggo</span>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <!-- Modal: Hippieness -Our Culture. -->
+    <div id="journal22" class="journal-modal-overlay">
+        <div class="journal-modal-content">
+        <button class="journal-modal-close" onclick="closeJournalModal()">&times;</button>
+        <h2 class="text-2xl md:text-3xl font-bold mb-2 font-serif">Hippieness -Our Culture.</h2>
+        <p class="journal-modal-date">Wednesday, 27 January 2016</p>
+        <div class="journal-modal-body">
+            <p class="mb-4">**</p>
+    <p class="mb-4">Yesterday was a wonderful day. January 26. The day my soul came to this human form. Now when i look backward i feel everything was a drama to make me learn,  remember and recollect from the amnesia we are having coming to this lifetime. Experience i had taught me the real purpose of my life. I felt in this realm of relativity (good and bad,  do and dont,  he and she) it was necessary for me to hold on to my experiences instead of following what was happening in front of me. Each experience  and every person in my life,  was given for me to learn from them-what their experience taught them. From that learning i understood everyone is whole within,  everyone is doing their role,  realizing it or not. Everything is a part of the whole which is whole by itself. Our outside vessel may vary but what exist within remains all the same.</p>
+    <p class="mb-4">I have been asked why do some people have greater talents while some don't?</p>
+    <p class="mb-4">Its our perspective that is wrong ryt! Who told someone have greater or lesser talent. Again- great and less -the two polarities in the realm of relativity our society created to LIVE in the drama instead of PLAYING the drama. Thinking from this realm make it difficult to see what talent we are given. Only way i found was leave this reality behind and go into a reality where i could feel that oneness,  where my soul could shine in full glory,  where i could understand my Soul, Find  What it want and why it became Sudhin.  Everyone is blessed with greater talents equally.  Learning what you have is all that which matters.   Finding the greatest in it,  living in it with love and becoming positive is the only meaning of our living.  Embrace any feeling you get and move on. Life is always flowing like a river. All we have to do is move with the flow. Its our thoughts that makes it difficult for us to see the flow while living the drama. So remove the thoughts completely,  let your soul speak for you. Let your soul choose for you. Then it becomes easy to move with the flow.  While flowing you have the power to choose what you want,  how you want your soul to live and the rest your soul will do. It will choose the best reality from which it can experiment this human form to see how shining it can be. Its always the path of love and happiness.  Then our only language becomes Love, Our only feeling becomes peace , our only vibe will be positive.</p>
+    <p class="mb-4">But still we are all Humans?</p>
+    <p class="mb-4">Yes, that makes the drama more interesting. I do move away from the path playing this drama but what makes me going is the glory i find, happiness i get once i get back to the flow. It doesn't matter how much time I go off the path but the little time i spent becoming my Self is enough for me to believe in my reality.</p>
+    <p class="mb-4">The thought,  the feeling of oneness  is the strength we are given to utilise. I experienced  the greatest gifts. When words were put into experience everything became so clear.</p>
+    <p class="mb-4">First Unconditional Love - Every soul can understand love. It doesn't come with limitations,  with conditions,  it is always infinite. Its human nature to give love conditions and limitations. The reason is expectations. Love given without expectations is the only pure love that exists in Us. Its Something that makes us Complete, Linked to the Creation itself.</p>
+    <p class="mb-4">Second Unlimited potential - The potential we are given to change any situation into positive and wonderful. The entire perspective of viewing is in our hands. We define the way we want to view the world.  Realizing these gifts our soul will shine in full glory making everything around it  positive. Nature will bless you with miracles. Your soul will bring you  people who can rhyme with your vibe, everything you want  to let you stay with that reality.</p>
+    <p class="mb-4">My soul is speaking these words. I understood All it takes is trust and faith in the path we are moving. No one can fill you with answers. But everyone can give you dots that can connect to the answer.  So listen to everyone with open mind,  the right vibes will definitely  connect. Observe everyone and learn from everyone. Because there is no way you can experience what others experienced. Only thing you can do is hear from them,  assist them and have trust in them.</p>
+    <p class="mb-4">This society is filled up with people who defines happiness instead with money. Money became their only motive. And look what it has brought on us. People are blind to see what is happening in front of them. Money has become a  barrier that limits our flow,  brings the feeling of fear,  inequality and pulls us back to the realm of relativity. The power that can be brought by love is redefined as the power that can be brought with money. Money itself created the two negative polarities -Rich and Poor. This much negative energy the society has given to itself,  nature is forced to keep the balance - One last try.</p>
+    <p class="mb-4">We Are Hippies. We do not define ourselves from the way we look but with the vibes we connect. We have only one common language Love. Our minds are always open, so together we can make everything around us positive. Together we will love and heal any soul that needs help. I realized the impact of money on this society and i understood its not money that matters but the happiness i can buy with the money i have,  that makes my soul happy. For that becoming an engineer is the best way I found my soul is happy with and to show the society what money can actually do. Today Society might see my views mad, they might tell i have little experience,  but the day will come when i will tell them no matter what they think,  i will always hold onto my reality,  experiencing it the way how my soul wants. Each moment My experience will grow and will teach me how wonderful this realm of spirituality is. With this i will assist and help any soul that i meet.</p>
+    <p class="mb-4">I am an Humble student of my Destiny.</p>
+    <p class="mb-4">My first step of achieving my dream of becoming an engineer - Masters in Germany - is now at my door step. This is a decision i am taking with happiness because my soul can experience a new place, a new society where it can shine in full glory and learn everything it wants. Nothing can stop the flow and it makes everything around wonderful.  Let all your good vibes be with me. All of you have helped me to connect my dots. And my soul is really grateful for that.</p>
+            <div class="mt-6 flex flex-wrap gap-2">
+            <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#consciousness</span>
+    <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#evolution</span>
+    <span class="journal-tag inline-block px-3 py-1 bg-purple-50 text-purple-600 rounded-full text-xs">#oneness</span>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <!-- Modal: **Date:** Wednesday, 27 January 2016 -->
+    <div id="journal23" class="journal-modal-overlay">
+        <div class="journal-modal-content">
+        <button class="journal-modal-close" onclick="closeJournalModal()">&times;</button>
+        <h2 class="text-2xl md:text-3xl font-bold mb-2 font-serif">**Date:** Wednesday, 27 January 2016</h2>
+        <p class="journal-modal-date">Wednesday, 27 January 2016</p>
+        <div class="journal-modal-body">
+            <p class="mb-4">** ove_i believe is a pure energy that can give us happiness. That is the only language the soul can understand. How can love,  this energy differentiate between boy and female, friend and best friend, family and society, girl friend and lover?  That's human tendency to see things through dual eyes. These classifications of love were only made to conditional love, to limit it. But love cannot be limited. It is infinite and unconditional. Few days back my father told me that he got a marriage proposal for me from his friend . Marriage_ Why do we need it?  Is it to have a family. But we do have a family now. This world is our family. Then why do we need to create another family. I find the concept of marriage in my society so wrong. Marriage leads to possessiveness because for some people marriage completes them. But when are we incomplete. We are always complete within. Marriage leads to adjustments_ but why do we need to adjust. Once we find the path we are travelling, why do we have to adjust our desires for someone. Marriage should let both person live independently, achieve their personal goals. It should not limit love moreover it should help to spread love. It should not induce fear rather it should let their soul live in full glory, the way it want. It should not create a boundary instead it should open every boundaries. But moreover why is marriage needed. Love is enough riet.</p>
+    <p class="mb-4">If love can make us happy, then why limit it with marriage. I believe any person who can rhyme with our vibe is our soulmate. And this world is given to us to understand ourselves and everyone around us to check who can connect with our vibe. Soulmate need not to be a single person, it can be anyone and everyone. Every person is spiritual one way or other. Anyone who has understood his or her soul and the path path the soul is travelling is a spiritual person. But today spirituality is a business. It is used  as a tool to make money, fame and wealth. This is the reason why society see spirituality as an extreme case only achieved by some people. This pattern should be broken. From what i see spirituality should be a person lifestyle. When I could see a soul instead of a body,  The energy i radiate becomes love. Every soul understands Love but it depends on how much materialistic they are. When a person concentrates more on his body and emotions then the soul cannot radiate the energy it want. Because there is another real problem maker. The opposite polarity of Love- the  Fear.  We have been build up in a way that our mind attracts fear more than Love.</p>
+    <p class="mb-4">Let me tell you a story to explain this. One day i was travelling to my college in a private bus. From one stop, A woman and her 9 year old boy entered the bus. There were lot of vacant seats in the bus. The boy ran to the window seat while his mother was sitting away from the window in the ladies seat. Mother called the boy and made him sit in her lap. The boy was askimg what was the probl sittong near that wimdow. The woman told him that he will get infection from the dust sittimg near the window. All she did was make him feel comfortable not sitting there. I was watching everythimg amd suddemtly something striked me. Looking from a spirotual basis, the boys soul was happy seeing  outside througj the window and needed to explore more. That is the reaosn why the boy went to the wimdow seat. Soul was radiatimg energu of love to the nature. When the boys mother told him not to go there and the reason,  she did nothing but gave out the energy of fear to the boy. The boys soul attracted it,  now what happened is energy which was love converted to energy that is fear. This is just one example. Now just look back to the way we were grown. We were always in this circle of Fear, in one situation or other. So our mind was programmed to attract fear more than love. That is the reason when we take a decision,  the negative thoughts fill us more, than the desire of achieving that goal. Fear is a real negative vibe giver. Only through practice can we change it. I find it difficult to give out love always, but i never give up because i have faith that only this practise can keep in the right track. And the feeling that i am never alone pushes me forward. So if marriage keeps me away from my track i will avoid it. Because this life is given to me to prove something, to experiment with my life and find out the truth.</p>
+    <p class="mb-4">You only need Love to be happy. Expectations make Love possessiveness. Possessiveness will only lead to sadness. So Love without expecting, and Live without Fear. Know your soul and radiate Positive vibes. Law of attraction always work.</p>
+    <p class="mb-4">Ohm shanthi.</p>
+    <p class="mb-4">Does everything that is happening, the part of a perfect divine plan or do we have a free will?</p>
+    <p class="mb-4">Recently i came across this post in facebook. This made me thinking. I believe to the deepest of my self that everything happens when it is meant to be. So there exists a divine plan through which we are going through. But then what is the importance of our freewill?</p>
+    <p class="mb-4">Firstly,  when everything happens as it is meant to be, we do not have control over the things happening to us. The only thing we are in control is the way we respond to things. And this is where our free will plays a role. But the role of freewill is not limited to this. We can also choose what to do, which path to take and most of the things we do in our life, comes from the decisions we make from the choices we have. So is 'deciding' a part of the master plan?  Hmmm, yes when we look from a bigger picture. And to understand that picture we should look through a different perspective.</p>
+    <p class="mb-4">Everything happens as it is meant to be. But what is that 'thing' in every'thing'. Lets assume the 'thing' in measures  of knowledge. The knowledge we receive through the experience we get.  So the divine plan says that you receive knowledge step by step. To be precise, you receive knowledge, when you learn and only when you learn a certain set of things, you get to receive the next set of things. And this learning will take us forward, step by step,  making us evolve. For example, only when we learn the alphabets of a language can we begin to write them, put them together to form words and speak them. This can be seen in everything and also in life. The time we take to learn and the way we choose to learn comes from our free will. This is why, the life gives us a million choices to choose from. Often we find difficulties choosing and making decisions because we go into the fear of thinking,  Am i doing the right thing, Is this really what i want  and so on. But my opinion is, it does'nt matter what we choose, its only necessary that our decision come from love. Any path we choose, we end up learning things or attaining knowledge which is already the part of divine plan.</p>
+    <p class="mb-4">So we do have a free will and there exist a divine plan.</p>
+            <div class="mt-6 flex flex-wrap gap-2">
+            <span class="journal-tag inline-block px-3 py-1 bg-green-50 text-green-600 rounded-full text-xs">#forgiveness</span>
+    <span class="journal-tag inline-block px-3 py-1 bg-green-50 text-green-600 rounded-full text-xs">#truth</span>
+    <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#release</span>
+            </div>
+        </div>
+        </div>
+    </div>
+    
+    <script>
+        // Toggle between homepage and journal page
+        function showJournalPage() {
+            document.getElementById('homepage').classList.add('hidden');
+            document.getElementById('journal-page').classList.remove('hidden');
+            window.scrollTo(0, 0);
+        }
+        
+        function showHomepage() {
+            document.getElementById('journal-page').classList.add('hidden');
+            document.getElementById('homepage').classList.remove('hidden');
+            window.scrollTo(0, 0);
+        }
+        
+        // Journal Modal Functions
+        function openJournalModal(title, date, modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeJournalModal() {
+            const modals = document.querySelectorAll('.journal-modal-overlay');
+            modals.forEach(modal => {
+                modal.classList.remove('active');
+            });
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Close modal when clicking outside content
+        document.querySelectorAll('.journal-modal-overlay').forEach(modal => {
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    closeJournalModal();
+                }
+            });
+        });
+        
+        // Close modal with ESC key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeJournalModal();
+            }
+        });
+        
+        // Add hover effect to journal cards
+        document.querySelectorAll('.journal-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px)';
+                this.style.boxShadow = '0 15px 30px rgba(0, 0, 0, 0.1)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = '';
+                this.style.boxShadow = '';
+            });
+        });
+        
+        // Pagination functionality
+        //document.querySelectorAll('.pagination-link:not(.active)').forEach(link => {
+            //link.addEventListener('click', function() {
+                // In a real app, this would load different journal entries
+                //alert('In a complete implementation, this would load page ' + this.textContent);
+           // });
+       // });
+        
+        // Tag filtering functionality
+        document.querySelectorAll('.journal-tag').forEach(tag => {
+            tag.addEventListener('click', function() {
+                // In a real app, this would filter journal entries
+                alert('Filtering by tag: ' + this.textContent);
+            });
+        });
+    </script>
+<script src="journal-enhancer.js"></script>
+</body>
+</html>
