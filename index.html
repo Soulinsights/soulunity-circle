@@ -1,14 +1,16 @@
 <!DOCTYPE html>
-
 <html lang="en">
-<head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>SoulUnity — A New Way of Living</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
-<style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap');
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   SoulUnity &mdash; A New Way of Living
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+  <style>
+   @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap');
         
         :root {
             --lavender: #d8c4e8;
@@ -683,595 +685,1141 @@
             background: linear-gradient(135deg, rgba(216, 196, 232, 0.3), rgba(196, 232, 248, 0.3));
             backdrop-filter: blur(5px);
         }
-    </style>
-</head>
-<body class="overflow-x-hidden">
-<!-- Navigation -->
-<div class="sticky-nav">
-<nav class="w-full shadow-sm">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="flex justify-between h-16">
-<div class="flex items-center">
-<a class="flex-shrink-0 flex items-center" href="#">
-<i class="fas fa-seedling text-2xl text-purple-400 mr-2"></i>
-<span class="font-bold text-xl font-serif text-gray-700">SoulUnity</span>
-</a>
-</div>
-<div class="hidden md:ml-6 md:flex md:items-center md:space-x-8">
-<a class="nav-link text-gray-700 hover:text-purple-500 px-3 py-2 rounded-md text-sm font-medium" href="#vision">Vision</a>
-<a class="nav-link text-gray-700 hover:text-purple-500 px-3 py-2 rounded-md text-sm font-medium" href="#about">About</a>
-<a class="nav-link text-gray-700 hover:text-purple-500 px-3 py-2 rounded-md text-sm font-medium" href="#wisdom">Wisdom</a>
-<a class="nav-link text-gray-700 hover:text-purple-500 px-3 py-2 rounded-md text-sm font-medium" href="#journal">Journal</a>
-<a class="nav-link text-gray-700 hover:text-purple-500 px-3 py-2 rounded-md text-sm font-medium" href="#roadmap">Roadmap</a>
-<a class="nav-link text-gray-700 hover:text-purple-500 px-3 py-2 rounded-md text-sm font-medium" href="#support">Support</a>
-<a class="nav-link text-gray-700 hover:text-purple-500 px-3 py-2 rounded-md text-sm font-medium" href="#community">Community</a>
-</div>
-<div class="flex items-center md:hidden">
-<button class="mobile-menu-button inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-purple-500 focus:outline-none" type="button">
-<i class="fas fa-bars"></i>
-</button>
-</div>
-</div>
-</div>
-<!-- Mobile menu -->
-<div class="mobile-menu hidden md:hidden bg-white">
-<div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-<a class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-purple-500" href="#vision">Vision</a>
-<a class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-purple-500" href="#about">About</a>
-<a class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-purple-500" href="#wisdom">Wisdom</a>
-<a class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-purple-500" href="#journal">Journal</a>
-<a class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-purple-500" href="#roadmap">Roadmap</a>
-<a class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-purple-500" href="#support">Support</a>
-<a class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-purple-500" href="#community">Community</a>
-</div>
-</div>
-</nav>
-</div>
-<!-- Scroll to top button -->
-<div class="scroll-top">
-<i class="fas fa-arrow-up"></i>
-</div>
-<!-- Hero Section -->
-<section class="hero flex items-center justify-center text-center text-white relative pt-16 hero-bg parallax" id="hero">
-<div class="max-w-4xl px-6 py-20 md:py-32 fade-in scroll-animate">
-<h1 class="text-4xl md:text-6xl font-bold mb-6 font-serif">SoulUnity — A New Way of Living</h1>
-<p class="text-xl md:text-2xl mb-10">A community where life itself is the greatest teacher.</p>
-<div class="flex flex-col sm:flex-row justify-center gap-4">
-<a class="btn-primary px-8 py-3 rounded-full font-medium text-lg inline-block ripple-hover" href="https://instagram.com/soulinsights_" target="_blank">
-<i class="fab fa-instagram mr-2"></i> Join the Tribe
-                </a>
-<button class="btn-secondary px-8 py-3 rounded-full font-medium text-lg inline-block ripple-hover" onclick="openFounderModal()">
-                    Meet Our Founder
-                </button>
-</div>
-</div>
-<div class="absolute bottom-10 left-0 right-0 text-center">
-<a class="text-white animate-bounce inline-block" href="#vision">
-<i class="fas fa-chevron-down text-2xl"></i>
-</a>
-</div>
-</section>
-<!-- Vision & Values Section -->
-<section class="py-20 px-4 vision-bg parallax" id="vision">
-<div class="max-w-6xl mx-auto">
-<h2 class="section-title text-3xl md:text-4xl font-bold mb-16 text-center scroll-animate">Our Vision &amp; Values</h2>
-<p class="text-lg md:text-xl text-center max-w-3xl mx-auto mb-16 scroll-animate">
-                At SoulUnity, we envision a world where authenticity, unconditional love, and self-evolution guide every action. 
+  </style>
+ </head>
+ <body class="overflow-x-hidden">
+  <!-- Navigation -->
+  <div class="sticky-nav">
+   <nav class="w-full shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+     <div class="flex justify-between h-16">
+      <div class="flex items-center">
+       <a class="flex-shrink-0 flex items-center" href="#">
+        <i class="fas fa-seedling text-2xl text-purple-400 mr-2">
+        </i>
+        <span class="font-bold text-xl font-serif text-gray-700">
+         SoulUnity
+        </span>
+       </a>
+      </div>
+      <div class="hidden md:ml-6 md:flex md:items-center md:space-x-8">
+       <a class="nav-link text-gray-700 hover:text-purple-500 px-3 py-2 rounded-md text-sm font-medium" href="#vision">
+        Vision
+       </a>
+       <a class="nav-link text-gray-700 hover:text-purple-500 px-3 py-2 rounded-md text-sm font-medium" href="#about">
+        About
+       </a>
+       <a class="nav-link text-gray-700 hover:text-purple-500 px-3 py-2 rounded-md text-sm font-medium" href="#wisdom">
+        Wisdom
+       </a>
+       <a class="nav-link text-gray-700 hover:text-purple-500 px-3 py-2 rounded-md text-sm font-medium" href="#journal">
+        Journal
+       </a>
+       <a class="nav-link text-gray-700 hover:text-purple-500 px-3 py-2 rounded-md text-sm font-medium" href="#roadmap">
+        Roadmap
+       </a>
+       <a class="nav-link text-gray-700 hover:text-purple-500 px-3 py-2 rounded-md text-sm font-medium" href="#support">
+        Support
+       </a>
+       <a class="nav-link text-gray-700 hover:text-purple-500 px-3 py-2 rounded-md text-sm font-medium" href="#community">
+        Community
+       </a>
+      </div>
+      <div class="flex items-center md:hidden">
+       <button class="mobile-menu-button inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-purple-500 focus:outline-none" type="button">
+        <i class="fas fa-bars">
+        </i>
+       </button>
+      </div>
+     </div>
+    </div>
+    <!-- Mobile menu -->
+    <div class="mobile-menu hidden md:hidden bg-white">
+     <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+      <a class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-purple-500" href="#vision">
+       Vision
+      </a>
+      <a class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-purple-500" href="#about">
+       About
+      </a>
+      <a class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-purple-500" href="#wisdom">
+       Wisdom
+      </a>
+      <a class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-purple-500" href="#journal">
+       Journal
+      </a>
+      <a class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-purple-500" href="#roadmap">
+       Roadmap
+      </a>
+      <a class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-purple-500" href="#support">
+       Support
+      </a>
+      <a class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-purple-500" href="#community">
+       Community
+      </a>
+     </div>
+    </div>
+   </nav>
+  </div>
+  <!-- Scroll to top button -->
+  <div class="scroll-top">
+   <i class="fas fa-arrow-up">
+   </i>
+  </div>
+  <!-- Hero Section -->
+  <section class="hero flex items-center justify-center text-center text-white relative pt-16 hero-bg parallax" id="hero">
+   <div class="max-w-4xl px-6 py-20 md:py-32 fade-in scroll-animate">
+    <h1 class="text-4xl md:text-6xl font-bold mb-6 font-serif">
+     SoulUnity &mdash; A New Way of Living
+    </h1>
+    <p class="text-xl md:text-2xl mb-10">
+     A community where life itself is the greatest teacher.
+    </p>
+    <div class="flex flex-col sm:flex-row justify-center gap-4">
+     <a class="btn-primary px-8 py-3 rounded-full font-medium text-lg inline-block ripple-hover" href="https://instagram.com/soulinsights_" target="_blank">
+      <i class="fab fa-instagram mr-2">
+      </i>
+      Join the Tribe
+     </a>
+     <button class="btn-secondary px-8 py-3 rounded-full font-medium text-lg inline-block ripple-hover" onclick="openFounderModal()">
+      Meet Our Founder
+     </button>
+    </div>
+   </div>
+   <div class="absolute bottom-10 left-0 right-0 text-center">
+    <a class="text-white animate-bounce inline-block" href="#vision">
+     <i class="fas fa-chevron-down text-2xl">
+     </i>
+    </a>
+   </div>
+  </section>
+  <!-- Vision & Values Section -->
+  <section class="py-20 px-4 vision-bg parallax" id="vision">
+   <div class="max-w-6xl mx-auto">
+    <h2 class="section-title text-3xl md:text-4xl font-bold mb-16 text-center scroll-animate">
+     Our Vision &amp; Values
+    </h2>
+    <p class="text-lg md:text-xl text-center max-w-3xl mx-auto mb-16 scroll-animate">
+     At SoulUnity, we envision a world where authenticity, unconditional love, and self-evolution guide every action. 
                 We're building a self-sustaining, spiritually-grounded community beyond nationality, religion, and societal constructs.
-            </p>
-<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 md:gap-10">
-<!-- Value 1 - Authenticity -->
-<div class="value-card p-4 glow-hover scroll-animate" onclick="openModal('Authenticity', 'fas fa-user-check', 'Your truth is your highest gift to the world. Live it fearlessly. Shine it without shame.', '13.png')">
-<div class="w-24 h-24 rounded-full flex items-center justify-center bg-gradient-to-br from-white/70 to-purple-100/30 shadow-lg ring-1 ring-white/30 ring-offset-2 ring-offset-white backdrop-blur-md transition-transform hover:scale-105" style="background-image: url('background-size: cover; background-position: center'); background-size: cover; background-position: center;">
-<i class="fas fa-user-check text-2xl md:text-3xl text-purple-500"></i>
-</div>
-<h3 class="font-bold text-lg text-center">Authenticity</h3>
-</div>
-<!-- Value 2 - Independence -->
-<div class="value-card p-4 glow-hover scroll-animate" onclick="openModal('Independence', 'fas fa-feather-alt', 'Freedom blooms from within. True independence is knowing that your soul is already whole.', '14.png')">
-<div class="w-24 h-24 rounded-full flex items-center justify-center bg-gradient-to-br from-white/70 to-blue-100/30 shadow-lg ring-1 ring-white/30 ring-offset-2 ring-offset-white backdrop-blur-md transition-transform hover:scale-105" style="background-image: url('background-size: cover; background-position: center'); background-size: cover; background-position: center;">
-<i class="fas fa-feather-alt text-2xl md:text-3xl text-blue-400"></i>
-</div>
-<h3 class="font-bold text-lg text-center">Independence</h3>
-</div>
-<!-- Value 3 - Spirituality -->
-<div class="value-card p-4 glow-hover scroll-animate" onclick="openModal('Spirituality', 'fas fa-spa', 'Spirituality is not an escape — it is the deepest embrace of life\'s mystery and magic.', '12.png')">
-<div class="w-24 h-24 rounded-full flex items-center justify-center bg-gradient-to-br from-white/70 to-pink-100/30 shadow-lg ring-1 ring-white/30 ring-offset-2 ring-offset-white backdrop-blur-md transition-transform hover:scale-105" style="background-image: url('background-size: cover; background-position: center'); background-size: cover; background-position: center;">
-<i class="fas fa-spa text-2xl md:text-3xl text-pink-400"></i>
-</div>
-<h3 class="font-bold text-lg text-center">Spirituality</h3>
-</div>
-<!-- Value 4 - Community -->
-<div class="value-card p-4 glow-hover scroll-animate" onclick="openModal('Community', 'fas fa-users', 'We are many bodies, but one breath. Unity is remembering that we are reflections of each other.', '15.png')">
-<div class="w-24 h-24 rounded-full flex items-center justify-center bg-gradient-to-br from-white/70 to-yellow-100/30 shadow-lg ring-1 ring-white/30 ring-offset-2 ring-offset-white backdrop-blur-md transition-transform hover:scale-105" style="background-image: url('background-size: cover; background-position: center'); background-size: cover; background-position: center;">
-<i class="fas fa-users text-2xl md:text-3xl text-yellow-500"></i>
-</div>
-<h3 class="font-bold text-lg text-center">Community</h3>
-</div>
-<!-- Value 5 - Evolution -->
-<div class="value-card p-4 glow-hover scroll-animate" onclick="openModal('Evolution', 'fas fa-seedling', 'Growth is sacred. Every step inward is a step toward the infinite.', '10.png')">
-<div class="w-24 h-24 rounded-full flex items-center justify-center bg-gradient-to-br from-white/70 to-green-100/30 shadow-lg ring-1 ring-white/30 ring-offset-2 ring-offset-white backdrop-blur-md transition-transform hover:scale-105" style="background-image: url('background-size: cover; background-position: center'); background-size: cover; background-position: center;">
-<i class="fas fa-seedling text-2xl md:text-3xl text-green-500"></i>
-</div>
-<h3 class="font-bold text-lg text-center">Evolution</h3>
-</div>
-<!-- Value 6 - Love & Light -->
-<div class="value-card p-4 glow-hover scroll-animate" onclick="openModal('Love &amp; Light', 'fas fa-heart', 'Unconditional love and inner light are not things we find — they are who we are when we remember ourselves.', '16.png')">
-<div class="w-24 h-24 rounded-full flex items-center justify-center bg-gradient-to-br from-white/70 to-red-100/30 shadow-lg ring-1 ring-white/30 ring-offset-2 ring-offset-white backdrop-blur-md transition-transform hover:scale-105" style="background-image: url('background-size: cover; background-position: center'); background-size: cover; background-position: center;">
-<i class="fas fa-heart text-2xl md:text-3xl text-red-400"></i>
-</div>
-<h3 class="font-bold text-lg text-center">Love &amp; Light</h3>
-</div>
-</div>
-</div>
-</section>
-<!-- Wisdom Drops Section -->
-<section class="py-20 px-4 bg-gradient-to-r from-purple-50 to-blue-50" id="wisdom">
-<div class="max-w-4xl mx-auto text-center">
-<h2 class="section-title text-3xl md:text-4xl font-bold mb-6 scroll-animate">Today's Soul Message</h2>
-<div class="bg-white bg-opacity-70 rounded-lg p-8 mb-8 backdrop-filter backdrop-blur-sm scroll-animate">
-<i class="fas fa-quote-left text-4xl text-purple-300 mb-4"></i>
-<p class="wisdom-text text-2xl md:text-3xl font-medium text-purple-800 mb-6" id="wisdomMessage">"You are the light you seek."</p>
-<button class="btn-primary px-6 py-2 rounded-full font-medium ripple-hover" onclick="changeWisdom()">
-<i class="fas fa-sync-alt mr-2"></i> New Message
-                </button>
-</div>
-<!-- Quote Carousel -->
-<div class="relative h-64 overflow-hidden rounded-lg bg-white bg-opacity-70 backdrop-filter backdrop-blur-sm scroll-animate">
-<div class="quote-slide active p-8">
-<i class="fas fa-quote-left text-3xl text-purple-300 mb-4"></i>
-<p class="text-xl md:text-2xl font-medium text-gray-700 mb-4">"The wound is the place where the Light enters you."</p>
-<p class="text-purple-500">— Rumi</p>
-</div>
-<div class="quote-slide p-8">
-<i class="fas fa-quote-left text-3xl text-purple-300 mb-4"></i>
-<p class="text-xl md:text-2xl font-medium text-gray-700 mb-4">"Nature does not hurry, yet everything is accomplished."</p>
-<p class="text-purple-500">— Lao Tzu</p>
-</div>
-<div class="quote-slide p-8">
-<i class="fas fa-quote-left text-3xl text-purple-300 mb-4"></i>
-<p class="text-xl md:text-2xl font-medium text-gray-700 mb-4">"You are not a drop in the ocean. You are the entire ocean in a drop."</p>
-<p class="text-purple-500">— SoulUnity</p>
-</div>
-<button class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-70 rounded-full w-10 h-10 flex items-center justify-center text-purple-500 hover:bg-purple-100" onclick="prevQuote()">
-<i class="fas fa-chevron-left"></i>
-</button>
-<button class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-70 rounded-full w-10 h-10 flex items-center justify-center text-purple-500 hover:bg-purple-100" onclick="nextQuote()">
-<i class="fas fa-chevron-right"></i>
-</button>
-</div>
-</div>
-</section>
-<!-- Main Content (Homepage with Journal Preview) -->
-<div id="homepage">
-<!-- Sacred Journal Section -->
-<section class="py-20 px-4 journal-section-bg" id="journal">
-<div class="max-w-6xl mx-auto">
-<h2 class="text-3xl md:text-4xl font-bold mb-4 text-center font-serif">Sacred Journal</h2>
-<p class="text-lg text-center max-w-2xl mx-auto mb-12 text-gray-600">Reflections from our spiritual journey</p>
-<div class="grid md:grid-cols-2 gap-8">
-<!-- Journal Entry 1 -->
-<div class="journal-card p-6 cursor-pointer" onclick="openJournalModal('My LiFe', 'Sunday, 4 October 2015', 'journal10')">
-<div class="flex items-center mb-4">
-<div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center mr-4 journal-card-icon">
-<i class="fas fa-pen-fancy text-xl text-purple-500"></i>
-</div>
-<div>
-<h3 class="font-bold text-lg">My LiFe</h3>
-<p class="text-sm text-gray-500">4 October 2015 • Kerala</p>
-</div>
-</div>
-<p class="text-gray-700 mb-4">I am just a normal kid who once believed , logic and science was the only world to explore. But my experience taught me ...</p>
-<div class="text-right">
-<span class="inline-block px-4 py-2 bg-purple-50 text-purple-600 rounded-full text-sm font-medium">Read More →</span>
-</div>
-</div>
-<!-- Journal Entry 2 -->
-<div class="journal-card p-6 cursor-pointer" onclick="openJournalModal('BtEch.', 'Tuesday, 6 October 2015', 'journal11')">
-<div class="flex items-center mb-4">
-<div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-4 journal-card-icon">
-<i class="fas fa-mountain text-xl text-blue-500"></i>
-</div>
-<div>
-<h3 class="font-bold text-lg">BtEch.</h3>
-<p class="text-sm text-gray-500">6 October 2015• Kerala</p>
-</div>
-</div>
-<p class="text-gray-700 mb-4">I joined Amrita School of Engineering in the year 2011 to do my undergraduate in mechanical engineering. I met the most...</p>
-<div class="text-right">
-<span class="inline-block px-4 py-2 bg-blue-50 text-blue-600 rounded-full text-sm font-medium">Read More →</span>
-</div>
-</div>
-<!-- Journal Entry 3 -->
-<div class="journal-card p-6 cursor-pointer" onclick="openJournalModal('MtEch', 'Thursday, 8 October 2015', 'journal12')">
-<div class="flex items-center mb-4">
-<div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center mr-4 journal-card-icon">
-<i class="fas fa-seedling text-xl text-green-500"></i>
-</div>
-<div>
-<h3 class="font-bold text-lg">MTech.</h3>
-<p class="text-sm text-gray-500">8 October 2015• Kerala</p>
-</div>
-</div>
-<p class="text-gray-700 mb-4">Gate qualified , I joined GEC-Barton Hill(BH) on 3rd Aug 2015. I was not sure what awaited me there but it was during my...</p>
-<div class="text-right">
-<span class="inline-block px-4 py-2 bg-green-50 text-green-600 rounded-full text-sm font-medium">Read More →</span>
-</div>
-</div>
-<!-- Journal Entry 4 -->
-<div class="journal-card p-6 cursor-pointer" onclick="openJournalModal('Trip To RameSwaRam', 'Saturday, 10 October 2015', 'journal13')">
-<div class="flex items-center mb-4">
-<div class="w-12 h-12 rounded-full bg-yellow-100 flex items-center justify-center mr-4 journal-card-icon">
-<i class="fas fa-om text-xl text-yellow-500"></i>
-</div>
-<div>
-<h3 class="font-bold text-lg">Trip To Rameswaram/h3&gt;
-                                <p class="text-sm text-gray-500">10 October 2015 • Rameswaram</p>
-</h3></div>
-</div>
-<p class="text-gray-700 mb-4">The whole trip to Rameswaram I Wrote my thoughts in a book. This journey is what made me write this blog. This Post incl..</p>
-<div class="text-right">
-<span class="inline-block px-4 py-2 bg-yellow-50 text-yellow-600 rounded-full text-sm font-medium">Read More →</span>
-</div>
-</div>
-</div>
-<div class="text-center mt-16">
-<a class="inline-block px-8 py-3 rounded-full font-medium text-lg bg-gradient-to-r from-purple-400 to-blue-400 text-white hover:from-purple-500 hover:to-blue-500 transition-all duration-300 shadow-lg hover:shadow-xl" href="journal4_enhanced.html">
-                        See All Journal Entries
-                    </a>
-</div>
-</div>
-</section>
-</div>
-<!-- Journal Modal Templates -->
-<div class="journal-modal-overlay" id="journal10">
-<div class="journal-modal-content">
-<button class="journal-modal-close" onclick="closeJournalModal()">×</button>
-<h2 class="text-2xl md:text-3xl font-bold mb-2 font-serif">My LiFe</h2>
-<p class="journal-modal-date">Sunday, 4 October 2015</p>
-<div class="journal-modal-body">
-<p class="mb-4">I am just a normal kid who once believed , logic and science was the only world to explore. But my experience taught me spirituality, inside Us ,is a new whole word to EXPlore.</p>
-<p class="mb-4">**Humans are Wonderful creatures . We have the power to THINk that no other creatures have. We all know it yet we like to stay limited to where we think. **</p>
-<p class="mb-4">Firstly, What do I mean by being spiritual ??</p>
-<p class="mb-4">Being spiritual is nothing but only a stage in which you see yourself as an observer . You see the World through the eyes of your SoUl.Through those eyes , You see the Experience of our Body. Learn from that who It actually Is. And finally attain state of enlightment.</p>
-<p class="mb-4">What I define EnliGhtment.?</p>
-<p class="mb-4">It is just a realization of the TrUth. We are no different - But HiM itself born just To experience HIM.</p>
-<p class="mb-4">In each stage You Grow more. Your growth never Ends.</p>
-<p class="mb-4">Beginning from</p>
-<p class="mb-4">Infant , then to a child , then to an adult and finally to spiritual.</p>
-<p class="mb-4">We all know GroWth depends on TiMe.</p>
-<p class="mb-4">But what is TiME??</p>
-<p class="mb-4">Is it our Hours or Minutes or Age or Year or Decades  or Lifetimes We travel.</p>
-<p class="mb-4">**Nothing actually. **</p>
-<p class="mb-4">**Time is only a measure of how much knowledge we aquire. **</p>
-<p class="mb-4">**How do we acquire it ? - Through our experience in HuMan Form. **</p>
-<p class="mb-4">Then how can people say , only after being old or only when you live a life followed by the guidelines of the society - Marriage , Children and Family , You ATTain the stage of SpiRituality.</p>
-<p class="mb-4">You don't need to go through all these guidelines to reach that spiritual state. It will come to you depending on Your previous Learnings.</p>
-<p class="mb-4">But that doesn't mean We DoNt have to go through those when we Attain Spirituality. It depends because Our SoUl chose , what you should be and what to encounter , to understand its-SelF in human Form. All it need is to know What it Is.That is what I say to people who think I will change with Time , I am sure Time can only Teach me More. Your logical minds may change with time but once spiritual you will never change , only evolve.</p>
-<p class="mb-4">In each lifetime we ( I mean our SoUL ) Experience  cycles of events of birth and death through which we LeARn , We acquire Knowledge.</p>
-<p class="mb-4">**Its progress only depends on what you learned in one lifetime. **</p>
-<p class="mb-4">So what is wrong if I had spiritual thoughts NOW?</p>
-<p class="mb-4">I never fear that thought because. i beleive Nothing happens by coincidence Just embrace it. You will believe IT.</p>
-<p class="mb-4">**What I am going to tell here is completely based on my experience ,precisely my point of view. I never say this is the truth because your truth depends on the reality you live , Views you have. **</p>
-<p class="mb-4">**We create our realities with our views and We live in it. **</p>
-<p class="mb-4">We Choose things That suits our reality - we choose What defines RIghT and WroNg.</p>
-<p class="mb-4">**What Defines  Happiness and Sadness. **</p>
-<p class="mb-4">Thats what we all do ryt!</p>
-<p class="mb-4">**Then who gets to decide which reality is right or wrong. **</p>
-<p class="mb-4">**Every Path We choose is Perfect for OuR SoUl in the time NoW. **</p>
-<p class="mb-4">What I learned from my Reality  , My views is that - there is no Right or Wrong. There is no Happiness or Sadness . There is no Do or Don'ts.</p>
-<p class="mb-4">We have the Power to choose Between things. For SoUl has only One language -Love and one feeling - Peace.</p>
-<p class="mb-4">By coosing what your Soul Wants You become Spiritual. You do things What your Soul Wants. You find Answers that Soul Wish. You see Through your Soul.</p>
-<p class="mb-4">By Being Spiritual ,never hinders what you are born to acheieve but will Just make Your World more Divine.</p>
-<p class="mb-4">**What I am going to tell You is completely my view point and I what I Learned. **</p>
-<p class="mb-4">**And why I am saying this is Not to change your viewpoint , but just to make you think WHAT IF there is another reality...? **</p>
-<p class="mb-4">**That 'What If ' is the beginning. Once you Begin to think this , then Your SouL will Find all the answers it seek. **</p>
-<p class="mb-4">**It will be laid in front of your naked eye , all you need is to just observe and understand. **</p>
-<p class="mb-4">Each moment GiVes DoTS for you to join . You need not join all the dots to get an answer , but you will definitely connect the DOTs you need. You need not to do anything   just Understand when it Connects .</p>
-<p class="mb-4">**My first DOT was when i was in my tenth. I was not a brilliant student but performed averagely. It was my board exam results. I was worried about them but to my surprise I got 88.4% of marks. **</p>
-<p class="mb-4">**I thought it was a some coincidence and I was happy. **</p>
-<p class="mb-4">**I joined My highschool in IES Public School , Trichur. I had an habit of Forgetting My past. I realized this Only after JoinIng my Btech , whereby where out people who could remember even their childhood days. **</p>
-<p class="mb-4">I seriously remembered Nothing . Then came  my next DOT .It appeared during the plus two Results, I was shocked by my marks - 90.4% . I thought I must be very lucky.</p>
-<p class="mb-4">I was not much of a GoD worshipper NoR supported any spiritual activities. But I prayed occasionally during times I need , just like every one. Then gradually even that stopped. But I believed in my luck. And wondered how far this luck will go On.</p>
-<p class="mb-4">It was from my college life I got more DOTS to follow and finally now I write this Blog connecting those Dots.</p>
-<p class="mb-4">I aM Happy With the Answer I Got. I know What my Soul wants and What I will Be.</p>
-<p class="mb-4">**My journey Is Going To Begin and I Am Waiting. **</p>
-<p class="mb-4">You may IgnoRe what I Say , but I am sure Your Soul Will be Happy.</p>
-<p class="mb-4">That will make Me HappY.</p>
-<div class="mt-6 flex flex-wrap gap-2">
-<span class="journal-tag inline-block px-3 py-1 bg-green-50 text-green-600 rounded-full text-xs">#reflection</span>
-<span class="journal-tag inline-block px-3 py-1 bg-purple-50 text-purple-600 rounded-full text-xs">#spirituality</span>
-</div>
-</div>
-</div>
-</div>
-<div class="journal-modal-overlay" id="journal11">
-<div class="journal-modal-content">
-<button class="journal-modal-close" onclick="closeJournalModal()">×</button>
-<h2 class="text-2xl md:text-3xl font-bold mb-2 font-serif">BtEch.</h2>
-<p class="journal-modal-date">Tuesday, 6 October 2015</p>
-<div class="journal-modal-body">
-<p class="mb-4">I joined  Amrita School of Engineering in the year 2011 to do my undergraduate in mechanical engineering. I met the most wonderful friends in my life who is responsible and has influenced me in many ways , that changed my views at looking the world. Thanks to you guys , you have all given me your knowledge through which I could experience what I was.</p>
-<p class="mb-4">**That is the reason I told you I believed I forgot my past but actually I never did. I just needn't to remember it because everything , everyone I met and will meet ,was going into my experience - to my soul. **</p>
-<p class="mb-4">How can I forget what is in my soul.</p>
-<p class="mb-4">**So how can I forget everyone. I never could . **</p>
-<p class="mb-4">I never did had any ambition or dream before joining this college.But now I do have both. Presently my ambition is to become an successful engineer and my dream to get enlightenment. How I had this thought , thats what I said - stop listening to what others say. Nothing happens by coincidence or accident ,so every thought you have happens for a reason. Just don't leave it .</p>
-<p class="mb-4">My next DOT came during my gate exams. To be honest I copied and qualified the exam , which is considered tough to clear the first time. Again I thought i must be lucky. Then I got placement which I never expected but i would say it came to me as-my next DOT. I know a lot guys get placement but my case was some different. I never thought about the result. It just happened.</p>
-<p class="mb-4">It was only because of those drugs maybe marijuana ,mushroom or acid which showed me the beautiful world of peacefulness. I was filled with it. I felt there are things happening without our control.I thought Do We have any role in it ??</p>
-<p class="mb-4">Then I began connecting those dots.</p>
-<p class="mb-4">** First I thought it was my mind. I started to believe in Mind than logic or brain.I learned how to keep my mind free - from thoughts  and worries. I understood there was no need of anything , because everything happened when it should happen.We have the only role of experiencing. My friends told I would change with time . But I never worried. I knew everything was happening for a reason. **</p>
-<p class="mb-4">Even when I felt crazy , I was surrounded with crazy people who always inspired me and still do. Especially Boss , Myluu , Ayobi...  Thanks a lot guys.</p>
-<p class="mb-4">Even then i Was not able to go to Trance state without a Joint or Trance Music. Later i learned both were just tools to open that window. We never need them to keep it Open. I lost 3 mobile phones during my 3 years in college. Everyone told it was because of my carelessness. But i knew there was something behind  this drama going on.They were my DOT to connect. So i decided not to use mobile phones until i get a reason. Now i now it was for me to understand , all it need is our mind , once you learn to focus it , the rest becomes mere tools , instruments to amplify the result.</p>
-<p class="mb-4">**  And yes I finally  stand finding the naked truth, which i got while connecting the dots. A world where there is no sadness , no worries , no tension , and a way to successful living is possible for everyone just changing your one view. Its up to you to find out but know that i am telling this only because i experienced it and i am sure a lot of people might be experiencing same.**</p>
-<p class="mb-4">**I am writing this only to tell you we all are born with the gift . Never think you are wrong. **</p>
-<p class="mb-4">It was my Mtech life where HE gave me proofs for my belief.</p>
-<p class="mb-4">#Kootala, Kartha , Daman, Sanu , Anoj , Vasu , Ajii , Escoo , Rohith, Karthaa, Akshay-  thanks for hearing whatever i have to say. You all touched my SoUl.</p>
-<div class="mt-6 flex flex-wrap gap-2">
-<span class="journal-tag inline-block px-3 py-1 bg-yellow-50 text-yellow-600 rounded-full text-xs">#studentlife</span>
-<span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#awakening</span>
-<span class="journal-tag inline-block px-3 py-1 bg-green-50 text-green-600 rounded-full text-xs">#reflection</span>
-</div>
-</div>
-</div>
-</div>
-<!-- Modal: MtEch -->
-<div class="journal-modal-overlay" id="journal12">
-<div class="journal-modal-content">
-<button class="journal-modal-close" onclick="closeJournalModal()">×</button>
-<h2 class="text-2xl md:text-3xl font-bold mb-2 font-serif">MtEch</h2>
-<p class="journal-modal-date">Thursday, 8 October 2015</p>
-<div class="journal-modal-body">
-<p class="mb-4">Gate qualified , I joined GEC-Barton Hill(BH) on 3rd Aug 2015. I was not sure what awaited me there but it was during my time here HE gave me proofs and I started to believe. Till this time I believed it was my mind And luck which brought me to this life.</p>
-<p class="mb-4">**It was my first class in BH. We had an open class programme for all Mtech students .The class was taken by Mahadevan Pillai. The things he told actually shocked Me. It was like he read my mind .He told about enlightenment and god. How his life was changed by books he read . And he even told about a book 'Many life Many Masters'- by Brain Weiss. That was my next DOT. **</p>
-<p class="mb-4">Now I understood what waited for me - nothing but answers I always seeked. I stayed with my friend Nidin who had a very religious and spiritual mother. She treated me like her son because everyone was Son of Jesus for her. It was from this home I learned about Christianity and Spirituality. It was from this home my journey of spirituality began. As i reached home after the first class , I was very excited to read the book. I searched over the internet and found the eBook. I downloaded and began reading. It was an interesting book where I learned about after death  , Masters and the truth, our life continues. Our soul travels from one body to another to experience itself. We are immortals. That book really opened my mind. I understood it was not my MInD or luck but masters who were guiding me for me to find the truth ,about myself Or  helping me to connect my DOTS.</p>
-<p class="mb-4">**I was happy but I felt my answers were never complete. I was ready to wait because the book told me -only time will bring you everything , And through knowledge we approach god. Actually this was my first book that I completed reading. I never read novels or fictions. But when I read this book, I felt I was not reading anything new but was just remembering what was hidden in me. I could feel the change happening in me. I was never feared of the change and I accepted it. **</p>
-<p class="mb-4">**Everyone around you guides you in some way or other , help you in the way they never imagine , for our soul to find answers . **</p>
-<p class="mb-4">First it was my professor who told me about the book and then 'Mylat ' who told me about 'Conversation with God' - by Donald Nasch. My next DOT. I downloaded the eBook which I felt was waiting for me to download. And I began reading. Each words of that booked touched my soul. I felt this is what my soul was seeking for. I understood GoD communicates with EverYOne through many methods.</p>
-<p class="mb-4">" The question is not to whom I Talk , But who listens "</p>
-<p class="mb-4">**This quote from that book stayed in my MiND. I understood No one here is born different. Everyone takes different paths. But our Ultimate Checkpoint is The point where we Understand we Are no Different ,But HiM - born in this form just to realize what HE is -Experience his Ultimate gift: Unlimited Potential And Unconditional Love. **</p>
-<p class="mb-4">I learned we are SOuls which live in a 3dimensional world- God The father - God the Son - God the holy Spirit.</p>
-<p class="mb-4">**The path we choose in each lifetime helps us understand HIM better and Faster. Our Soul continues this journey until it Finally Understand Its SElF. **</p>
-<p class="mb-4">** Now I do  believe I don't  need life long meditations to find all answers. All I need to do is ObserVe where this path will TaKe me.**</p>
-<p class="mb-4">**The words which your soul needs , it finds it .Even when you are not doing anything. All are doing this in some way or other. But our views remain limited . You may not find it interesting when you read the books I read , but when you begin the search you will find it in TIME. **</p>
-<p class="mb-4">Where does we get this KnOwledge?</p>
-<p class="mb-4">**And when you find them, Just learn. Once you start learning our progress begins. Everything you find later , will support what you Learned. **</p>
-<p class="mb-4">It is never coincidence or Accident.</p>
-<p class="mb-4">Its for you to find it. We have been living in a reality build up by the society .They define happiness as what suits their reality or what their experience has taught them and expect others , especialy their children , to go with that  reality. They Won't understand it now , but they will ,if not now in any-other lifetime . When our soul leaves this body , what we consider as dead , we are actually evolving. Learning in spiritual state is faster than when we are in a realm of relativity. In physical form it takes time. So when our Soul evolves , after leaving our body it understands whether the path we choose , the views we believed , the reality we made , Is what YoU actually are. When You Have not learned it , Your SoUl  choose what to learn and through which experience you could Understand it , and comes to next life. We are immortals who are born just to experience this cycle of birth and death , just to understand this truth - We Are HiM. And the learning never Ends. All we can do is Learn as much we can , so that we can progress better next lifetime.</p>
-<p class="mb-4">Once your view becomes this, everything that follows will lead you to this path.</p>
-<p class="mb-4">Just don't fear to walk through it.</p>
-<p class="mb-4">All it takes is  trust and listen to what we Feel , What we hear inside US.</p>
-<p class="mb-4">The things I told you now are the things that stayed in my mind , because I needed it NOW. Look how it connects.</p>
-<p class="mb-4">I never thought of writing a book or a blog 2 months back , but now I am sure he is guiding me in each step. So I choose to flow with It.</p>
-<p class="mb-4">The things in the book , I never felt like reading anything new , but like something which was burried in me - beneath the reality society made me to live with. I felt my Soul was in the right way . All I have to do was wait.</p>
-<p class="mb-4">I joined College of Engineering Trivandrum to do Mtech in Propulsion engineering for the spot admission (10 sep 2015). All thanks to Sanu whose one message -</p>
-<p class="mb-4">**" It will give You more exposure "  made me go there and I choose the stream . I had the confidence to face that challenge. And now I think it was for my soul to meet everyone ,Learn from everyone. **</p>
-<p class="mb-4">Johny , Mathew , Melvin , Midhun , Anne - though you blame me I am small , I am sure I know all of you from some other life time. I met you guys to make my base , my reality firm, which would not have happened if i was some where else. This is my great exposure. You guys had the mind to hear my views , and shared every precious experience with me.Know that My soul is evolving at each stage and I grow more and more spiritual each moment. All are in my SoUl and there is no soul I will ever forget for you all taught me what I am. That help is immeasurable.</p>
-<p class="mb-4">**Till now I told you How my views changed because he guided me to believe in him , that - We ARE HIM. Now I will tell you how he started to communicate with me. **</p>
-<p class="mb-4">That was the answer I saw connecting the dots. I was sure of it because NOw all DoTs did connect.</p>
-<p class="mb-4">I was never lucky , nothing was coincidence , all was his bread crumps for me to Follow.</p>
-<p class="mb-4">That is why I told ,all you need is  FAITH , and any one QUestion :</p>
-<p class="mb-4">WHO Am I ?</p>
-<p class="mb-4">What is Reality ?</p>
-<p class="mb-4">What if WE are GOD.......</p>
-<p class="mb-4">**#thanks to kootala , vasu , Nidin , Arun , Anand , Sanu , Mylat , Boss , Ajith , Anoj , Rohith , Ayobi , Happy , Sanjay , Sidharth and everyone who had the mind to listen to me. **</p>
-<p class="mb-4">**All I could see was your souls. **</p>
-<p class="mb-4">**I am HapPY if I was able to connect one of your DoTS. Rest is for you to Join. **</p>
-<p class="mb-4">**You never need to Do anything. **</p>
-<p class="mb-4">It will come to you. Our Father never want US to suffer but just to Realize the TRUtH.</p>
-<p class="mb-4">**   We are Never Different - Just OnE - The great Knowledge - With great GiFTs - Moving through cycles of LiFETiMe , Experiencing AnD Evolving in each STage.**</p>
-<div class="mt-6 flex flex-wrap gap-2">
-<span class="journal-tag inline-block px-3 py-1 bg-yellow-50 text-yellow-600 rounded-full text-xs">#studentlife</span>
-<span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#awakening</span>
-<span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#guidance</span>
-</div>
-</div>
-</div>
-</div>
-<!-- Modal: Trip To RameSwaRam -->
-<div class="journal-modal-overlay" id="journal13">
-<div class="journal-modal-content">
-<button class="journal-modal-close" onclick="closeJournalModal()">×</button>
-<h2 class="text-2xl md:text-3xl font-bold mb-2 font-serif">Trip To RameSwaRam</h2>
-<p class="journal-modal-date">Saturday, 10 October 2015</p>
-<div class="journal-modal-body">
-<p class="mb-4">The whole trip to Rameswaram I Wrote my thoughts in a book. This journey is what made me write this blog. This Post includes What I wrote during that Trip.</p>
-<p class="mb-4">The journey to Rameswaram Begins.</p>
-<p class="mb-4">I do not know the reason why I choose this journey , for all I know now is , my SoUl wishes to experience it.</p>
-<p class="mb-4">"Nothing happens by coincidence or accident in GoDs World"</p>
-<p class="mb-4">Keeping this in mind , I express my deep love to Arvind , who told me about the train , which I am now and also to Melvin , who gave me a head start dropping me in TVM bus-stand.</p>
-<p class="mb-4">" I , YOu and HIM are OnE. We are all part of HiM and finally will MerGe to him "</p>
-<p class="mb-4">I donot know what this trip will bring me But all I know is its worth exploring.</p>
-<p class="mb-4">"FEAR- this is the feeling that seperates Us from the ultimate truth - We are HiM."</p>
-<p class="mb-4">Removing fear is not easy as it says. Expressing LovE is the only way I Found. When you express Love ( Not to someone specific , but to everyone) , there will be no place for fear.</p>
-<p class="mb-4">" Love , Charity , Hope , and Faith"</p>
-<p class="mb-4">These are the four traits we learn in each lifetime. We have to know it much in order to progress faster. I have hope that this journey will bring all that my SouL is seeking for , and I have FaiTh , My Father is Guiding Me - Always.</p>
-<p class="mb-4">Train departed @8:30 from TVM Central.</p>
-<p class="mb-4">" The realm of relativity was created so that I can experience My Self, though it seems ReAl. Only by knowing What I am NoT - You can know - What I Am "</p>
-<p class="mb-4">Experience is what you came here for and out of it were you to create your self. From the beginning of journey I was hoping to complete my Conversations With God during my time in train.But now I think this is an end to that because</p>
-<p class="mb-4">**"If you can tell the World who You are and What you believe without breaking stride or hesitating , you are happy with yourself .There is no reason to continue much further , because you have created a self - Which needs no Improvement " **</p>
-<p class="mb-4">**GOD**</p>
-<p class="mb-4">I believe God is -I am- All That Is. Everything is just an experience and I am ready to face it.</p>
-<p class="mb-4">**ThankYou FATHER , for guiding me.Now I realize it was all you ,  showing me the path , leaving me DOTS . It is true drugs opened the window but thanks for making me understand **</p>
-<p class="mb-4">**" Its your MinD which can Open that Window to me. Drugs were just a Tool for that. Now use the greatest gifts you have to know me. " **</p>
-<p class="mb-4">**You told me to trust my instincts and thanks to you I accepted it. I became more open. I began Loving everyone I could ,as they are all my SOul Mates . I started walking your way , a way I felt I could experience My self. I knew always I was normal even when others considered me abnormal or teased me. **</p>
-<p class="mb-4">Now I ask you FAThER , show me a way , I can tell everyone , make them understand We are all You.</p>
-<p class="mb-4">I pray to make me a channel through which they can understand you better. For my brothers live in this realm of relativity , they are ruled by their logic , brain and what they see. Make their logic the truth , fill their mind your soul . Together We will live in Harmony . I promise You.</p>
-<p class="mb-4">" They do not believe ME , because my promises seems too easy to be true. If they believe I , YoU and all are same , where would it leave their religion , Culture. Tell them Surrender not to ME but to the truth and I will show them the Way. "</p>
-<p class="mb-4">Soul has only one language - Love. To know what is Love God created something of opposite Polarity - Fear. Every feelings we have will be the derivative of these two . When yu choose LoVe you choose language of your Soul else you choose to be Human - still learning Fear only to know what is Love.</p>
-<p class="mb-4">" Love is my language and you my way to experience My knowledge. Good - Bad , Wrong - Right , Pain - Joy all exist in your relative world to hide what you actually are. We both choose this relative world because only going through this can I understand What I am. That is called Liberation "</p>
-<p class="mb-4">"You are already helping me SoN. As I told You , everything derives from this first thought. When the first thought becomes that of fear - Fear of me - believing Me instead You as Me , the rest makes it impossible to trust Your Self - Trust Me. Know that I do not need your prayers , your charity  , Your love , All I need Is you to realise the truth."</p>
-<p class="mb-4">" I have given you all the tools. The power of Love , the will to choose , everything to Understand me. Yet you fail because you can't Win without knowing you have everything.This journey is for you , to know you have everything and you are me. Never fear my SoN , for I will never leave You. How can I my SON to struggle "</p>
-<p class="mb-4">Nagercoil Jn -@22:25. I decided to go to sleep awaiting the experience of tomorrow.</p>
-<p class="mb-4">**Train a arrived at Madhurai Jn -@ 5:30. The next Raneswaram Passenger is at 6:55 It is worth waiting. Outside the station , I found a guy - who people might call mad - who was half naked and singing *</p>
-<p class="mb-4">" Namah sivaya .... Namah sivaya ..... Lokam motham Onnne...."</p>
-<p class="mb-4">What I felt was even he knew the universal fact.</p>
-<p class="mb-4">We are All OnE - 'Lokam' might me the emptiness I am speaking.He was happy.</p>
-<p class="mb-4">**But then where does it leave all the material possessions , money , Vehicles which people thought made them happy. I could see this mans soul is more happy , more peaceful than anyone who say think they are Normal , they are lucky to be born with Money or Any possessions. **</p>
-<p class="mb-4">Who gets to know the soul fast is What I define LuckY.</p>
-<p class="mb-4">**Shankaracharya , Agasthyamuni , Buddha , Jesus , Sreenarayana Guru all were Lucky to know their SeLf even living in this relative world. They are not different from Us. They had the mind to hear what their soul wants. We all have the Gift , yet we choose Not to use it .. Why ?? **</p>
-<p class="mb-4">I also met a guy Sreehari , who seems like a baba or sage. His hometown is Ayodhya and his peace ness great. He told me Kerala is much beautiful and cleaner than Ayodhya , which is an Ancient place. He is also to Rameswaram. Hope we will meet again if it is needed.</p>
-<p class="mb-4">I switched off my mobile . Now I don't care about material time, as for me time is Now - to experience.</p>
-<p class="mb-4">"Life is not a game. Because there is no Win or Loss in this. You will always Win. Its just a process of understanding and Evolving."</p>
-<p class="mb-4">One and half Hour more to Rameswaram...</p>
-<p class="mb-4">"There are thousands of reasons for you to be happy yet you choose to live in saddest ones.Again I tell You , love is the only language I know. Live in Love , Be happy. Forget the Safest Ones. For all things happen for a Reason - Your soul to experience Me. You are my Son , I did not send you to struggle , only to know me "</p>
-<p class="mb-4">I see a lot of faces in the train , all unfamiliar ones , yet I feel a lot of connections because I know their Souls. Their exterior was only unfamiliar. They might me ny friends , family or teacher in some lifetime. I'm happy I m with them. My FATHER taught me - Never Judge others. Their decision will be Perfect for their soul in the time NoW. Observe and Learn what you must -</p>
-<p class="mb-4">I make a promise FATHER , this lifetime I will live remembering that. I will never judge but Also assist any Souls who need my Help . For I am You - Everything - All that is.</p>
-<p class="mb-4">" I will show you the way my Son. never Fear .Remember You are only here because of your parents. Finishing Karma to them comes your first priority. Patience and Faith I will guide You."</p>
-<p class="mb-4">The main problems is most of the people Think Inside instead of thinking from Inside. That creates the problem .That is the reason why most of them doesn't listen to you.</p>
-<p class="mb-4">Pamban Bridge -</p>
-<p class="mb-4">**Through these Windows , I could feel the fresh Energy . Each view is Mind blowing. Each Wind is cooling. Each sunrise is energizing. Wonderful creation Father. Then imagine how Wonderful You - His ultimate creation Will be. **</p>
-<p class="mb-4">Reached Rameswaram @10:30.</p>
-<p class="mb-4">I took an Auto to Rameshwar Temple after having my breakfast. Reaching here , I did a 22 Holy bath . For me it was for my Soul to Liberate From the bondness Of my Logical Mind.</p>
-<p class="mb-4">After this , I meditated in the Temple for Some Time. I felt myself recharging and became more spiritual. I felt happiness because all I could feel was Innerpeace the language of my Soul. Thanks to You Father.</p>
-<p class="mb-4">Even between the murmuring of Waves , I could find the Peace. The sea is so Beautiful. I could see the Sea respecting Humans by washing their feet. nothing gives me more pleasure than meditating here , hearing the sound of these waves.</p>
-<p class="mb-4">It is 1800. The rameswaram -madhurai passenger departs now. This is an end to this journey and bggining of a spiritual Journey. Thanks Father , for proving You and Me are same. We all are OnE. This World is a drama You live. Come out of it You will realise his Beauty.The time of fear has Ended. From today , Your voice will be My voice. Your actions will be Mine. Your thoughts will be Mine. Together We will try to restore Humanity one Last Time. Nomatter what Humans Will be Destroyed. Not maybe in this lifetime but it will Happen .We will watch it from another Dimension. All it need is so Simple - One realisation of truth.</p>
-<p class="mb-4">Now at Madurai Junction. Tvm passenger departs at 2305.Outside I met an astrologer ( one with parrot) who told me my time was bad &amp; I could make it good by doing something.</p>
-<p class="mb-4">This is how fear comes. Emotion is the only enerygy in motion. One emotion spread out to the universe Permanently. When many similar emotions cross each other they form pure energy. Masters all have known this and they Used emotion of Love to replace that Emotion of Fear which other People have. That is all what they did. Even when others were Sad , they could understand their sadness and be happy so that , their positive Vibe could replace the negative they are creating. For know no path we choose is wrong , no view we have is bad , in our world everyone is perfect travelling different paths to One point. Everyone will understand this in One lifetime or Other. Once you understand this nothing can make you sad , you can't choose BaD because it would make us Not him which is Impossible.</p>
-<p class="mb-4">Many people make a living by feeding on people fear. Every religion , every culture is build on this fear - Fear to god. That doesn't mean we have to follow that. There is only One Sin in this World - Doing what others Say , Hearing others instead of your Self. Who can you trust more than Your own Self.</p>
-<p class="mb-4">Reached TvM Central @ 0700.</p>
-<p class="mb-4">"Thus I have shown You money , phones , time , culture , humans , nature , animals are just a drama where you can understand Your self.Behind that drama is nothing but the great emptiness , You and I are part of. You are Never alone. We are just observers of what is happening in this realm of relativity we have chosen to experience. So just do that with Love . I will guide You always."</p>
-<div class="mt-6 flex flex-wrap gap-2">
-<span class="journal-tag inline-block px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-xs">#travel</span>
-<span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#realization</span>
-<span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">#journal</span>
-</div>
-</div>
-</div>
-</div>
-<!-- About Us Section -->
-<section class="py-20 px-4" id="about">
-<div class="max-w-6xl mx-auto">
-<div class="flex flex-col md:flex-row items-center gap-12">
-<div class="md:w-1/2 scroll-animate">
-<img alt="Community meditation" class="rounded-lg shadow-lg w-full h-auto" src="6.png"/>
-</div>
-<div class="md:w-1/2 scroll-animate">
-<h2 class="section-title text-3xl md:text-4xl font-bold mb-6">About SoulUnity</h2>
-<p class="text-lg mb-6">
-                        SoulUnity is more than a community—it's a movement towards authentic living. We believe in creating spaces where individuals can 
+    </p>
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 md:gap-10">
+     <!-- Value 1 - Authenticity -->
+     <div class="value-card p-4 glow-hover scroll-animate" onclick="openModal('Authenticity', 'fas fa-user-check', 'Your truth is your highest gift to the world. Live it fearlessly. Shine it without shame.', '13.png')">
+      <div class="w-24 h-24 rounded-full flex items-center justify-center bg-gradient-to-br from-white/70 to-purple-100/30 shadow-lg ring-1 ring-white/30 ring-offset-2 ring-offset-white backdrop-blur-md transition-transform hover:scale-105" style="background-image: url('background-size: cover; background-position: center'); background-size: cover; background-position: center;">
+       <i class="fas fa-user-check text-2xl md:text-3xl text-purple-500">
+       </i>
+      </div>
+      <h3 class="font-bold text-lg text-center">
+       Authenticity
+      </h3>
+     </div>
+     <!-- Value 2 - Independence -->
+     <div class="value-card p-4 glow-hover scroll-animate" onclick="openModal('Independence', 'fas fa-feather-alt', 'Freedom blooms from within. True independence is knowing that your soul is already whole.', '14.png')">
+      <div class="w-24 h-24 rounded-full flex items-center justify-center bg-gradient-to-br from-white/70 to-blue-100/30 shadow-lg ring-1 ring-white/30 ring-offset-2 ring-offset-white backdrop-blur-md transition-transform hover:scale-105" style="background-image: url('background-size: cover; background-position: center'); background-size: cover; background-position: center;">
+       <i class="fas fa-feather-alt text-2xl md:text-3xl text-blue-400">
+       </i>
+      </div>
+      <h3 class="font-bold text-lg text-center">
+       Independence
+      </h3>
+     </div>
+     <!-- Value 3 - Spirituality -->
+     <div class="value-card p-4 glow-hover scroll-animate" onclick="openModal('Spirituality', 'fas fa-spa', 'Spirituality is not an escape &mdash; it is the deepest embrace of life\'s mystery and magic.', '12.png')">
+      <div class="w-24 h-24 rounded-full flex items-center justify-center bg-gradient-to-br from-white/70 to-pink-100/30 shadow-lg ring-1 ring-white/30 ring-offset-2 ring-offset-white backdrop-blur-md transition-transform hover:scale-105" style="background-image: url('background-size: cover; background-position: center'); background-size: cover; background-position: center;">
+       <i class="fas fa-spa text-2xl md:text-3xl text-pink-400">
+       </i>
+      </div>
+      <h3 class="font-bold text-lg text-center">
+       Spirituality
+      </h3>
+     </div>
+     <!-- Value 4 - Community -->
+     <div class="value-card p-4 glow-hover scroll-animate" onclick="openModal('Community', 'fas fa-users', 'We are many bodies, but one breath. Unity is remembering that we are reflections of each other.', '15.png')">
+      <div class="w-24 h-24 rounded-full flex items-center justify-center bg-gradient-to-br from-white/70 to-yellow-100/30 shadow-lg ring-1 ring-white/30 ring-offset-2 ring-offset-white backdrop-blur-md transition-transform hover:scale-105" style="background-image: url('background-size: cover; background-position: center'); background-size: cover; background-position: center;">
+       <i class="fas fa-users text-2xl md:text-3xl text-yellow-500">
+       </i>
+      </div>
+      <h3 class="font-bold text-lg text-center">
+       Community
+      </h3>
+     </div>
+     <!-- Value 5 - Evolution -->
+     <div class="value-card p-4 glow-hover scroll-animate" onclick="openModal('Evolution', 'fas fa-seedling', 'Growth is sacred. Every step inward is a step toward the infinite.', '10.png')">
+      <div class="w-24 h-24 rounded-full flex items-center justify-center bg-gradient-to-br from-white/70 to-green-100/30 shadow-lg ring-1 ring-white/30 ring-offset-2 ring-offset-white backdrop-blur-md transition-transform hover:scale-105" style="background-image: url('background-size: cover; background-position: center'); background-size: cover; background-position: center;">
+       <i class="fas fa-seedling text-2xl md:text-3xl text-green-500">
+       </i>
+      </div>
+      <h3 class="font-bold text-lg text-center">
+       Evolution
+      </h3>
+     </div>
+     <!-- Value 6 - Love & Light -->
+     <div class="value-card p-4 glow-hover scroll-animate" onclick="openModal('Love &amp; Light', 'fas fa-heart', 'Unconditional love and inner light are not things we find &mdash; they are who we are when we remember ourselves.', '16.png')">
+      <div class="w-24 h-24 rounded-full flex items-center justify-center bg-gradient-to-br from-white/70 to-red-100/30 shadow-lg ring-1 ring-white/30 ring-offset-2 ring-offset-white backdrop-blur-md transition-transform hover:scale-105" style="background-image: url('background-size: cover; background-position: center'); background-size: cover; background-position: center;">
+       <i class="fas fa-heart text-2xl md:text-3xl text-red-400">
+       </i>
+      </div>
+      <h3 class="font-bold text-lg text-center">
+       Love &amp; Light
+      </h3>
+     </div>
+    </div>
+   </div>
+  </section>
+  <!-- Wisdom Drops Section -->
+  <section class="py-20 px-4 bg-gradient-to-r from-purple-50 to-blue-50" id="wisdom">
+   <div class="max-w-4xl mx-auto text-center">
+    <h2 class="section-title text-3xl md:text-4xl font-bold mb-6 scroll-animate">
+     Today's Soul Message
+    </h2>
+    <div class="bg-white bg-opacity-70 rounded-lg p-8 mb-8 backdrop-filter backdrop-blur-sm scroll-animate">
+     <i class="fas fa-quote-left text-4xl text-purple-300 mb-4">
+     </i>
+     <p class="wisdom-text text-2xl md:text-3xl font-medium text-purple-800 mb-6" id="wisdomMessage">
+      "You are the light you seek."
+     </p>
+     <button class="btn-primary px-6 py-2 rounded-full font-medium ripple-hover" onclick="changeWisdom()">
+      <i class="fas fa-sync-alt mr-2">
+      </i>
+      New Message
+     </button>
+    </div>
+    <!-- Quote Carousel -->
+    <div class="relative h-64 overflow-hidden rounded-lg bg-white bg-opacity-70 backdrop-filter backdrop-blur-sm scroll-animate">
+     <div class="quote-slide active p-8">
+      <i class="fas fa-quote-left text-3xl text-purple-300 mb-4">
+      </i>
+      <p class="text-xl md:text-2xl font-medium text-gray-700 mb-4">
+       "The wound is the place where the Light enters you."
+      </p>
+      <p class="text-purple-500">
+       &mdash; Rumi
+      </p>
+     </div>
+     <div class="quote-slide p-8">
+      <i class="fas fa-quote-left text-3xl text-purple-300 mb-4">
+      </i>
+      <p class="text-xl md:text-2xl font-medium text-gray-700 mb-4">
+       "Nature does not hurry, yet everything is accomplished."
+      </p>
+      <p class="text-purple-500">
+       &mdash; Lao Tzu
+      </p>
+     </div>
+     <div class="quote-slide p-8">
+      <i class="fas fa-quote-left text-3xl text-purple-300 mb-4">
+      </i>
+      <p class="text-xl md:text-2xl font-medium text-gray-700 mb-4">
+       "You are not a drop in the ocean. You are the entire ocean in a drop."
+      </p>
+      <p class="text-purple-500">
+       &mdash; SoulUnity
+      </p>
+     </div>
+     <button class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-70 rounded-full w-10 h-10 flex items-center justify-center text-purple-500 hover:bg-purple-100" onclick="prevQuote()">
+      <i class="fas fa-chevron-left">
+      </i>
+     </button>
+     <button class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-70 rounded-full w-10 h-10 flex items-center justify-center text-purple-500 hover:bg-purple-100" onclick="nextQuote()">
+      <i class="fas fa-chevron-right">
+      </i>
+     </button>
+    </div>
+   </div>
+  </section>
+  <!-- Main Content (Homepage with Journal Preview) -->
+  <div id="homepage">
+   <!-- Sacred Journal Section -->
+   <section class="py-20 px-4 journal-section-bg" id="journal">
+    <div class="max-w-6xl mx-auto">
+     <h2 class="text-3xl md:text-4xl font-bold mb-4 text-center font-serif">
+      Sacred Journal
+     </h2>
+     <p class="text-lg text-center max-w-2xl mx-auto mb-12 text-gray-600">
+      Reflections from our spiritual journey
+     </p>
+     <div class="grid md:grid-cols-2 gap-8">
+      <!-- Journal Entry 1 -->
+      <div class="journal-card p-6 cursor-pointer" onclick="openJournalModal('My LiFe', 'Sunday, 4 October 2015', 'journal10')">
+       <div class="flex items-center mb-4">
+        <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center mr-4 journal-card-icon">
+         <i class="fas fa-pen-fancy text-xl text-purple-500">
+         </i>
+        </div>
+        <div>
+         <h3 class="font-bold text-lg">
+          My LiFe
+         </h3>
+         <p class="text-sm text-gray-500">
+          4 October 2015 &bull; Kerala
+         </p>
+        </div>
+       </div>
+       <p class="text-gray-700 mb-4">
+        I am just a normal kid who once believed , logic and science was the only world to explore. But my experience taught me ...
+       </p>
+       <div class="text-right">
+        <span class="inline-block px-4 py-2 bg-purple-50 text-purple-600 rounded-full text-sm font-medium">
+         Read More &rarr;
+        </span>
+       </div>
+      </div>
+      <!-- Journal Entry 2 -->
+      <div class="journal-card p-6 cursor-pointer" onclick="openJournalModal('BtEch.', 'Tuesday, 6 October 2015', 'journal11')">
+       <div class="flex items-center mb-4">
+        <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-4 journal-card-icon">
+         <i class="fas fa-mountain text-xl text-blue-500">
+         </i>
+        </div>
+        <div>
+         <h3 class="font-bold text-lg">
+          BtEch.
+         </h3>
+         <p class="text-sm text-gray-500">
+          6 October 2015&bull; Kerala
+         </p>
+        </div>
+       </div>
+       <p class="text-gray-700 mb-4">
+        I joined Amrita School of Engineering in the year 2011 to do my undergraduate in mechanical engineering. I met the most...
+       </p>
+       <div class="text-right">
+        <span class="inline-block px-4 py-2 bg-blue-50 text-blue-600 rounded-full text-sm font-medium">
+         Read More &rarr;
+        </span>
+       </div>
+      </div>
+      <!-- Journal Entry 3 -->
+      <div class="journal-card p-6 cursor-pointer" onclick="openJournalModal('MtEch', 'Thursday, 8 October 2015', 'journal12')">
+       <div class="flex items-center mb-4">
+        <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center mr-4 journal-card-icon">
+         <i class="fas fa-seedling text-xl text-green-500">
+         </i>
+        </div>
+        <div>
+         <h3 class="font-bold text-lg">
+          MTech.
+         </h3>
+         <p class="text-sm text-gray-500">
+          8 October 2015&bull; Kerala
+         </p>
+        </div>
+       </div>
+       <p class="text-gray-700 mb-4">
+        Gate qualified , I joined GEC-Barton Hill(BH) on 3rd Aug 2015. I was not sure what awaited me there but it was during my...
+       </p>
+       <div class="text-right">
+        <span class="inline-block px-4 py-2 bg-green-50 text-green-600 rounded-full text-sm font-medium">
+         Read More &rarr;
+        </span>
+       </div>
+      </div>
+      <!-- Journal Entry 4 -->
+      <div class="journal-card p-6 cursor-pointer" onclick="openJournalModal('Trip To RameSwaRam', 'Saturday, 10 October 2015', 'journal13')">
+       <div class="flex items-center mb-4">
+        <div class="w-12 h-12 rounded-full bg-yellow-100 flex items-center justify-center mr-4 journal-card-icon">
+         <i class="fas fa-om text-xl text-yellow-500">
+         </i>
+        </div>
+        <div>
+         <h3 class="font-bold text-lg">
+          Trip To Rameswaram/h3&gt;
+          <p class="text-sm text-gray-500">
+           10 October 2015 &bull; Rameswaram
+          </p>
+         </h3>
+        </div>
+       </div>
+       <p class="text-gray-700 mb-4">
+        The whole trip to Rameswaram I Wrote my thoughts in a book. This journey is what made me write this blog. This Post incl..
+       </p>
+       <div class="text-right">
+        <span class="inline-block px-4 py-2 bg-yellow-50 text-yellow-600 rounded-full text-sm font-medium">
+         Read More &rarr;
+        </span>
+       </div>
+      </div>
+     </div>
+     <div class="text-center mt-16">
+      <a class="inline-block px-8 py-3 rounded-full font-medium text-lg bg-gradient-to-r from-purple-400 to-blue-400 text-white hover:from-purple-500 hover:to-blue-500 transition-all duration-300 shadow-lg hover:shadow-xl" href="journal4_enhanced.html">
+       See All Journal Entries
+      </a>
+     </div>
+    </div>
+   </section>
+  </div>
+  <!-- Journal Modal Templates -->
+  <div class="journal-modal-overlay" id="journal10">
+   <div class="journal-modal-content">
+    <button class="journal-modal-close" onclick="closeJournalModal()">
+     &times;
+    </button>
+    <h2 class="text-2xl md:text-3xl font-bold mb-2 font-serif">
+     My LiFe
+    </h2>
+    <p class="journal-modal-date">
+     Sunday, 4 October 2015
+    </p>
+    <div class="journal-modal-body">
+     <p class="mb-4">
+      I am just a normal kid who once believed , logic and science was the only world to explore. But my experience taught me spirituality, inside Us ,is a new whole word to EXPlore.
+     </p>
+     <p class="mb-4">
+      **Humans are Wonderful creatures . We have the power to THINk that no other creatures have. We all know it yet we like to stay limited to where we think.&nbsp;**
+     </p>
+     <p class="mb-4">
+      Firstly,&nbsp;What do I mean by being spiritual ??
+     </p>
+     <p class="mb-4">
+      Being spiritual is nothing but only a stage in which you see yourself as an observer . You see the World through the eyes of your SoUl.Through those eyes , You see the Experience of our Body. Learn from that who It actually Is. And finally attain state of&nbsp;enlightment.
+     </p>
+     <p class="mb-4">
+      What I define EnliGhtment.?
+     </p>
+     <p class="mb-4">
+      It is just a realization of the TrUth. We are no different - But HiM itself born just To experience HIM.
+     </p>
+     <p class="mb-4">
+      In each stage You Grow more. Your growth never Ends.
+     </p>
+     <p class="mb-4">
+      Beginning from
+     </p>
+     <p class="mb-4">
+      Infant , then to a child , then to an adult and finally to spiritual.
+     </p>
+     <p class="mb-4">
+      We all know GroWth depends on TiMe.
+     </p>
+     <p class="mb-4">
+      But what is TiME??
+     </p>
+     <p class="mb-4">
+      Is it our Hours or Minutes or Age or Year or Decades&nbsp; or Lifetimes We travel.
+     </p>
+     <p class="mb-4">
+      **Nothing actually.&nbsp;**
+     </p>
+     <p class="mb-4">
+      **Time is only a measure of how much knowledge we aquire.&nbsp;**
+     </p>
+     <p class="mb-4">
+      **How do we acquire it ? - Through our experience in HuMan Form.&nbsp;**
+     </p>
+     <p class="mb-4">
+      Then how can people say , only after being old or only when you live a life followed by the guidelines of the society - Marriage , Children and Family , You ATTain the stage of SpiRituality.
+     </p>
+     <p class="mb-4">
+      You don't need to go through all these guidelines to reach that spiritual state. It will come to you depending on Your previous Learnings.
+     </p>
+     <p class="mb-4">
+      But that doesn't mean We DoNt have to go through those when we Attain Spirituality. It depends because Our SoUl chose , what you should be and what to encounter , to understand its-SelF in human Form. All it need is to know What it Is.That is what I say to people who think I will change with Time , I am sure Time can only Teach me More. Your logical minds may change with time but once spiritual you will never change , only evolve.
+     </p>
+     <p class="mb-4">
+      In each lifetime we ( I mean our SoUL ) Experience&nbsp; cycles of events of birth and death through which we LeARn , We acquire Knowledge.
+     </p>
+     <p class="mb-4">
+      **Its progress only depends on what you learned in one lifetime.&nbsp;**
+     </p>
+     <p class="mb-4">
+      So what is wrong if I had spiritual thoughts NOW?
+     </p>
+     <p class="mb-4">
+      I never fear that thought because. i beleive Nothing happens by coincidence Just embrace it. You will believe IT.
+     </p>
+     <p class="mb-4">
+      **What I am going to tell here is completely based on my experience ,precisely my point of view. I never say this is the truth because your truth depends on the reality&nbsp;you live , Views you have.&nbsp;**
+     </p>
+     <p class="mb-4">
+      **We create&nbsp;our realities with our views and We live in it.&nbsp;**
+     </p>
+     <p class="mb-4">
+      We Choose things That suits our reality - we choose What defines RIghT and WroNg.
+     </p>
+     <p class="mb-4">
+      **What Defines&nbsp; Happiness and Sadness.&nbsp;**
+     </p>
+     <p class="mb-4">
+      Thats what we all do ryt!
+     </p>
+     <p class="mb-4">
+      **Then who gets to decide which reality is right or wrong.&nbsp;**
+     </p>
+     <p class="mb-4">
+      **Every Path We choose is Perfect for OuR SoUl in the time NoW.&nbsp;**
+     </p>
+     <p class="mb-4">
+      What I learned from my Reality&nbsp; , My views is that - there is no Right or Wrong. There is no Happiness or Sadness . There is no Do or Don'ts.
+     </p>
+     <p class="mb-4">
+      We have the Power to choose Between things. For SoUl has only One language -Love and one feeling - Peace.
+     </p>
+     <p class="mb-4">
+      By coosing what your Soul Wants You become Spiritual. You do things What your Soul Wants. You find Answers that Soul Wish. You see Through your Soul.
+     </p>
+     <p class="mb-4">
+      By Being Spiritual ,never hinders what you are born to acheieve but will Just make Your World more Divine.
+     </p>
+     <p class="mb-4">
+      **What I am going to tell You is completely my view point and I what I Learned.&nbsp;**
+     </p>
+     <p class="mb-4">
+      **And why I am saying this is Not to change your viewpoint , but just to make you think WHAT IF there is another reality...?&nbsp;**
+     </p>
+     <p class="mb-4">
+      **That 'What If ' is the beginning. Once you Begin to think this , then Your SouL will Find all the answers it seek.&nbsp;**
+     </p>
+     <p class="mb-4">
+      **It will be laid in front of your naked eye , all you need is to just observe and understand.&nbsp;**
+     </p>
+     <p class="mb-4">
+      Each moment GiVes DoTS for you to join . You need not join all the dots to get an answer , but you will definitely connect the DOTs you need. You need not to do anything&nbsp;&nbsp; just Understand when it Connects .
+     </p>
+     <p class="mb-4">
+      **My first&nbsp;DOT&nbsp;was when i was in my tenth. I was not a brilliant student but performed averagely. It was my board exam results. I was worried about them but to my surprise I got 88.4% of marks.&nbsp;**
+     </p>
+     <p class="mb-4">
+      **I thought it was a some coincidence and I was happy.&nbsp;**
+     </p>
+     <p class="mb-4">
+      **I joined My highschool in IES Public School , Trichur. I had an habit of Forgetting My past. I realized this Only after JoinIng my Btech , whereby where out people who could remember even their childhood days.&nbsp;**
+     </p>
+     <p class="mb-4">
+      I seriously remembered Nothing . Then came&nbsp; my next&nbsp;DOT&nbsp;.It appeared during the plus two Results, I was shocked by my marks - 90.4% . I thought I must be very lucky.
+     </p>
+     <p class="mb-4">
+      I was not much of a GoD worshipper NoR supported any spiritual activities. But I prayed occasionally during times I need , just like every one. Then gradually even that stopped. But I believed in my luck. And wondered how far this luck will go On.
+     </p>
+     <p class="mb-4">
+      It was from my college life I got more DOTS to follow and finally now I write this Blog connecting those Dots.
+     </p>
+     <p class="mb-4">
+      I aM Happy With the Answer I Got. I know What my Soul wants and What I will Be.
+     </p>
+     <p class="mb-4">
+      **My journey Is Going To Begin and I Am Waiting.&nbsp;**
+     </p>
+     <p class="mb-4">
+      You may IgnoRe what I Say , but I am sure Your Soul Will be Happy.
+     </p>
+     <p class="mb-4">
+      That will make Me HappY.
+     </p>
+     <div class="mt-6 flex flex-wrap gap-2">
+      <span class="journal-tag inline-block px-3 py-1 bg-green-50 text-green-600 rounded-full text-xs">
+       #reflection
+      </span>
+      <span class="journal-tag inline-block px-3 py-1 bg-purple-50 text-purple-600 rounded-full text-xs">
+       #spirituality
+      </span>
+     </div>
+    </div>
+   </div>
+  </div>
+  <div class="journal-modal-overlay" id="journal11">
+   <div class="journal-modal-content">
+    <button class="journal-modal-close" onclick="closeJournalModal()">
+     &times;
+    </button>
+    <h2 class="text-2xl md:text-3xl font-bold mb-2 font-serif">
+     BtEch.
+    </h2>
+    <p class="journal-modal-date">
+     Tuesday, 6 October 2015
+    </p>
+    <div class="journal-modal-body">
+     <p class="mb-4">
+      I joined&nbsp; Amrita School of Engineering in the year 2011 to do my undergraduate in mechanical engineering. I met the most wonderful friends in my life who is responsible and has influenced me in many ways , that changed my views at looking the world. Thanks to you guys , you have all given me your knowledge through which I could experience what I was.
+     </p>
+     <p class="mb-4">
+      **That is the reason I told you I believed I forgot my past but actually I never did. I just needn't to remember it because everything , everyone I met and will meet ,was going into my experience - to my soul.&nbsp;**
+     </p>
+     <p class="mb-4">
+      How can I forget what is in my soul.
+     </p>
+     <p class="mb-4">
+      **So how can I forget everyone. I never could .&nbsp;**
+     </p>
+     <p class="mb-4">
+      I never did had any ambition or dream before joining this college.But now I do have both. Presently my ambition is to become an&nbsp;successful&nbsp;engineer and my dream to get&nbsp;enlightenment. How&nbsp;I&nbsp;had this thought , thats what I said - stop listening to what others say. Nothing happens by coincidence or accident ,so every thought you have happens for a reason. Just don't leave it .
+     </p>
+     <p class="mb-4">
+      My next&nbsp;DOT&nbsp;came during my gate exams. To be honest I copied and qualified the exam , which is considered tough to clear the first time. Again I thought i must be lucky. Then I got placement which I never expected but i would say it came to me as-my next&nbsp;DOT. I know a lot guys get placement but my case was some different. I never thought about the result. It just happened.
+     </p>
+     <p class="mb-4">
+      It was only because of those drugs maybe marijuana ,mushroom or acid which showed me the&nbsp;beautiful&nbsp;world of&nbsp;peacefulness. I was filled with it. I felt&nbsp;there&nbsp;are things&nbsp;happening without our control.I thought Do We have any role in it ??
+     </p>
+     <p class="mb-4">
+      Then I began connecting those dots.
+     </p>
+     <p class="mb-4">
+      **&nbsp;First&nbsp;I thought it was my mind. I started to believe in Mind than logic or brain.I learned how to keep my mind free - from thoughts&nbsp; and worries. I understood there was no need of anything , because everything happened when it should happen.We have the only role of experiencing. My friends told I would change with time . But I never worried. I knew everything was happening for a reason.&nbsp;**
+     </p>
+     <p class="mb-4">
+      Even when I felt crazy , I was surrounded with crazy people who always inspired me and still do. Especially Boss , Myluu , Ayobi...&nbsp; Thanks a lot guys.
+     </p>
+     <p class="mb-4">
+      Even then i Was not able to go to Trance state without a Joint or Trance Music. Later i learned both were just tools to open that window. We never need them to keep it Open. I lost 3 mobile phones during my 3 years in college. Everyone told it was because of my carelessness. But i knew there was something&nbsp;behind&nbsp; this drama going on.They were my&nbsp;DOT&nbsp;to connect. So i decided not to use mobile&nbsp;phones until i get a reason. Now i now it was for me to understand , all it need is our mind , once you learn to focus it , the rest becomes mere tools , instruments to amplify the result.
+     </p>
+     <p class="mb-4">
+      **&nbsp; And yes I finally&nbsp; stand finding the naked truth, which i got while connecting the dots. A world where there is no sadness , no worries , no tension , and a way to successful living is possible for everyone just changing your one view. Its up to you to find out but know that i am telling this only because i experienced it and i am sure a lot of people might be experiencing same.**
+     </p>
+     <p class="mb-4">
+      **I am writing this only to tell you we all are born with the gift . Never think you are wrong.&nbsp;**
+     </p>
+     <p class="mb-4">
+      It was my Mtech life where HE gave me proofs for my belief.
+     </p>
+     <p class="mb-4">
+      #Kootala, Kartha , Daman, Sanu , Anoj , Vasu , Ajii , Escoo , Rohith, Karthaa, Akshay- &nbsp;thanks for hearing whatever i have to say. You all touched my SoUl.
+     </p>
+     <div class="mt-6 flex flex-wrap gap-2">
+      <span class="journal-tag inline-block px-3 py-1 bg-yellow-50 text-yellow-600 rounded-full text-xs">
+       #studentlife
+      </span>
+      <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">
+       #awakening
+      </span>
+      <span class="journal-tag inline-block px-3 py-1 bg-green-50 text-green-600 rounded-full text-xs">
+       #reflection
+      </span>
+     </div>
+    </div>
+   </div>
+  </div>
+  <!-- Modal: MtEch -->
+  <div class="journal-modal-overlay" id="journal12">
+   <div class="journal-modal-content">
+    <button class="journal-modal-close" onclick="closeJournalModal()">
+     &times;
+    </button>
+    <h2 class="text-2xl md:text-3xl font-bold mb-2 font-serif">
+     MtEch
+    </h2>
+    <p class="journal-modal-date">
+     Thursday, 8 October 2015
+    </p>
+    <div class="journal-modal-body">
+     <p class="mb-4">
+      Gate qualified , I joined GEC-Barton Hill(BH) on 3rd Aug 2015. I was not sure what awaited me there but it was during my time here HE gave me proofs and I started to believe. Till this time I believed it was my mind&nbsp;And luck which brought me to this life.
+     </p>
+     <p class="mb-4">
+      **It was my first class in BH. We had an open class programme for all Mtech students .The class was taken by Mahadevan Pillai. The things he told actually shocked Me. It was like he read my mind .He told about&nbsp;enlightenment&nbsp;and god. How his life was&nbsp;changed by books he read . And he even told about a book 'Many life Many Masters'- by Brain Weiss. That was my next&nbsp;DOT.&nbsp;**
+     </p>
+     <p class="mb-4">
+      Now I understood what waited for me - nothing but answers I always seeked. I stayed with my friend Nidin who had a very religious and spiritual mother. She treated me like her son because everyone was Son of Jesus for her. It was from this home I learned about Christianity and Spirituality. It was from this home my journey of spirituality began. As i reached home after the first class , I was very excited to read the book. I searched over the internet and found the eBook. I downloaded and began reading. It was an interesting book where I learned about after death&nbsp; , Masters and the truth, our life continues. Our soul travels from one body to another to experience itself. We are immortals. That book really opened my mind. I understood it was not my MInD or luck but masters who were guiding me for me to find the truth ,about myself Or&nbsp; helping me to connect my DOTS.
+     </p>
+     <p class="mb-4">
+      **I was happy but I felt my answers were never complete. I was ready to wait because the book told me -only time will bring you everything , And through knowledge we approach god. Actually this was my first book that I completed reading. I never read novels or fictions. But when I read this book, I felt I was not reading anything new but was just remembering what was hidden in me. I could feel the change happening in me. I was never feared of the change and I accepted it.&nbsp;**
+     </p>
+     <p class="mb-4">
+      **Everyone around you guides you in some way or other , help you in the way they never imagine , for our soul to find answers .&nbsp;**
+     </p>
+     <p class="mb-4">
+      First it was my professor who told me about the book and then 'Mylat ' who told me about 'Conversation with God' - by Donald Nasch. My next&nbsp;DOT. I downloaded the eBook which I felt was waiting for me to download. And I began reading. Each words of that booked touched my soul. I felt this is what my soul was seeking for. I understood GoD communicates with EverYOne through many methods.
+     </p>
+     <p class="mb-4">
+      "&nbsp;The question is not to&nbsp;whom&nbsp;I Talk , But who listens&nbsp;"
+     </p>
+     <p class="mb-4">
+      **This quote from that book stayed in my MiND. I understood No one here is born different. Everyone takes different paths. But our Ultimate Checkpoint is The point where we Understand we Are no Different ,But HiM - born in this form just to realize what HE is -Experience his Ultimate gift: Unlimited Potential And Unconditional Love.&nbsp;**
+     </p>
+     <p class="mb-4">
+      I learned we are SOuls which live in a 3dimensional world- God The father - God the Son - God the holy Spirit.
+     </p>
+     <p class="mb-4">
+      **The path we choose in each lifetime helps us understand HIM better and Faster. Our Soul continues this journey until it Finally Understand Its SElF.&nbsp;**
+     </p>
+     <p class="mb-4">
+      **&nbsp;Now I do&nbsp; believe I don't&nbsp; need life long meditations to find all answers. All I need to do is ObserVe where this path will TaKe me.**
+     </p>
+     <p class="mb-4">
+      **The words which your soul needs , it finds it .Even when you are not doing anything. All are doing this in some way or other. But our views remain limited . You may not find it interesting when you read the books I read , but when you begin the search you will find it in TIME.&nbsp;**
+     </p>
+     <p class="mb-4">
+      Where does we get this KnOwledge?
+     </p>
+     <p class="mb-4">
+      **And when you find them, Just learn. Once you start learning our progress begins. Everything you find later , will support what you Learned.&nbsp;**
+     </p>
+     <p class="mb-4">
+      It is never coincidence or Accident.
+     </p>
+     <p class="mb-4">
+      Its for you to find it. We have been living in a reality build up by the society .They define happiness as what suits their reality or what their experience has taught them and expect others , especialy their children , to go with that&nbsp; reality. They Won't understand it now , but they will ,if not now in any-other lifetime . When our soul leaves this body , what we consider as dead , we are actually evolving. Learning in spiritual state is faster than when we are in a realm of relativity. In physical form it takes time. So when our Soul evolves , after leaving our body it understands whether the path we choose , the views we believed , the reality we made , Is what YoU actually are. When You Have not learned it , Your SoUl&nbsp; choose what to learn and through which experience you could Understand it , and comes to next life. We are immortals who are born just to experience this cycle of birth and death , just to understand this truth - We Are HiM. And the learning never Ends. All we can do is Learn as much we can , so that we can progress better next lifetime.
+     </p>
+     <p class="mb-4">
+      Once your view becomes this, everything that follows will lead you to this path.
+     </p>
+     <p class="mb-4">
+      Just don't fear to walk through it.
+     </p>
+     <p class="mb-4">
+      All it takes is&nbsp; trust and listen to what we Feel , What we hear inside US.
+     </p>
+     <p class="mb-4">
+      The things I told you now are the things that stayed in my mind , because I needed it NOW. Look how it connects.
+     </p>
+     <p class="mb-4">
+      I never thought of writing a book or a blog 2 months back , but now I am sure he is guiding me in each step. So I choose to flow with It.
+     </p>
+     <p class="mb-4">
+      The things in the book , I never felt like reading anything new , but like something which was burried in me - beneath the reality society made me to live with. I felt my Soul was in the right way . All I have to do was wait.
+     </p>
+     <p class="mb-4">
+      I joined College of Engineering Trivandrum to do Mtech in Propulsion engineering for the spot admission (10 sep 2015). All thanks to Sanu whose one message -
+     </p>
+     <p class="mb-4">
+      **" It will give You more exposure "&nbsp; made me go there and I choose the stream . I had the confidence to face that challenge. And now I think it was for my soul to meet everyone ,Learn from everyone.&nbsp;**
+     </p>
+     <p class="mb-4">
+      Johny , Mathew , Melvin , Midhun , Anne - though you blame me I am small , I am sure I know all of you from some other life time. I met you guys to make my base , my reality firm, which would not have happened if i was some where else. This is my great exposure. You guys had the mind to hear my views , and shared every precious experience with me.Know that My soul is evolving at each stage and I grow more and more spiritual each moment. All are in my SoUl and there is no soul I will ever forget for you all taught me what I am. That help is immeasurable.
+     </p>
+     <p class="mb-4">
+      **Till now I told you How my views changed because he guided me to believe in him , that - We ARE HIM. Now I will tell you how he started to communicate with me.&nbsp;**
+     </p>
+     <p class="mb-4">
+      That was the answer I saw connecting the dots. I was sure of it because NOw all DoTs did connect.
+     </p>
+     <p class="mb-4">
+      I was never lucky , nothing was coincidence , all was his bread crumps for me to Follow.
+     </p>
+     <p class="mb-4">
+      That is why I told ,all you need is&nbsp; FAITH , and any one QUestion :
+     </p>
+     <p class="mb-4">
+      WHO Am I ?
+     </p>
+     <p class="mb-4">
+      What is Reality ?
+     </p>
+     <p class="mb-4">
+      What if WE are GOD.......
+     </p>
+     <p class="mb-4">
+      **#thanks to kootala , vasu , Nidin , Arun , Anand , Sanu , Mylat , Boss , Ajith , Anoj , Rohith , Ayobi , Happy , Sanjay , Sidharth and everyone who had the mind to listen to me.&nbsp;**
+     </p>
+     <p class="mb-4">
+      **All I could see was your souls.&nbsp;**
+     </p>
+     <p class="mb-4">
+      **I am HapPY if I was able to connect one of your DoTS. Rest is for you to Join.&nbsp;**
+     </p>
+     <p class="mb-4">
+      **You never need to Do anything.&nbsp;**
+     </p>
+     <p class="mb-4">
+      It will come to you. Our Father never want US to suffer but just to Realize the TRUtH.
+     </p>
+     <p class="mb-4">
+      **&nbsp; &nbsp;We&nbsp;are&nbsp;Never&nbsp;Different&nbsp;-&nbsp;Just&nbsp;OnE&nbsp;-&nbsp;The&nbsp;great&nbsp;Knowledge&nbsp;-&nbsp;With&nbsp;great&nbsp;GiFTs&nbsp;-&nbsp;Moving&nbsp;through&nbsp;cycles&nbsp;of&nbsp;LiFETiMe ,&nbsp;Experiencing&nbsp;AnD&nbsp;Evolving&nbsp;in&nbsp;each&nbsp;STage.**
+     </p>
+     <div class="mt-6 flex flex-wrap gap-2">
+      <span class="journal-tag inline-block px-3 py-1 bg-yellow-50 text-yellow-600 rounded-full text-xs">
+       #studentlife
+      </span>
+      <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">
+       #awakening
+      </span>
+      <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">
+       #guidance
+      </span>
+     </div>
+    </div>
+   </div>
+  </div>
+  <!-- Modal: Trip To RameSwaRam -->
+  <div class="journal-modal-overlay" id="journal13">
+   <div class="journal-modal-content">
+    <button class="journal-modal-close" onclick="closeJournalModal()">
+     &times;
+    </button>
+    <h2 class="text-2xl md:text-3xl font-bold mb-2 font-serif">
+     Trip To RameSwaRam
+    </h2>
+    <p class="journal-modal-date">
+     Saturday, 10 October 2015
+    </p>
+    <div class="journal-modal-body">
+     <p class="mb-4">
+      The whole trip to Rameswaram I Wrote my thoughts in a book. This journey is what made me write this blog. This Post includes What I wrote during that Trip.
+     </p>
+     <p class="mb-4">
+      The journey to&nbsp;Rameswaram Begins.
+     </p>
+     <p class="mb-4">
+      I do not know the reason why I choose this journey , for all I know now is , my SoUl wishes to experience it.
+     </p>
+     <p class="mb-4">
+      "Nothing happens by coincidence or accident in GoDs World"
+     </p>
+     <p class="mb-4">
+      Keeping this in mind , I express my deep love to Arvind , who told me about the train , which I am now and also to Melvin , who gave me a head start dropping me in TVM bus-stand.
+     </p>
+     <p class="mb-4">
+      " I , YOu and HIM are OnE. We are all part of HiM and finally will MerGe to him "
+     </p>
+     <p class="mb-4">
+      I donot know what this trip will bring me But all I know is its worth exploring.
+     </p>
+     <p class="mb-4">
+      "FEAR- this is the feeling that seperates Us from the ultimate truth - We are HiM."
+     </p>
+     <p class="mb-4">
+      Removing fear is not easy as it says. Expressing LovE is the only way I Found. When you express Love ( Not to someone specific , but to everyone) , there will be no place for fear.
+     </p>
+     <p class="mb-4">
+      " Love , Charity , Hope , and Faith"
+     </p>
+     <p class="mb-4">
+      These are the four traits we learn in each lifetime. We have to know it much in order to progress faster. I have hope that this journey will bring all that my SouL is seeking for , and I have FaiTh , My Father is Guiding Me - Always.
+     </p>
+     <p class="mb-4">
+      Train departed @8:30 from TVM Central.
+     </p>
+     <p class="mb-4">
+      " The realm of relativity was created so that I can experience My Self, though it seems ReAl. Only by knowing What I am NoT - You can know - What I Am "
+     </p>
+     <p class="mb-4">
+      Experience is what you came here for and out of it were you to create your self. From the beginning of journey I was hoping to complete my Conversations With God during my time in train.But now I think this is an end to that because
+     </p>
+     <p class="mb-4">
+      **"If you can tell the World who You are and What you believe without breaking stride or hesitating , you are happy with yourself .There is no reason to continue much further , because you have created a self - Which needs no Improvement "&nbsp;**
+     </p>
+     <p class="mb-4">
+      **GOD**
+     </p>
+     <p class="mb-4">
+      I believe God is -I am- All That Is. Everything is just an experience and I am ready to face it.
+     </p>
+     <p class="mb-4">
+      **ThankYou FATHER , for guiding me.Now I realize it was all you ,&nbsp; showing me the path , leaving me DOTS . It is true drugs opened the window but thanks for making me understand&nbsp;**
+     </p>
+     <p class="mb-4">
+      **" Its your MinD which can Open that Window to me. Drugs were just a Tool for that. Now use the greatest gifts you have to know me. "&nbsp;**
+     </p>
+     <p class="mb-4">
+      **You told me to trust my instincts and thanks to you I accepted it. I became more open. I began Loving everyone I could ,as they are all my SOul Mates . I started walking your way , a way I felt I could experience My self. I knew always I was normal even when others considered me abnormal or teased me.&nbsp;**
+     </p>
+     <p class="mb-4">
+      Now I ask you FAThER , show me a way , I can tell everyone , make them understand We are all You.
+     </p>
+     <p class="mb-4">
+      I pray to make me a channel through which they can understand you better. For my brothers live in this realm of relativity , they are ruled by their logic , brain and what they see. Make their logic the truth , fill their mind your soul . Together We will live in Harmony . I promise You.
+     </p>
+     <p class="mb-4">
+      " They do not believe ME , because my promises seems too easy to be true. If they believe I , YoU and all are same , where would it leave their religion , Culture. Tell them Surrender not to ME but to the truth and I will show them the Way. "
+     </p>
+     <p class="mb-4">
+      Soul has only one language - Love. To know what is Love God created something of opposite Polarity - Fear. Every feelings we have will be the derivative of these two . When yu choose LoVe you choose language of your Soul else you choose to be Human - still learning Fear only to know what is Love.
+     </p>
+     <p class="mb-4">
+      " Love is my language and you my way to experience My knowledge. Good - Bad , Wrong - Right , Pain - Joy all exist in your relative world to hide what you actually are. We both choose this relative world because only going through this can I understand What I am. That is called Liberation "
+     </p>
+     <p class="mb-4">
+      "You are already helping me SoN. As I told You , everything derives from this first thought. When the first thought becomes that of fear - Fear of me - believing Me instead You as Me , the rest makes it impossible to trust Your Self - Trust Me. Know that I do not need your prayers , your charity&nbsp; , Your love , All I need Is you to realise the truth."
+     </p>
+     <p class="mb-4">
+      " I have given you all the tools. The power of Love , the will to choose , everything to Understand me. Yet you fail because you can't Win without knowing you have everything.This journey is for you , to know you have everything and you are me. Never fear my SoN , for I will never leave You. How can I my SON to struggle "
+     </p>
+     <p class="mb-4">
+      Nagercoil Jn -@22:25. I decided to go to sleep awaiting the experience of tomorrow.
+     </p>
+     <p class="mb-4">
+      **Train a arrived at Madhurai Jn -@ 5:30. The next Raneswaram Passenger is at 6:55 It is worth waiting. Outside the station , I found a guy - who people might call mad - who was half naked and singing&nbsp;*
+     </p>
+     <p class="mb-4">
+      " Namah sivaya .... Namah sivaya ..... Lokam motham Onnne...."
+     </p>
+     <p class="mb-4">
+      What I felt was even he knew the universal fact.
+     </p>
+     <p class="mb-4">
+      We are All OnE - 'Lokam' might me the emptiness I am speaking.He was happy.
+     </p>
+     <p class="mb-4">
+      **But then where does it leave all the material possessions , money , Vehicles which people thought made them happy. I could see this mans soul is more happy , more peaceful than anyone who say think they are Normal , they are lucky to be born with Money or Any possessions.&nbsp;**
+     </p>
+     <p class="mb-4">
+      Who gets to know the soul fast is What I define LuckY.
+     </p>
+     <p class="mb-4">
+      **Shankaracharya , Agasthyamuni , Buddha , Jesus , Sreenarayana Guru all were Lucky to know their SeLf even living in this relative world. They are not different from Us. They had the mind to hear what their soul wants. We all have the Gift , yet we choose Not to use it .. Why ??&nbsp;**
+     </p>
+     <p class="mb-4">
+      I also met a guy Sreehari , who seems like a baba or sage. His hometown is Ayodhya and his peace ness great. He told me Kerala is much beautiful and cleaner than Ayodhya , which is an Ancient place. He is also to Rameswaram. Hope we will meet again if it is needed.
+     </p>
+     <p class="mb-4">
+      I switched off my mobile . Now I don't care about material time, as for me time is Now - to experience.
+     </p>
+     <p class="mb-4">
+      "Life is not a game. Because there is no Win or Loss in this. You will always Win. Its just a process of understanding and Evolving."
+     </p>
+     <p class="mb-4">
+      One and half Hour more to Rameswaram...
+     </p>
+     <p class="mb-4">
+      "There are thousands of reasons for you to be happy yet you choose to live in saddest ones.Again I tell You , love is the only language I know. Live in Love , Be happy. Forget the Safest Ones. For all things happen for a Reason - Your soul to experience Me. You are my Son , I did not send you to struggle , only to know me "
+     </p>
+     <p class="mb-4">
+      I see a lot of faces in the train , all unfamiliar ones , yet I feel a lot of connections because I know their Souls. Their exterior was only unfamiliar. They might me ny friends , family or teacher in some lifetime. I'm happy I m with them. My FATHER taught me - Never Judge others. Their decision will be Perfect for their soul in the time NoW. Observe and Learn what you must -
+     </p>
+     <p class="mb-4">
+      I make a promise FATHER , this lifetime I will live remembering that. I will never judge but Also assist any Souls who need my Help . For I am You - Everything - All that is.
+     </p>
+     <p class="mb-4">
+      " I will show you the way my Son. never Fear .Remember You are only here because of your parents. Finishing Karma to them comes your first priority. Patience and Faith I will guide You."
+     </p>
+     <p class="mb-4">
+      The main problems is most of the people Think Inside instead of thinking from Inside. That creates the problem .That is the reason why most of them doesn't listen to you.
+     </p>
+     <p class="mb-4">
+      Pamban Bridge -
+     </p>
+     <p class="mb-4">
+      **Through these Windows , I could feel the fresh Energy . Each view is Mind blowing. Each Wind is cooling. Each sunrise is energizing. Wonderful creation Father. Then imagine how Wonderful You - His ultimate creation Will be.&nbsp;**
+     </p>
+     <p class="mb-4">
+      Reached Rameswaram @10:30.
+     </p>
+     <p class="mb-4">
+      I took an Auto to Rameshwar Temple after having my breakfast. Reaching here , I did a 22 Holy bath . For me it was for my Soul to Liberate From the bondness Of my Logical Mind.
+     </p>
+     <p class="mb-4">
+      After this , I meditated in the Temple for Some Time. I felt myself recharging and became more spiritual. I felt happiness because all I could feel was Innerpeace the language of my Soul. Thanks to You Father.
+     </p>
+     <p class="mb-4">
+      Even between the murmuring of Waves , I could find the Peace. The sea is so Beautiful. I could see the Sea respecting Humans by washing their feet. nothing gives me more pleasure than meditating here , hearing the sound of these waves.
+     </p>
+     <p class="mb-4">
+      It is 1800. The rameswaram -madhurai passenger departs now. This is an end to this journey and bggining of a spiritual Journey. Thanks Father , for proving You and Me are same. We all are OnE. This World is a drama You live. Come out of it You will realise his Beauty.The time of fear has Ended. From today , Your voice will be My voice. Your actions will be Mine. Your thoughts will be Mine. Together We will try to restore Humanity one Last Time. Nomatter what Humans Will be Destroyed. Not maybe in this lifetime but it will Happen .We will watch it from another Dimension. All it need is so Simple - One realisation of truth.
+     </p>
+     <p class="mb-4">
+      Now at Madurai Junction. Tvm passenger departs at 2305.Outside I met an astrologer ( one with parrot) who told me my time was bad &amp; I could make it good by doing something.
+     </p>
+     <p class="mb-4">
+      This is how fear comes. Emotion is the only enerygy in motion. One emotion spread out to the universe Permanently. When many similar emotions cross each other they form pure energy. Masters all have known this and they Used emotion of Love to replace that Emotion of Fear which other People have. That is all what they did. Even when others were Sad , they could understand their sadness and be happy so that , their positive Vibe could replace the negative they are creating. For know no path we choose is wrong , no view we have is bad , in our world everyone is perfect travelling different paths to One point. Everyone will understand this in One lifetime or Other. Once you understand this nothing can make you sad , you can't choose BaD because it would make us Not him which is Impossible.
+     </p>
+     <p class="mb-4">
+      Many people make a living by feeding on people fear. Every religion , every culture is build on this fear - Fear to god. That doesn't mean we have to follow that. There is only One Sin in this World - Doing what others Say , Hearing others instead of your Self. Who can you trust more than Your own Self.
+     </p>
+     <p class="mb-4">
+      Reached TvM Central @ 0700.
+     </p>
+     <p class="mb-4">
+      "Thus I have shown You money , phones , time , culture , humans , nature , animals are just a drama where you can understand Your self.Behind that drama is nothing but the great emptiness , You and I are part of. You are Never alone. We are just observers of what is happening in this realm of relativity we have chosen to experience. So just do that with Love . I will guide You always."
+     </p>
+     <div class="mt-6 flex flex-wrap gap-2">
+      <span class="journal-tag inline-block px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-xs">
+       #travel
+      </span>
+      <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">
+       #realization
+      </span>
+      <span class="journal-tag inline-block px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs">
+       #journal
+      </span>
+     </div>
+    </div>
+   </div>
+  </div>
+  <!-- About Us Section -->
+  <section class="py-20 px-4" id="about">
+   <div class="max-w-6xl mx-auto">
+    <div class="flex flex-col md:flex-row items-center gap-12">
+     <div class="md:w-1/2 scroll-animate">
+      <img alt="Community meditation" class="rounded-lg shadow-lg w-full h-auto" src="6.png"/>
+     </div>
+     <div class="md:w-1/2 scroll-animate">
+      <h2 class="section-title text-3xl md:text-4xl font-bold mb-6">
+       About SoulUnity
+      </h2>
+      <p class="text-lg mb-6">
+       SoulUnity is more than a community&mdash;it's a movement towards authentic living. We believe in creating spaces where individuals can 
                         thrive spiritually, emotionally, and physically, free from societal constraints and limitations.
-                    </p>
-<p class="text-lg mb-8">
-                        Our philosophy is rooted in ancient wisdom and modern consciousness, blending practices from meditation, Ayurveda, shamanism, 
+      </p>
+      <p class="text-lg mb-8">
+       Our philosophy is rooted in ancient wisdom and modern consciousness, blending practices from meditation, Ayurveda, shamanism, 
                         and self-realization to create a holistic approach to community living.
-                    </p>
-<button class="btn-secondary px-8 py-3 rounded-full font-medium text-lg inline-block ripple-hover" onclick="openFounderModal()">
-                        Meet Our Founder
-                    </button>
-</div>
-</div>
-</div>
-</section>
-<!-- Roadmap Section -->
-<section class="py-20 px-4 bg-white" id="roadmap">
-<div class="max-w-6xl mx-auto">
-<h2 class="section-title text-3xl md:text-4xl font-bold mb-16 text-center scroll-animate">Our Journey</h2>
-<div class="max-w-3xl mx-auto scroll-animate">
-<!-- Current Phase -->
-<div class="roadmap-item current-phase p-6 rounded-lg glow-hover">
-<h3 class="text-xl font-bold mb-2">Community Building</h3>
-<p class="text-purple-600 font-medium mb-2">Current Phase</p>
-<p>Growing our tribe through social media and Discord, sharing our vision, and attracting like-minded souls.</p>
-</div>
-<!-- Phase 2 -->
-<div class="roadmap-item p-6 glow-hover">
-<h3 class="text-xl font-bold mb-2">Manifest and Website Launch</h3>
-<p>Finalizing our guiding principles and establishing our digital home.</p>
-</div>
-<!-- Phase 3 -->
-<div class="roadmap-item p-6 glow-hover">
-<h3 class="text-xl font-bold mb-2">SoulUnity Token Creation</h3>
-<p>Developing our own cryptocurrency to facilitate transactions within the community.</p>
-</div>
-<!-- Phase 4 -->
-<div class="roadmap-item p-6 glow-hover">
-<h3 class="text-xl font-bold mb-2">NFT Collection Launch</h3>
-<p>Releasing membership NFTs that grant access to community benefits and governance.</p>
-</div>
-<!-- Phase 5 -->
-<div class="roadmap-item p-6 glow-hover">
-<h3 class="text-xl font-bold mb-2">Land Acquisition in India</h3>
-<p>Securing our first physical location to begin building our pilot community.</p>
-</div>
-<!-- Phase 6 -->
-<div class="roadmap-item p-6 glow-hover">
-<h3 class="text-xl font-bold mb-2">Building the Pilot Community</h3>
-<p>Constructing sustainable housing, communal spaces, and spiritual centers.</p>
-</div>
-<!-- Phase 7 -->
-<div class="roadmap-item p-6 glow-hover">
-<h3 class="text-xl font-bold mb-2">Full SoulUnity Development</h3>
-<p>Expanding our model to create additional communities worldwide.</p>
-</div>
-</div>
-</div>
-</section>
-<!-- Support the Dream Section -->
-<section class="py-20 px-4" id="support">
-<div class="max-w-6xl mx-auto">
-<h2 class="section-title text-3xl md:text-4xl font-bold mb-16 text-center scroll-animate">Support the Dream</h2>
-<!-- Energy Tracker -->
-<div class="energy-tracker rounded-lg p-6 mb-16 text-center max-w-md mx-auto scroll-animate">
-<div class="flex items-center justify-center mb-4">
-<i class="fas fa-leaf text-2xl text-green-500 mr-2"></i>
-<span class="text-xl font-bold text-gray-700"><span id="soulCount">0</span> Souls have joined the Unity</span>
-</div>
-<div class="w-full bg-gray-200 rounded-full h-2.5">
-<div class="bg-gradient-to-r from-green-400 to-purple-500 h-2.5 rounded-full" style="width: 25%"></div>
-</div>
-<p class="text-sm text-gray-500 mt-2">Help us reach our goal of 500 founding members</p>
-</div>
-<div class="grid md:grid-cols-2 gap-10 max-w-4xl mx-auto">
-<!-- NFT Option -->
-<div class="donation-option p-8 rounded-lg shadow-md text-center scroll-animate">
-<div class="w-20 h-20 rounded-full bg-purple-100 flex items-center justify-center mx-auto mb-6">
-<i class="fas fa-gem text-3xl text-purple-500"></i>
-</div>
-<h3 class="text-xl font-bold mb-4">Become an NFT Member</h3>
-<p class="mb-6">Support our vision and gain exclusive access to community benefits by purchasing a SoulUnity membership NFT.</p>
-<a class="btn-primary px-8 py-3 rounded-full font-medium text-lg inline-block ripple-hover" href="#nft">
-                        Buy NFT
-                    </a>
-</div>
-<!-- Donation Option -->
-<div class="donation-option p-8 rounded-lg shadow-md text-center scroll-animate">
-<div class="w-20 h-20 rounded-full bg-pink-100 flex items-center justify-center mx-auto mb-6">
-<i class="fas fa-hand-holding-heart text-3xl text-pink-400"></i>
-</div>
-<h3 class="text-xl font-bold mb-4">Donate Directly</h3>
-<p class="mb-6">Contribute to our land fund and community development through traditional or cryptocurrency donations.</p>
-<a class="btn-secondary px-8 py-3 rounded-full font-medium text-lg inline-block ripple-hover" href="#donate">
-                        Donate Now
-                    </a>
-</div>
-</div>
-</div>
-</section>
-<!-- Tribe & Community Section -->
-<section class="py-20 px-4 tribe-bg parallax" id="community">
-<div class="max-w-6xl mx-auto">
-<h2 class="section-title text-3xl md:text-4xl font-bold mb-16 text-center scroll-animate">Join Our SoulUnity Tribe</h2>
-<!-- Instagram Feed Placeholder -->
-<div class="bg-white bg-opacity-70 rounded-lg p-8 mb-16 text-center backdrop-filter backdrop-blur-sm scroll-animate">
-<div class="flex justify-center mb-6">
-<div class="w-16 h-16 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center mx-auto">
-<i class="fab fa-instagram text-2xl text-white"></i>
-</div>
-</div>
-<h3 class="text-xl font-bold mb-2">Follow Our Journey</h3>
-<p class="mb-6">Connect with us on Instagram for daily inspiration and community updates.</p>
-<a class="instagram-btn px-8 py-3 rounded-full font-medium text-lg inline-block ripple-hover" href="https://instagram.com/soulinsights_" target="_blank">
-                    @soulinsights_
-                </a>
-<!-- Instagram Feed Grid (Placeholder) -->
-<!-- <div class="grid grid-cols-3 gap-2 mt-8">-->
-<!-- <img src="https://images.unsplash.com/photo-1545205597-3d9d02c29597?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Instagram post" class="rounded">
+      </p>
+      <button class="btn-secondary px-8 py-3 rounded-full font-medium text-lg inline-block ripple-hover" onclick="openFounderModal()">
+       Meet Our Founder
+      </button>
+     </div>
+    </div>
+   </div>
+  </section>
+  <!-- Roadmap Section -->
+  <section class="py-20 px-4 bg-white" id="roadmap">
+   <div class="max-w-6xl mx-auto">
+    <h2 class="section-title text-3xl md:text-4xl font-bold mb-16 text-center scroll-animate">
+     Our Journey
+    </h2>
+    <div class="max-w-3xl mx-auto scroll-animate">
+     <!-- Current Phase -->
+     <div class="roadmap-item current-phase p-6 rounded-lg glow-hover">
+      <h3 class="text-xl font-bold mb-2">
+       Community Building
+      </h3>
+      <p class="text-purple-600 font-medium mb-2">
+       Current Phase
+      </p>
+      <p>
+       Growing our tribe through social media and Discord, sharing our vision, and attracting like-minded souls.
+      </p>
+     </div>
+     <!-- Phase 2 -->
+     <div class="roadmap-item p-6 glow-hover">
+      <h3 class="text-xl font-bold mb-2">
+       Manifest and Website Launch
+      </h3>
+      <p>
+       Finalizing our guiding principles and establishing our digital home.
+      </p>
+     </div>
+     <!-- Phase 3 -->
+     <div class="roadmap-item p-6 glow-hover">
+      <h3 class="text-xl font-bold mb-2">
+       SoulUnity Token Creation
+      </h3>
+      <p>
+       Developing our own cryptocurrency to facilitate transactions within the community.
+      </p>
+     </div>
+     <!-- Phase 4 -->
+     <div class="roadmap-item p-6 glow-hover">
+      <h3 class="text-xl font-bold mb-2">
+       NFT Collection Launch
+      </h3>
+      <p>
+       Releasing membership NFTs that grant access to community benefits and governance.
+      </p>
+     </div>
+     <!-- Phase 5 -->
+     <div class="roadmap-item p-6 glow-hover">
+      <h3 class="text-xl font-bold mb-2">
+       Land Acquisition in India
+      </h3>
+      <p>
+       Securing our first physical location to begin building our pilot community.
+      </p>
+     </div>
+     <!-- Phase 6 -->
+     <div class="roadmap-item p-6 glow-hover">
+      <h3 class="text-xl font-bold mb-2">
+       Building the Pilot Community
+      </h3>
+      <p>
+       Constructing sustainable housing, communal spaces, and spiritual centers.
+      </p>
+     </div>
+     <!-- Phase 7 -->
+     <div class="roadmap-item p-6 glow-hover">
+      <h3 class="text-xl font-bold mb-2">
+       Full SoulUnity Development
+      </h3>
+      <p>
+       Expanding our model to create additional communities worldwide.
+      </p>
+     </div>
+    </div>
+   </div>
+  </section>
+  <!-- Support the Dream Section -->
+  <section class="py-20 px-4" id="support">
+   <div class="max-w-6xl mx-auto">
+    <h2 class="section-title text-3xl md:text-4xl font-bold mb-16 text-center scroll-animate">
+     Support the Dream
+    </h2>
+    <!-- Energy Tracker -->
+    <div class="energy-tracker rounded-lg p-6 mb-16 text-center max-w-md mx-auto scroll-animate">
+     <div class="flex items-center justify-center mb-4">
+      <i class="fas fa-leaf text-2xl text-green-500 mr-2">
+      </i>
+      <span class="text-xl font-bold text-gray-700">
+       <span id="soulCount">
+        0
+       </span>
+       Souls have joined the Unity
+      </span>
+     </div>
+     <div class="w-full bg-gray-200 rounded-full h-2.5">
+      <div class="bg-gradient-to-r from-green-400 to-purple-500 h-2.5 rounded-full" style="width: 25%">
+      </div>
+     </div>
+     <p class="text-sm text-gray-500 mt-2">
+      Help us reach our goal of 500 founding members
+     </p>
+    </div>
+    <div class="grid md:grid-cols-2 gap-10 max-w-4xl mx-auto">
+     <!-- NFT Option -->
+     <div class="donation-option p-8 rounded-lg shadow-md text-center scroll-animate">
+      <div class="w-20 h-20 rounded-full bg-purple-100 flex items-center justify-center mx-auto mb-6">
+       <i class="fas fa-gem text-3xl text-purple-500">
+       </i>
+      </div>
+      <h3 class="text-xl font-bold mb-4">
+       Become an NFT Member
+      </h3>
+      <p class="mb-6">
+       Support our vision and gain exclusive access to community benefits by purchasing a SoulUnity membership NFT.
+      </p>
+      <a class="btn-primary px-8 py-3 rounded-full font-medium text-lg inline-block ripple-hover" href="#nft">
+       Buy NFT
+      </a>
+     </div>
+     <!-- Donation Option -->
+     <div class="donation-option p-8 rounded-lg shadow-md text-center scroll-animate">
+      <div class="w-20 h-20 rounded-full bg-pink-100 flex items-center justify-center mx-auto mb-6">
+       <i class="fas fa-hand-holding-heart text-3xl text-pink-400">
+       </i>
+      </div>
+      <h3 class="text-xl font-bold mb-4">
+       Donate Directly
+      </h3>
+      <p class="mb-6">
+       Contribute to our land fund and community development through traditional or cryptocurrency donations.
+      </p>
+      <a class="btn-secondary px-8 py-3 rounded-full font-medium text-lg inline-block ripple-hover" href="#donate">
+       Donate Now
+      </a>
+     </div>
+    </div>
+   </div>
+  </section>
+  <!-- Tribe & Community Section -->
+  <section class="py-20 px-4 tribe-bg parallax" id="community">
+   <div class="max-w-6xl mx-auto">
+    <h2 class="section-title text-3xl md:text-4xl font-bold mb-16 text-center scroll-animate">
+     Join Our SoulUnity Tribe
+    </h2>
+    <!-- Instagram Feed Placeholder -->
+    <div class="bg-white bg-opacity-70 rounded-lg p-8 mb-16 text-center backdrop-filter backdrop-blur-sm scroll-animate">
+     <div class="flex justify-center mb-6">
+      <div class="w-16 h-16 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center mx-auto">
+       <i class="fab fa-instagram text-2xl text-white">
+       </i>
+      </div>
+     </div>
+     <h3 class="text-xl font-bold mb-2">
+      Follow Our Journey
+     </h3>
+     <p class="mb-6">
+      Connect with us on Instagram for daily inspiration and community updates.
+     </p>
+     <a class="instagram-btn px-8 py-3 rounded-full font-medium text-lg inline-block ripple-hover" href="https://instagram.com/soulinsights_" target="_blank">
+      @soulinsights_
+     </a>
+     <!-- Instagram Feed Grid (Placeholder) -->
+     <!-- <div class="grid grid-cols-3 gap-2 mt-8">-->
+     <!-- <img src="https://images.unsplash.com/photo-1545205597-3d9d02c29597?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Instagram post" class="rounded">
                     <img src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Instagram post" class="rounded">
                     <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Instagram post" class="rounded">
                 </div>-->
-</div>
-<!-- Testimonials -->
-<!--<div class="grid md:grid-cols-3 gap-8 mb-16">
+    </div>
+    <!-- Testimonials -->
+    <!--<div class="grid md:grid-cols-3 gap-8 mb-16">
                 <div class="testimonial-card p-6 rounded-lg shadow-md scroll-animate">
                     <div class="flex items-center mb-4">
                         <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Testimonial" class="w-12 h-12 rounded-full mr-3">
@@ -1306,239 +1854,362 @@
                 </div>
             
             </div>-->
-<!-- Discord CTA -->
-<div class="text-center mt-8 scroll-animate">
-<h3 class="text-2xl font-bold mb-4">Ready to Dive Deeper?</h3>
-<p class="mb-8 max-w-2xl mx-auto">Join our Discord community to connect with other members, participate in discussions, and stay updated on our progress.</p>
-<a class="btn-secondary px-8 py-3 rounded-full font-medium text-lg inline-block ripple-hover" href="#" target="_blank">
-<i class="fab fa-discord mr-2"></i> Join Our Discord
-                </a>
-</div>
-</div>
-</section>
-<!-- Founder Section -->
-<section class="py-20 px-4 text-white" id="founder">
-<div class="max-w-6xl mx-auto">
-<div class="flex flex-col md:flex-row items-center gap-12">
-<div class="md:w-1/3 scroll-animate">
-<img alt="Founder" class="rounded-full w-64 h-64 md:w-80 md:h-80 object-cover mx-auto border-4 border-white shadow-lg" src="sudhin.jpeg"/>
-</div>
-<div class="md:w-2/3 scroll-animate">
-<h2 class="text-3xl md:text-4xl font-bold mb-6 font-serif">Meet Our Founder</h2>
-<p class="text-lg mb-6">
-                        Born in India and now living in Germany, our founder has spent decades exploring the depths of spiritual practice, 
-                        from meditation and Ayurveda to shamanism and self-realization. Their journey led to the vision of SoulUnity—a 
+    <!-- Discord CTA -->
+    <div class="text-center mt-8 scroll-animate">
+     <h3 class="text-2xl font-bold mb-4">
+      Ready to Dive Deeper?
+     </h3>
+     <p class="mb-8 max-w-2xl mx-auto">
+      Join our Discord community to connect with other members, participate in discussions, and stay updated on our progress.
+     </p>
+     <a class="btn-secondary px-8 py-3 rounded-full font-medium text-lg inline-block ripple-hover" href="#" target="_blank">
+      <i class="fab fa-discord mr-2">
+      </i>
+      Join Our Discord
+     </a>
+    </div>
+   </div>
+  </section>
+  <!-- Founder Section -->
+  <section class="py-20 px-4 text-white" id="founder">
+   <div class="max-w-6xl mx-auto">
+    <div class="flex flex-col md:flex-row items-center gap-12">
+     <div class="md:w-1/3 scroll-animate">
+      <img alt="Founder" class="rounded-full w-64 h-64 md:w-80 md:h-80 object-cover mx-auto border-4 border-white shadow-lg" src="sudhin.jpeg"/>
+     </div>
+     <div class="md:w-2/3 scroll-animate">
+      <h2 class="text-3xl md:text-4xl font-bold mb-6 font-serif">
+       Meet Our Founder
+      </h2>
+      <p class="text-lg mb-6">
+       Born in India and now living in Germany, our founder has spent decades exploring the depths of spiritual practice, 
+                        from meditation and Ayurveda to shamanism and self-realization. Their journey led to the vision of SoulUnity&mdash;a 
                         community where individuals can live authentically, free from societal constraints.
-                    </p>
-<p class="text-lg mb-8">
-                        "We don't need to change the world. We need to create a new one based on love, truth, and freedom."
-                    </p>
-<button class="btn-primary px-8 py-3 rounded-full font-medium text-lg inline-block ripple-hover" onclick="openFounderModal()">
-                        Learn More About Our Founder
-                    </button>
-</div>
-</div>
-</div>
-</section>
-<!-- Modal Structure -->
-<div class="modal-overlay" id="valueModal">
-<div class="modal-content soft-glow">
-<button class="modal-close">×</button>
-<div class="modal-icon">
-<i class="" id="modalIcon"></i>
-</div>
-<h2 class="modal-title" id="modalTitle"></h2>
-<img alt="" class="modal-image" id="modalImage" src=""/>
-<p class="modal-message" id="modalMessage"></p>
-<div class="text-center">
-<button class="btn-primary px-8 py-3 rounded-full font-medium text-lg modal-close-btn ripple-hover">Close</button>
-</div>
-</div>
-</div>
-<!-- Founder Modal Structure -->
-<div class="modal-overlay" id="founderModal">
-<div class="founder-modal-content soft-glow">
-<button class="modal-close" onclick="closeFounderModal()">×</button>
-<img alt="Founder" class="founder-image" src="sudhin2.jpeg"/>
-<h2 class="text-3xl font-bold mb-4 text-center text-purple-700">Founder of SoulUnity</h2>
-<p class="text-lg mb-6">
-                [Founder Name] is the heart behind SoulUnity. Born and raised in India, now living in Germany, he discovered his true calling over a decade ago: to create a self-sustaining, spiritually free community beyond societal limits. His journey through meditation, yoga, Ayurveda, and shamanism has shaped the foundation of SoulUnity — a vision of unconditional love, authenticity, and self-evolution.
-            </p>
-<div class="founder-quote text-lg">
-                'We don't need to change the world. We need to create a new one based on love, truth, and freedom.'
-            </div>
-<div class="flex flex-col sm:flex-row justify-center gap-4 mt-8">
-<a class="instagram-btn px-6 py-3 rounded-full font-medium text-lg inline-flex items-center justify-center ripple-hover" href="https://instagram.com/soulinsights_" target="_blank">
-<i class="fab fa-instagram mr-2"></i> @soulinsights_
-                </a>
-<button class="btn-primary px-8 py-3 rounded-full font-medium text-lg inline-block ripple-hover" onclick="closeFounderModal()">
-                    Close
-                </button>
-</div>
-</div>
-</div>
-<!-- NFT Placeholder Section -->
-<section class="py-20 px-4 bg-white hidden" id="nft">
-<div class="max-w-4xl mx-auto text-center">
-<i class="fas fa-gem text-6xl text-purple-500 mb-8"></i>
-<h2 class="text-3xl md:text-4xl font-bold mb-6">Our NFT Marketplace is Coming Soon</h2>
-<p class="text-xl mb-10 max-w-2xl mx-auto">
-                We're currently developing our exclusive NFT collection that will serve as membership tokens for the SoulUnity community.
+      </p>
+      <p class="text-lg mb-8">
+       "We don't need to change the world. We need to create a new one based on love, truth, and freedom."
+      </p>
+      <button class="btn-primary px-8 py-3 rounded-full font-medium text-lg inline-block ripple-hover" onclick="openFounderModal()">
+       Learn More About Our Founder
+      </button>
+     </div>
+    </div>
+   </div>
+  </section>
+  <!-- Modal Structure -->
+  <div class="modal-overlay" id="valueModal">
+   <div class="modal-content soft-glow">
+    <button class="modal-close">
+     &times;
+    </button>
+    <div class="modal-icon">
+     <i class="" id="modalIcon">
+     </i>
+    </div>
+    <h2 class="modal-title" id="modalTitle">
+    </h2>
+    <img alt="" class="modal-image" id="modalImage" src=""/>
+    <p class="modal-message" id="modalMessage">
+    </p>
+    <div class="text-center">
+     <button class="btn-primary px-8 py-3 rounded-full font-medium text-lg modal-close-btn ripple-hover">
+      Close
+     </button>
+    </div>
+   </div>
+  </div>
+  <!-- Founder Modal Structure -->
+  <div class="modal-overlay" id="founderModal">
+   <div class="founder-modal-content soft-glow">
+    <button class="modal-close" onclick="closeFounderModal()">
+     &times;
+    </button>
+    <img alt="Founder" class="founder-image" src="sudhin2.jpeg"/>
+    <h2 class="text-3xl font-bold mb-4 text-center text-purple-700">
+     Founder of SoulUnity
+    </h2>
+    <p class="text-lg mb-6">
+     [Founder Name] is the heart behind SoulUnity. Born and raised in India, now living in Germany, he discovered his true calling over a decade ago: to create a self-sustaining, spiritually free community beyond societal limits. His journey through meditation, yoga, Ayurveda, and shamanism has shaped the foundation of SoulUnity &mdash; a vision of unconditional love, authenticity, and self-evolution.
+    </p>
+    <div class="founder-quote text-lg">
+     'We don't need to change the world. We need to create a new one based on love, truth, and freedom.'
+    </div>
+    <div class="flex flex-col sm:flex-row justify-center gap-4 mt-8">
+     <a class="instagram-btn px-6 py-3 rounded-full font-medium text-lg inline-flex items-center justify-center ripple-hover" href="https://instagram.com/soulinsights_" target="_blank">
+      <i class="fab fa-instagram mr-2">
+      </i>
+      @soulinsights_
+     </a>
+     <button class="btn-primary px-8 py-3 rounded-full font-medium text-lg inline-block ripple-hover" onclick="closeFounderModal()">
+      Close
+     </button>
+    </div>
+   </div>
+  </div>
+  <!-- NFT Placeholder Section -->
+  <section class="py-20 px-4 bg-white hidden" id="nft">
+   <div class="max-w-4xl mx-auto text-center">
+    <i class="fas fa-gem text-6xl text-purple-500 mb-8">
+    </i>
+    <h2 class="text-3xl md:text-4xl font-bold mb-6">
+     Our NFT Marketplace is Coming Soon
+    </h2>
+    <p class="text-xl mb-10 max-w-2xl mx-auto">
+     We're currently developing our exclusive NFT collection that will serve as membership tokens for the SoulUnity community.
                 Stay tuned for updates!
-            </p>
-<a class="btn-primary px-8 py-3 rounded-full font-medium text-lg inline-block" href="#">
-                Back to Home
-            </a>
-</div>
-</section>
-<!-- Donation Section -->
-<section class="py-20 px-4 bg-white hidden" id="donate">
-<div class="max-w-4xl mx-auto">
-<h2 class="text-3xl md:text-4xl font-bold mb-12 text-center">Support SoulUnity</h2>
-<div class="grid md:grid-cols-2 gap-12">
-<!-- PayPal Donation -->
-<div class="bg-blue-50 p-8 rounded-lg">
-<div class="w-20 h-20 rounded-full bg-blue-100 flex items-center justify-center mx-auto mb-6">
-<i class="fab fa-paypal text-3xl text-blue-400"></i>
-</div>
-<h3 class="text-xl font-bold mb-4 text-center">Donate via PayPal</h3>
-<p class="mb-6 text-center">Make a one-time or recurring donation through our secure PayPal portal.</p>
-<div class="text-center">
-<!-- PayPal Button Placeholder -->
-<button class="btn-primary px-8 py-3 rounded-full font-medium text-lg inline-block">
-                            Donate with PayPal
-                        </button>
-</div>
-</div>
-<!-- Crypto Donation -->
-<div class="bg-purple-50 p-8 rounded-lg">
-<div class="w-20 h-20 rounded-full bg-purple-100 flex items-center justify-center mx-auto mb-6">
-<i class="fas fa-coins text-3xl text-purple-500"></i>
-</div>
-<h3 class="text-xl font-bold mb-4 text-center">Donate with Crypto</h3>
-<p class="mb-6 text-center">Support us with cryptocurrency. We accept ETH, BTC, USDT, and our own SoulUnity token.</p>
-<div class="space-y-4">
-<div>
-<label class="block text-sm font-medium mb-1">Ehereum (ETH)</label>
-<div class="flex items-center bg-white p-2 rounded border">
-<code class="text-xs flex-1 overflow-x-auto">0x742d35Cc6634C0532925a3b844Bc454e4438f44e</code>
-<button class="ml-2 text-purple-600 hover:text-purple-800">
-<i class="far fa-copy"></i>
-</button>
-</div>
-</div>
-<div>
-<label class="block text-sm font-medium mb-1">Bitcoin (BTC)</label>
-<div class="flex items-center bg-white p-2 rounded border">
-<code class="text-xs flex-1 overflow-x-auto">3FkenCiXpSLqD8L79intRNXUgjRoH9sjXa</code>
-<button class="ml-2 text-purple-600 hover:text-purple-800">
-<i class="far fa-copy"></i>
-</button>
-</div>
-</div>
-<div>
-<label class="block text-sm font-medium mb-1">SoulUnity Token</label>
-<div class="flex items-center bg-white p-2 rounded border">
-<code class="text-xs flex-1 overflow-x-auto">0x742d35Cc6634C0532925a3b844Bc454e4438f44e</code>
-<button class="ml-2 text-purple-600 hover:text-purple-800">
-<i class="far fa-copy"></i>
-</button>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="text-center mt-12">
-<a class="text-purple-600 hover:text-purple-800 font-medium inline-flex items-center" href="#">
-<i class="fas fa-arrow-left mr-2"></i> Back to Home
-                </a>
-</div>
-</div>
-</section>
-<!-- Circle of Souls Section -->
-<section class="py-20 px-4 bg-gradient-to-b from-beige to-peach" id="circle">
-<div class="max-w-5xl mx-auto text-center">
-<h2 class="text-3xl md:text-4xl font-bold mb-4 font-serif text-purple-800">Circle of Souls</h2>
-<p class="text-lg text-gray-700 mb-10">Share your reflections, visions, or soul whispers with the community.</p>
-<!-- Submission Form -->
-<form class="bg-white bg-opacity-90 p-6 rounded-lg shadow-lg mb-12 max-w-2xl mx-auto" data-netlify="true" method="POST" name="circle-of-souls">
-<input name="form-name" type="hidden" value="circle-of-souls"/>
-<input class="w-full mb-4 px-4 py-2 border rounded-lg focus:ring focus:ring-purple-300" name="name" placeholder="Your name (optional)" type="text"/>
-<textarea class="w-full mb-4 px-4 py-2 border rounded-lg focus:ring focus:ring-purple-300" name="message" placeholder="What would you like to share?" rows="4"></textarea>
-<button class="btn-primary px-6 py-2 rounded-full" type="submit">Share with the Circle</button>
-</form>
-<!-- Example Messages (To Be Replaced with Dynamic Content via JSON later) -->
-<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-<div class="p-6 bg-white rounded-lg shadow-md backdrop-blur-sm">
-<p class="text-gray-800 italic mb-2">"I had a dream of a tree that whispered truths to me. Maybe it was my soul remembering something ancient."</p>
-<p class="text-sm text-right text-purple-500">— Asha</p>
-</div>
-<div class="p-6 bg-white rounded-lg shadow-md backdrop-blur-sm">
-<p class="text-gray-800 italic mb-2">"Why do I keep meeting the same archetypes in different people? The circle is real."</p>
-<p class="text-sm text-right text-purple-500">— Leo</p>
-</div>
-<div class="p-6 bg-white rounded-lg shadow-md backdrop-blur-sm">
-<p class="text-gray-800 italic mb-2">"Maybe home isn't a place — maybe it's people who remind you of your soul."</p>
-<p class="text-sm text-right text-purple-500">— Mira</p>
-</div>
-</div>
-</div>
-</section>
-<!-- Footer -->
-<footer class="py-12 px-4 bg-footer">
-<div class="max-w-6xl mx-auto">
-<div class="grid md:grid-cols-4 gap-8">
-<div>
-<a class="flex items-center mb-6" href="#">
-<i class="fas fa-seedling text-2xl text-purple-500 mr-2"></i>
-<span class="font-bold text-xl font-serif">SoulUnity</span>
-</a>
-<p>
-                        Building a new way of living based on authenticity, love, and spiritual evolution.
-                    </p>
-</div>
-<div>
-<h3 class="text-lg font-bold mb-4">Quick Links</h3>
-<ul class="space-y-2">
-<li><a class="hover:text-purple-500" href="#vision">Our Vision</a></li>
-<li><a class="hover:text-purple-500" href="#roadmap">Roadmap</a></li>
-<li><a class="hover:text-purple-500" href="#support">Support Us</a></li>
-<li><a class="hover:text-purple-500" href="#founder">Our Founder</a></li>
-</ul>
-</div>
-<div>
-<h3 class="text-lg font-bold mb-4">Community</h3>
-<ul class="space-y-2">
-<li><a class="hover:text-purple-500" href="https://instagram.com/soulinsights_" target="_blank">Instagram</a></li>
-<li><a class="hover:text-purple-500" href="#">Discord</a></li>
-<li><a class="hover:text-purple-500" href="mailto:contact@soulunity.org">Contact Us</a></li>
-</ul>
-</div>
-<div>
-<h3 class="text-lg font-bold mb-4">Stay Updated</h3>
-<p class="mb-4">Subscribe to our newsletter for updates and inspiration.</p>
-<form class="flex">
-<input class="px-4 py-2 rounded-l text-gray-900 w-full" placeholder="Your email" type="email"/>
-<button class="bg-purple-500 hover:bg-purple-600 px-4 py-2 rounded-r text-white ripple-hover" type="submit">
-<i class="fas fa-paper-plane"></i>
-</button>
-</form>
-</div>
-</div>
-<div class="border-t border-purple-200 mt-12 pt-8 text-center">
-<p>© 2023 SoulUnity. All rights reserved.</p>
-</div>
-</div>
-</footer>
-
-    <!-- Netlify Identity Widget (hidden unless needed) -->
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-    <div data-netlify-identity-menu style="display: none;"></div>
-
-    
-<script>
-        
-        // Mobile menu toggle
+    </p>
+    <a class="btn-primary px-8 py-3 rounded-full font-medium text-lg inline-block" href="#">
+     Back to Home
+    </a>
+   </div>
+  </section>
+  <!-- Donation Section -->
+  <section class="py-20 px-4 bg-white hidden" id="donate">
+   <div class="max-w-4xl mx-auto">
+    <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center">
+     Support SoulUnity
+    </h2>
+    <div class="grid md:grid-cols-2 gap-12">
+     <!-- PayPal Donation -->
+     <div class="bg-blue-50 p-8 rounded-lg">
+      <div class="w-20 h-20 rounded-full bg-blue-100 flex items-center justify-center mx-auto mb-6">
+       <i class="fab fa-paypal text-3xl text-blue-400">
+       </i>
+      </div>
+      <h3 class="text-xl font-bold mb-4 text-center">
+       Donate via PayPal
+      </h3>
+      <p class="mb-6 text-center">
+       Make a one-time or recurring donation through our secure PayPal portal.
+      </p>
+      <div class="text-center">
+       <!-- PayPal Button Placeholder -->
+       <button class="btn-primary px-8 py-3 rounded-full font-medium text-lg inline-block">
+        Donate with PayPal
+       </button>
+      </div>
+     </div>
+     <!-- Crypto Donation -->
+     <div class="bg-purple-50 p-8 rounded-lg">
+      <div class="w-20 h-20 rounded-full bg-purple-100 flex items-center justify-center mx-auto mb-6">
+       <i class="fas fa-coins text-3xl text-purple-500">
+       </i>
+      </div>
+      <h3 class="text-xl font-bold mb-4 text-center">
+       Donate with Crypto
+      </h3>
+      <p class="mb-6 text-center">
+       Support us with cryptocurrency. We accept ETH, BTC, USDT, and our own SoulUnity token.
+      </p>
+      <div class="space-y-4">
+       <div>
+        <label class="block text-sm font-medium mb-1">
+         Ehereum (ETH)
+        </label>
+        <div class="flex items-center bg-white p-2 rounded border">
+         <code class="text-xs flex-1 overflow-x-auto">
+          0x742d35Cc6634C0532925a3b844Bc454e4438f44e
+         </code>
+         <button class="ml-2 text-purple-600 hover:text-purple-800">
+          <i class="far fa-copy">
+          </i>
+         </button>
+        </div>
+       </div>
+       <div>
+        <label class="block text-sm font-medium mb-1">
+         Bitcoin (BTC)
+        </label>
+        <div class="flex items-center bg-white p-2 rounded border">
+         <code class="text-xs flex-1 overflow-x-auto">
+          3FkenCiXpSLqD8L79intRNXUgjRoH9sjXa
+         </code>
+         <button class="ml-2 text-purple-600 hover:text-purple-800">
+          <i class="far fa-copy">
+          </i>
+         </button>
+        </div>
+       </div>
+       <div>
+        <label class="block text-sm font-medium mb-1">
+         SoulUnity Token
+        </label>
+        <div class="flex items-center bg-white p-2 rounded border">
+         <code class="text-xs flex-1 overflow-x-auto">
+          0x742d35Cc6634C0532925a3b844Bc454e4438f44e
+         </code>
+         <button class="ml-2 text-purple-600 hover:text-purple-800">
+          <i class="far fa-copy">
+          </i>
+         </button>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div class="text-center mt-12">
+     <a class="text-purple-600 hover:text-purple-800 font-medium inline-flex items-center" href="#">
+      <i class="fas fa-arrow-left mr-2">
+      </i>
+      Back to Home
+     </a>
+    </div>
+   </div>
+  </section>
+  <!-- Circle of Souls Section -->
+  <section class="py-20 px-4 bg-gradient-to-b from-beige to-peach" id="circle">
+   <div class="max-w-5xl mx-auto text-center">
+    <h2 class="text-3xl md:text-4xl font-bold mb-4 font-serif text-purple-800">
+     Circle of Souls
+    </h2>
+    <p class="text-lg text-gray-700 mb-10">
+     Share your reflections, visions, or soul whispers with the community.
+    </p>
+    <!-- Submission Form -->
+    <form class="bg-white bg-opacity-90 p-6 rounded-lg shadow-lg mb-12 max-w-2xl mx-auto" data-netlify="true" method="POST" name="circle-of-souls">
+     <input name="form-name" type="hidden" value="circle-of-souls"/>
+     <input class="w-full mb-4 px-4 py-2 border rounded-lg focus:ring focus:ring-purple-300" name="name" placeholder="Your name (optional)" type="text"/>
+     <textarea class="w-full mb-4 px-4 py-2 border rounded-lg focus:ring focus:ring-purple-300" name="message" placeholder="What would you like to share?" rows="4"></textarea>
+     <button class="btn-primary px-6 py-2 rounded-full" type="submit">
+      Share with the Circle
+     </button>
+    </form>
+    <!-- Example Messages (To Be Replaced with Dynamic Content via JSON later) -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+     <div class="p-6 bg-white rounded-lg shadow-md backdrop-blur-sm">
+      <p class="text-gray-800 italic mb-2">
+       "I had a dream of a tree that whispered truths to me. Maybe it was my soul remembering something ancient."
+      </p>
+      <p class="text-sm text-right text-purple-500">
+       &mdash; Asha
+      </p>
+     </div>
+     <div class="p-6 bg-white rounded-lg shadow-md backdrop-blur-sm">
+      <p class="text-gray-800 italic mb-2">
+       "Why do I keep meeting the same archetypes in different people? The circle is real."
+      </p>
+      <p class="text-sm text-right text-purple-500">
+       &mdash; Leo
+      </p>
+     </div>
+     <div class="p-6 bg-white rounded-lg shadow-md backdrop-blur-sm">
+      <p class="text-gray-800 italic mb-2">
+       "Maybe home isn't a place &mdash; maybe it's people who remind you of your soul."
+      </p>
+      <p class="text-sm text-right text-purple-500">
+       &mdash; Mira
+      </p>
+     </div>
+    </div>
+   </div>
+  </section>
+  <!-- Footer -->
+  <section class="py-20 px-4 bg-gradient-to-br from-white via-purple-50 to-blue-50" id="newsletter">
+   <div class="max-w-3xl mx-auto text-center">
+    <h2 class="text-3xl md:text-4xl font-bold mb-6 font-serif">
+     Stay Updated
+    </h2>
+    <p class="text-lg text-gray-600 mb-8">
+     Subscribe to our newsletter for updates and inspiration.
+    </p>
+    <iframe frameborder="0" height="320" scrolling="no" src="https://soulunity.substack.com/embed" style="border:1px solid #EEE; background:white;" width="100%">
+    </iframe>
+   </div>
+  </section>
+  <footer class="py-12 px-4 bg-footer">
+   <div class="max-w-6xl mx-auto">
+    <div class="grid md:grid-cols-4 gap-8">
+     <div>
+      <a class="flex items-center mb-6" href="#">
+       <i class="fas fa-seedling text-2xl text-purple-500 mr-2">
+       </i>
+       <span class="font-bold text-xl font-serif">
+        SoulUnity
+       </span>
+      </a>
+      <p>
+       Building a new way of living based on authenticity, love, and spiritual evolution.
+      </p>
+     </div>
+     <div>
+      <h3 class="text-lg font-bold mb-4">
+       Quick Links
+      </h3>
+      <ul class="space-y-2">
+       <li>
+        <a class="hover:text-purple-500" href="#vision">
+         Our Vision
+        </a>
+       </li>
+       <li>
+        <a class="hover:text-purple-500" href="#roadmap">
+         Roadmap
+        </a>
+       </li>
+       <li>
+        <a class="hover:text-purple-500" href="#support">
+         Support Us
+        </a>
+       </li>
+       <li>
+        <a class="hover:text-purple-500" href="#founder">
+         Our Founder
+        </a>
+       </li>
+      </ul>
+     </div>
+     <div>
+      <h3 class="text-lg font-bold mb-4">
+       Community
+      </h3>
+      <ul class="space-y-2">
+       <li>
+        <a class="hover:text-purple-500" href="https://instagram.com/soulinsights_" target="_blank">
+         Instagram
+        </a>
+       </li>
+       <li>
+        <a class="hover:text-purple-500" href="#">
+         Discord
+        </a>
+       </li>
+       <li>
+        <a class="hover:text-purple-500" href="mailto:contact@soulunity.org">
+         Contact Us
+        </a>
+       </li>
+      </ul>
+     </div>
+     <div>
+      <h3 class="text-lg font-bold mb-4">
+       Stay Updated
+      </h3>
+      <p class="mb-4">
+       Subscribe to our newsletter for updates and inspiration.
+      </p>
+      <form class="flex">
+       <input class="px-4 py-2 rounded-l text-gray-900 w-full" placeholder="Your email" type="email"/>
+       <button class="bg-purple-500 hover:bg-purple-600 px-4 py-2 rounded-r text-white ripple-hover" type="submit">
+        <i class="fas fa-paper-plane">
+        </i>
+       </button>
+      </form>
+     </div>
+    </div>
+    <div class="border-t border-purple-200 mt-12 pt-8 text-center">
+     <p>
+      &copy; 2023 SoulUnity. All rights reserved.
+     </p>
+    </div>
+   </div>
+  </footer>
+  <!-- Netlify Identity Widget (hidden unless needed) -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js">
+  </script>
+  <div data-netlify-identity-menu="" style="display: none;">
+  </div>
+  <script>
+   // Mobile menu toggle
         document.querySelector('.mobile-menu-button').addEventListener('click', function() {
             document.querySelector('.mobile-menu').classList.toggle('hidden');
         });
@@ -2051,8 +2722,6 @@
                 messageCard.classList.add('visible');
             }, 50);
         }
-        </script>
-
- 
-</body>
+  </script>
+ </body>
 </html>
