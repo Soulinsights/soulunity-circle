@@ -1915,5 +1915,47 @@
 </div>
 </div>
 </section>
+     <script>
+  async function loadEntries() {
+    const res = await fetch('/.netlify/functions/get-entries');
+    const entries = await res.json();
+    const container = document.getElementById('entries-grid');
+    container.innerHTML = entries.map(entry => {
+      const date = new Date(entry.timestamp);
+      const formatted = date.toLocaleString('en-GB', {
+        day: '2-digit', month: 'short', year: 'numeric',
+        hour: '2-digit', minute: '2-digit'
+      });
+      return `
+        <div class="p-6 bg-white rounded-lg shadow-md backdrop-blur-sm">
+          <p class="text-gray-800 italic mb-2">"${entry.message}"</p>
+          <p class="text-sm text-right text-purple-500">— ${entry.name || 'Anonymous'}<br><span class="text-gray-400 text-xs">${formatted}</span></p>
+        </div>`;
+    }).join('');
+  }
+
+  document.getElementById('circle-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const name = form.name.value.trim();
+    const message = form.message.value.trim();
+    const status = document.getElementById('form-status');
+
+    const res = await fetch('/.netlify/functions/save-entry', {
+      method: 'POST',
+      body: JSON.stringify({ name, message })
+    });
+
+    if (res.ok) {
+      status.textContent = "✨ Thank you for sharing. Your message has been received.";
+      form.reset();
+      loadEntries();
+    } else {
+      status.textContent = "❗ Something went wrong. Please try again later.";
+    }
+  });
+
+  document.addEventListener('DOMContentLoaded', loadEntries);
+</script>   
 </body>
 </html>
