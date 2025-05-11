@@ -1,14 +1,10 @@
 [build]
-  publish = "."
-  functions = "netlify/functions"
-
+command = "echo 'No build needed for static site'"
+publish = "."
+functions = "netlify/functions"
+        
 [[redirects]]
-  from = "/api/save-entry"
-  to = "/.netlify/functions/save-entry"
-  status = 200
-
-[[redirects]]
-  from = "/api/get-entries"
-  to = "/.netlify/functions/get-entries"
-  status = 200
-
+from = "/api/*"
+to = "/.netlify/functions/:splat"
+status = 200
+force = true
