@@ -1455,6 +1455,35 @@
 </div>
 </div>
 </section>
+<!-- Circle of Souls Section -->
+<section class="py-20 px-4 bg-gradient-to-b from-beige to-peach" id="circle">
+<div class="max-w-5xl mx-auto text-center">
+<h2 class="text-3xl md:text-4xl font-bold mb-4 font-serif text-purple-800">Circle of Souls</h2>
+<p class="text-lg text-gray-700 mb-10">Share your reflections, visions, or soul whispers with the community.</p>
+<!-- Submission Form -->
+<form class="bg-white bg-opacity-90 p-6 rounded-lg shadow-lg mb-12 max-w-2xl mx-auto" data-netlify="true" method="POST" name="circle-of-souls">
+<input name="form-name" type="hidden" value="circle-of-souls"/>
+<input class="w-full mb-4 px-4 py-2 border rounded-lg focus:ring focus:ring-purple-300" name="name" placeholder="Your name (optional)" type="text"/>
+<textarea class="w-full mb-4 px-4 py-2 border rounded-lg focus:ring focus:ring-purple-300" name="message" placeholder="What would you like to share?" rows="4"></textarea>
+<button class="btn-primary px-6 py-2 rounded-full" type="submit">Share with the Circle</button>
+</form>
+<!-- Example Messages (To Be Replaced with Dynamic Content via JSON later) -->
+<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+<div class="p-6 bg-white rounded-lg shadow-md backdrop-blur-sm">
+<p class="text-gray-800 italic mb-2">"I had a dream of a tree that whispered truths to me. Maybe it was my soul remembering something ancient."</p>
+<p class="text-sm text-right text-purple-500">— Asha</p>
+</div>
+<div class="p-6 bg-white rounded-lg shadow-md backdrop-blur-sm">
+<p class="text-gray-800 italic mb-2">"Why do I keep meeting the same archetypes in different people? The circle is real."</p>
+<p class="text-sm text-right text-purple-500">— Leo</p>
+</div>
+<div class="p-6 bg-white rounded-lg shadow-md backdrop-blur-sm">
+<p class="text-gray-800 italic mb-2">"Maybe home isn't a place — maybe it's people who remind you of your soul."</p>
+<p class="text-sm text-right text-purple-500">— Mira</p>
+</div>
+</div>
+</div>
+</section>
 <!-- Footer -->
 <footer class="py-12 px-4 bg-footer">
 <div class="max-w-6xl mx-auto">
@@ -1883,50 +1912,18 @@
                 alert('Filtering by tag: ' + this.textContent);
             });
         });
-        
-    </script>
 
-<!-- Circle of Souls Section -->
-<section class="py-20 px-4 bg-gradient-to-b from-beige to-peach" id="circle">
-<div class="max-w-5xl mx-auto text-center">
-<h2 class="text-3xl md:text-4xl font-bold mb-4 font-serif text-purple-800">Circle of Souls</h2>
-<p class="text-lg text-gray-700 mb-10">Share your reflections, visions, or soul whispers with the community.</p>
-<!-- Submission Form -->
-<form class="bg-white bg-opacity-90 p-6 rounded-lg shadow-lg mb-12 max-w-2xl mx-auto" data-netlify="true" method="POST" name="circle-of-souls">
-<input name="form-name" type="hidden" value="circle-of-souls"/>
-<input class="w-full mb-4 px-4 py-2 border rounded-lg focus:ring focus:ring-purple-300" name="name" placeholder="Your name (optional)" type="text"/>
-<textarea class="w-full mb-4 px-4 py-2 border rounded-lg focus:ring focus:ring-purple-300" name="message" placeholder="What would you like to share?" rows="4"></textarea>
-<button class="btn-primary px-6 py-2 rounded-full" type="submit">Share with the Circle</button>
-</form>
-<!-- Example Messages (To Be Replaced with Dynamic Content via JSON later) -->
-<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-<div class="p-6 bg-white rounded-lg shadow-md backdrop-blur-sm">
-<p class="text-gray-800 italic mb-2">"I had a dream of a tree that whispered truths to me. Maybe it was my soul remembering something ancient."</p>
-<p class="text-sm text-right text-purple-500">— Asha</p>
-</div>
-<div class="p-6 bg-white rounded-lg shadow-md backdrop-blur-sm">
-<p class="text-gray-800 italic mb-2">"Why do I keep meeting the same archetypes in different people? The circle is real."</p>
-<p class="text-sm text-right text-purple-500">— Leo</p>
-</div>
-<div class="p-6 bg-white rounded-lg shadow-md backdrop-blur-sm">
-<p class="text-gray-800 italic mb-2">"Maybe home isn't a place — maybe it's people who remind you of your soul."</p>
-<p class="text-sm text-right text-purple-500">— Mira</p>
-</div>
-</div>
-</div>
-</section>
-     <script>
-  async function loadEntries() {
-    const res = await fetch('/.netlify/functions/get-entries');
-    const entries = await res.json();
-    const container = document.getElementById('entries-grid');
-    container.innerHTML = entries.map(entry => {
-      const date = new Date(entry.timestamp);
-      const formatted = date.toLocaleString('en-GB', {
+        async function loadEntries() {
+        const res = await fetch('/.netlify/functions/get-entries');
+        const entries = await res.json();
+        const container = document.getElementById('entries-grid');
+        container.innerHTML = entries.map(entry => {
+        const date = new Date(entry.timestamp);
+        const formatted = date.toLocaleString('en-GB', {
         day: '2-digit', month: 'short', year: 'numeric',
         hour: '2-digit', minute: '2-digit'
-      });
-      return `
+        });
+        return `
         <div class="p-6 bg-white rounded-lg shadow-md backdrop-blur-sm">
           <p class="text-gray-800 italic mb-2">"${entry.message}"</p>
           <p class="text-sm text-right text-purple-500">— ${entry.name || 'Anonymous'}<br><span class="text-gray-400 text-xs">${formatted}</span></p>
@@ -1956,6 +1953,10 @@
   });
 
   document.addEventListener('DOMContentLoaded', loadEntries);
-</script>   
+        
+    </script>
+
+
+ 
 </body>
 </html>
