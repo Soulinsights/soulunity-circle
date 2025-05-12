@@ -1310,7 +1310,7 @@
 <div class="text-center mt-8 scroll-animate">
 <h3 class="text-2xl font-bold mb-4">Ready to Dive Deeper?</h3>
 <p class="mb-8 max-w-2xl mx-auto">Join our Discord community to connect with other members, participate in discussions, and stay updated on our progress.</p>
-<a class="btn-secondary px-8 py-3 rounded-full font-medium text-lg inline-block ripple-hover" href="#" target="_blank">
+<a class="btn-secondary px-8 py-3 rounded-full font-medium text-lg inline-block ripple-hover" href="#" onclick="openDiscordPopup()" target="_blank">
 <i class="fab fa-discord mr-2"></i> Join Our Discord
                 </a>
 </div>
@@ -1396,18 +1396,28 @@
 <div class="max-w-4xl mx-auto">
 <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center">Support SoulUnity</h2>
 <div class="grid md:grid-cols-2 gap-12">
-<!-- PayPal Donation -->
+<!-- Gumroad Donation -->
 <div class="bg-blue-50 p-8 rounded-lg">
 <div class="w-20 h-20 rounded-full bg-blue-100 flex items-center justify-center mx-auto mb-6">
-<i class="fab fa-paypal text-3xl text-blue-400"></i>
+<i class="fas fa-shopping-cart text-3xl text-green-500"></i>
 </div>
-<h3 class="text-xl font-bold mb-4 text-center">Donate via PayPal</h3>
-<p class="mb-6 text-center">Make a one-time or recurring donation through our secure PayPal portal.</p>
+<h3 class="text-xl font-bold mb-4 text-center">Donate via Gumroad</h3>
+<p class="mb-6 text-center">This is a Pay What You Want page— every amount helps. </p>
+<p class="mb-6 text-center">
+ You can donate €5, €50, or €500+ depending on your ability and heart.</p>
+<p class="mb-6 text-center">
+🎁 As a thank-you, you'll receive:
+✓100+ royalty-free, watermark-free AI-generated video clips (perfect for creators)
+✓The SoulUnity EFT Tapping Guide eBook — a holistic emotional healing manual
+✓A digital gratitude PDF — to anchor your support with beauty</p>
 <div class="text-center">
-<!-- PayPal Button Placeholder -->
-<button class="btn-primary px-8 py-3 rounded-full font-medium text-lg inline-block">
-                            Donate with PayPal
-                        </button>
+<!-- Gumroad Button Placeholder -->
+ 
+<div class="text-center">
+<a href="https://seekwithin.gumroad.com/l/soulunity" target="_blank" class="gumroad-btn px-8 py-3 rounded-full font-medium text-lg inline-block">
+<i class="fas fa-external-link-alt mr-2"></i> Visit Gumroad
+</a>
+</div>
 </div>
 </div>
 <!-- Crypto Donation -->
@@ -1484,6 +1494,17 @@
 </div>
 </div>
 </section>
+<!-- Discord Modal-->
+<div id="discord-modal" class="modal-overlay">
+  <div class="modal-content">
+    <button onclick="closeDiscordPopup()" class="founder-modal-close-button">&times;</button>
+    <h2 class="text-xl font-bold mb-2">Coming Soon</h2>
+    <p>Our Discord server is under construction. Stay tuned!</p>
+  </div>
+</div>
+
+
+
 <!-- Footer -->
 <footer class="py-12 px-4 bg-footer">
 <div class="max-w-6xl mx-auto">
@@ -1510,7 +1531,7 @@
 <h3 class="text-lg font-bold mb-4">Community</h3>
 <ul class="space-y-2">
 <li><a class="hover:text-purple-500" href="https://instagram.com/soulinsights_" target="_blank">Instagram</a></li>
-<li><a class="hover:text-purple-500" href="#">Discord</a></li>
+<li><a href="#" onclick="openDiscordPopup()" class="...">Join our Discord</a></li>
 <li><a class="hover:text-purple-500" href="mailto:seekwith82@gmail.com">Contact Us</a></li>
 <li><a class="hover:text-purple-500" href="impressum.html">Impressum</a></li>
 </ul>
@@ -1623,7 +1644,6 @@
         
         function closeModal() {
             modal.classList.remove('active');
-            document.body.style.overflow = 'auto';
             document.body.style.overflow = 'auto';
             document.body.style.paddingRight = '0px';
         }
@@ -2058,6 +2078,13 @@
                 messageCard.classList.add('visible');
             }, 50);
         }
+
+        function openDiscordPopup() {
+        document.getElementById('discord-modal').classList.add('active');
+      }
+      function closeDiscordPopup() {
+        document.getElementById('discord-modal').classList.remove('active');
+      }
         </script>
 
  
