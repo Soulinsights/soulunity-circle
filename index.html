@@ -345,6 +345,13 @@
             .journal-grid {
                 grid-template-columns: 1fr !important;
             }
+
+            .founder-modal-content {
+                max-height: 90vh;
+                overflow-y: auto;
+                padding: 1rem;
+                font-size: 1rem;
+            }
         }
         
         .modal-overlay {
@@ -398,7 +405,19 @@
             color: var(--soft-text);
             transition: transform 0.3s ease;
         }
-        
+
+        .founder-modal-close-button {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--soft-text);
+            transition: transform 0.3s ease;
+            }
+
         .modal-close:hover {
             transform: rotate(90deg);
             color: #8a6ea8;
@@ -523,7 +542,7 @@
         
         /* Responsive adjustments */
         @media (max-width: 640px) {
-            .modal-content, .founder-modal-content {
+            .modal-content {
                 padding: 20px;
             }
             
@@ -544,7 +563,14 @@
                 background-attachment: scroll;
             }
         }
-        
+        @media (max-width: 768px) {
+        .founder-modal-content {
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 1rem;
+            font-size: 1rem;
+        }
+        }
         /* Roadmap styles */
         .roadmap-item {
             position: relative;
@@ -1358,7 +1384,7 @@
 <!-- Founder Modal Structure -->
 <div class="modal-overlay" id="founderModal">
 <div class="founder-modal-content soft-glow">
-<button class="modal-close" onclick="closeFounderModal()">×</button>
+<button class="founder-modal-close-button" onclick="closeFounderModal()">&times;</button>
 <img alt="Founder" class="founder-image" src="sudhin2.jpeg"/>
 <h2 class="text-3xl font-bold mb-4 text-center text-purple-700">Founder of SoulUnity</h2>
 <p class="text-lg mb-6">
@@ -1614,6 +1640,7 @@
             });
         });
         
+
         // Modal functionality
         const modal = document.getElementById('valueModal');
         const modalTitle = document.getElementById('modalTitle');
@@ -1627,6 +1654,8 @@
             modalMessage.textContent = message;
             modalImage.src = imageUrl;
             modalImage.alt = title;
+            document.body.style.overflow = 'hidden';
+            document.body.style.paddingRight = '15px'; // <- Breite des Scrollbars
             
 
             // Set icon color based on value
@@ -1655,6 +1684,8 @@
             if (e.target === modal) {
                 closeModal();
             }
+        document.body.style.overflow = 'auto';
+        document.body.style.paddingRight = '0px';
         });
         
         // Founder Modal Functions
@@ -1662,14 +1693,12 @@
             const founderModal = document.getElementById('founderModal');
             founderModal.classList.add('active');
             document.body.style.overflow = 'hidden';
-            document.body.style.overflow = 'hidden';
             document.body.style.paddingRight = '15px'; // <- Breite des Scrollbars
         }
         
         function closeFounderModal() {
             const founderModal = document.getElementById('founderModal');
             founderModal.classList.remove('active');
-            document.body.style.overflow = 'auto';
             document.body.style.overflow = 'auto';
             document.body.style.paddingRight = '0px';
         }
@@ -1679,8 +1708,11 @@
             if (e.target === this) {
                 closeFounderModal();
             }
+            document.body.style.overflow = 'auto';
+        document.body.style.paddingRight = '0px';
         });
         
+
         // Close modal with ESC key
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
@@ -1690,7 +1722,10 @@
                 if (document.getElementById('founderModal').classList.contains('active')) {
                     closeFounderModal();
                 }
+                document.body.style.overflow = 'auto';
+                 document.body.style.paddingRight = '0px';
             }
+        
         });
         
         // Dynamic background transitions
@@ -1900,23 +1935,29 @@
             document.body.style.overflow = 'auto';
             document.body.style.paddingRight = '0px';
         }
-        
+            document.body.style.overflow = 'auto';
+            document.body.style.paddingRight = '0px';
         // Close modal when clicking outside content
         document.querySelectorAll('.journal-modal-overlay').forEach(modal => {
             modal.addEventListener('click', function(e) {
                 if (e.target === modal) {
                     closeJournalModal();
                 }
+                document.body.style.overflow = 'auto';
+            document.body.style.paddingRight = '0px';
             });
         });
+        
         
         // Close modal with ESC key
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 closeJournalModal();
             }
+            document.body.style.overflow = 'auto';
+            document.body.style.paddingRight = '0px';
         });
-        
+                    
         // Add hover effect to journal cards
         document.querySelectorAll('.journal-card').forEach(card => {
             card.addEventListener('mouseenter', function() {
@@ -2081,9 +2122,13 @@
 
         function openDiscordPopup() {
         document.getElementById('discord-modal').classList.add('active');
+        document.body.style.overflow = 'hidden';
+        document.body.style.paddingRight = '15px'; // <- Breite des Scrollbars
       }
       function closeDiscordPopup() {
         document.getElementById('discord-modal').classList.remove('active');
+        document.body.style.overflow = 'auto';
+        document.body.style.paddingRight = '0px';
       }
         </script>
 
