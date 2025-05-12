@@ -1,22 +1,26 @@
-const fs = require('fs');
-const path = require('path');
-
-const filePath = path.resolve(__dirname, '../../data/submissions.json');
+const fs = require("fs");
+const path = require("path");
 
 exports.handler = async () => {
-  try {
-    const data = fs.existsSync(filePath)
-      ? JSON.parse(fs.readFileSync(filePath))
-      : [];
+  const filePath = path.join(__dirname, "../../data/submissions.json");
 
-    return {
-      statusCode: 200,
-      body: JSON.stringify(data)
-    };
-  } catch (err) {
+  try {
+    if (fs.existsSync(filePath)) {
+      const data = fs.readFileSync(filePath);
+      return {
+        statusCode: 200,
+        body: data.toString(),
+      };
+    } else {
+      return {
+        statusCode: 200,
+        body: "[]",
+      };
+    }
+  } catch (error) {
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: 'Could not read entries' })
+      body: JSON.stringify({ error: "Failed to read entries" }),
     };
   }
 };
