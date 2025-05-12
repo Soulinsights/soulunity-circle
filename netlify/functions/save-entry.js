@@ -1,37 +1,43 @@
-const fs = require('fs');
-const path = require('path');
 
-const filePath = path.resolve(__dirname, '../../data/submissions.json');
+const fs = require("fs");
+const path = require("path");
 
 exports.handler = async (event) => {
-  if (event.httpMethod !== 'POST') {
-    return { statusCode: 405, body: 'Method Not Allowed' };
-  }
-
-  const { name = 'Anonymous', message = '' } = JSON.parse(event.body);
-
-  if (!message || message.length < 3) {
-    return { statusCode: 400, body: 'Message is too short.' };
-  }
-
-  try {
-    const timestamp = new Date().toISOString();
-    const newEntry = { name, message, timestamp };
-
-    let existing = [];
-    if (fs.existsSync(filePath)) {
-      const raw = fs.readFileSync(filePath);
-      existing = JSON.parse(raw);
-    }
-
-    existing.unshift(newEntry);
-    fs.writeFileSync(filePath, JSON.stringify(existing, null, 2));
-
+  if (event.httpMethod !== "POST") {
     return {
-      statusCode: 200,
-      body: JSON.stringify({ success: true, entry: newEntry })
+      statusCode: 405,
+      body: "Method Not Allowed",
     };
-  } catch (err) {
-    return { statusCode: 500, body: 'Failed to save entry.' };
   }
+
+  const data = JSON.parse(event.body);
+  if (!data.message || data.message.trim() === "") {
+    return {
+      statusCode: 400,
+      body: "Message is required",
+    };
+  }
+
+  const filePath = path.join(__dirname, "../../data/submissions.json");
+  let submissions = [];
+
+  if (fs.existsSync(filePath)) {
+    const fileData = fs.readFileSync(filePath);
+    submissions = JSON.parse(fileData);
+  }
+
+  const newEntry = {
+    name: data.name || "Anonymous",
+    category: data.category || "General",
+    message: data.message.trim(),
+    timestamp: new Date().toISOString(),
+  };
+
+  submissions.unshift(newEntry);
+  fs.writeFileSync(filePath, JSON.stringify(submissions, null, 2));
+
+  return {
+    statusCode: 200,
+    body: JSON.stringify({ message: "Entry saved", entry: newEntry }),
+  };
 };
