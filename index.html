@@ -742,13 +742,13 @@
 <!-- Mobile menu -->
 <div class="mobile-menu hidden md:hidden bg-white">
 <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-<a class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-purple-500" href="#vision" onclick="closeMenu()"></a>>Vision</a>
-<a class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-purple-500" href="#about"onclick="closeMenu()"></a>>About</a>
-<a class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-purple-500" href="#wisdom"onclick="closeMenu()"></a>>Wisdom</a>
-<a class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-purple-500" href="#journal"onclick="closeMenu()"></a>>Journal</a>
-<a class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-purple-500" href="#roadmap"onclick="closeMenu()"></a>>Roadmap</a>
-<a class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-purple-500" href="#support"onclick="closeMenu()"></a>>Support</a>
-<a class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-purple-500" href="#community"onclick="closeMenu()"></a>>Community</a>
+<a class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-purple-500" href="#vision">Vision</a>
+<a class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-purple-500" href="#about">About</a>
+<a class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-purple-500" href="#wisdom">Wisdom</a>
+<a class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-purple-500" href="#journal">Journal</a>
+<a class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-purple-500" href="#roadmap">Roadmap</a>
+<a class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-purple-500" href="#support">Support</a>
+<a class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-purple-500" href="#community">Community</a>
 </div>
 </div>
 </nav>
@@ -1893,28 +1893,7 @@
         setTimeout(() => {
             document.getElementById('wisdomMessage').classList.add('active');
         }, 500);
-
-        
-          function toggleMenu() {
-        const menu = document.getElementById('mobile-menu');
-        menu.classList.toggle('hidden');
-    }
-
-    function closeMenu() {
-        const menu = document.getElementById('mobile-menu');
-        menu.classList.add('hidden');
-    }
-
-    // Optional: Menü auch schließen, wenn außerhalb geklickt wird
-    document.addEventListener('click', function (e) {
-        const menu = document.getElementById('mobile-menu');
-        const toggle = document.getElementById('menu-toggle');
-        if (!menu.contains(e.target) && !toggle.contains(e.target)) {
-        menu.classList.add('hidden');
-        }
-    });
-
-
+    
         // Toggle between homepage and journal page
         function showJournalPage() {
             document.getElementById('homepage').classList.add('hidden');
