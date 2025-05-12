@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Circle of Souls - Share Your Light</title>
+    <title>Circle of Souls - Under Construction</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -22,21 +22,59 @@
             font-family: 'Poppins', sans-serif;
             color: var(--soft-text);
             background-color: #f9f5ff;
+            overflow: hidden;
         }
         
         .circle-bg {
             background: radial-gradient(circle at center, rgba(216, 196, 232, 0.2) 0%, rgba(255, 255, 255, 0) 70%);
         }
         
-        .soul-card {
-            transition: all 0.3s ease;
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(5px);
+        .sphere-container {
+            perspective: 1000px;
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
         }
         
-        .soul-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        .sphere {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            animation: rotate 20s infinite linear;
+        }
+        
+        .ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 2px solid rgba(216, 196, 232, 0.6);
+            border-radius: 50%;
+            transform-style: preserve-3d;
+        }
+        
+        .ring:nth-child(1) { transform: rotateY(0deg); }
+        .ring:nth-child(2) { transform: rotateY(30deg); }
+        .ring:nth-child(3) { transform: rotateY(60deg); }
+        .ring:nth-child(4) { transform: rotateY(90deg); }
+        .ring:nth-child(5) { transform: rotateY(120deg); }
+        .ring:nth-child(6) { transform: rotateY(150deg); }
+        
+        .floating-soul {
+            position: absolute;
+            color: var(--lavender);
+            font-size: 24px;
+            transform-style: preserve-3d;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotateX(0deg) rotateY(0deg); }
+            100% { transform: rotateX(360deg) rotateY(360deg); }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
         }
         
         .ripple {
@@ -66,597 +104,131 @@
             opacity: 0.3;
             transition: 0s;
         }
-        
-        .scroll-animate {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.8s ease-out;
-        }
-        
-        .scroll-animate.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .comment-input {
-            transition: all 0.3s ease;
-            border-bottom: 1px solid #e2e8f0;
-        }
-        
-        .comment-input:focus {
-            border-bottom-color: var(--lavender);
-        }
-        
-        .like-btn.liked {
-            color: #ef4444;
-        }
-        
-        .reply-form {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out;
-        }
-        
-        .reply-form.active {
-            max-height: 200px;
-        }
     </style>
 </head>
-<body class="overflow-x-hidden">
-    <!-- Navigation -->
-    <nav class="bg-white shadow-sm sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex items-center">
-                    <a href="#" class="flex-shrink-0 flex items-center">
-                        <div class="w-8 h-8 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 flex items-center justify-center mr-2">
-                            <i class="fas fa-circle-notch text-white text-xs animate-spin"></i>
-                        </div>
-                        <span class="font-bold text-xl font-serif text-gray-800">Circle of Souls</span>
-                    </a>
-                </div>
-                <div class="hidden md:ml-6 md:flex md:items-center md:space-x-8">
-                    <a href="#share" class="text-gray-700 hover:text-purple-500 px-3 py-2 rounded-md text-sm font-medium">Share</a>
-                    <a href="#souls" class="text-gray-700 hover:text-purple-500 px-3 py-2 rounded-md text-sm font-medium">Soul Voices</a>
-                    <a href="#about" class="text-gray-700 hover:text-purple-500 px-3 py-2 rounded-md text-sm font-medium">About</a>
-                </div>
-                <div class="flex items-center md:hidden">
-                    <button type="button" class="mobile-menu-button inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-purple-500 focus:outline-none">
-                        <i class="fas fa-bars"></i>
-                    </button>
-                </div>
+<body class="circle-bg min-h-screen flex flex-col items-center justify-center p-4">
+    <div class="text-center mb-12">
+        <div class="flex items-center justify-center mb-6">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 flex items-center justify-center mr-3">
+                <i class="fas fa-circle-notch text-white text-lg animate-spin"></i>
             </div>
+            <h1 class="text-4xl font-bold font-serif text-gray-800">Circle of Souls</h1>
+        </div>
+        <h2 class="text-5xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500">
+            Under Construction
+        </h2>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto mb-8">
+            We're weaving a sacred digital space for soulful connections. Our circle will open soon with beautiful new features.
+        </p>
+    </div>
+    
+    <!-- 3D Sphere Animation -->
+    <div class="sphere-container mb-16">
+        <div class="sphere">
+            <div class="ring"></div>
+            <div class="ring"></div>
+            <div class="ring"></div>
+            <div class="ring"></div>
+            <div class="ring"></div>
+            <div class="ring"></div>
+            
+            <!-- Floating soul icons -->
+            <div class="floating-soul" style="transform: rotateY(0deg) translateZ(150px); animation: float 3s ease-in-out infinite;">
+                <i class="fas fa-heart"></i>
+            </div>
+            <div class="floating-soul" style="transform: rotateY(60deg) translateZ(150px); animation: float 3.5s ease-in-out infinite 0.5s;">
+                <i class="fas fa-feather-alt"></i>
+            </div>
+            <div class="floating-soul" style="transform: rotateY(120deg) translateZ(150px); animation: float 4s ease-in-out infinite 1s;">
+                <i class="fas fa-star"></i>
+            </div>
+            <div class="floating-soul" style="transform: rotateY(180deg) translateZ(150px); animation: float 3.2s ease-in-out infinite 1.5s;">
+                <i class="fas fa-moon"></i>
+            </div>
+            <div class="floating-soul" style="transform: rotateY(240deg) translateZ(150px); animation: float 3.8s ease-in-out infinite 2s;">
+                <i class="fas fa-sun"></i>
+            </div>
+            <div class="floating-soul" style="transform: rotateY(300deg) translateZ(150px); animation: float 3.3s ease-in-out infinite 2.5s;">
+                <i class="fas fa-seedling"></i>
+            </div>
+        </div>
+    </div>
+    
+    <div class="text-center max-w-2xl mx-auto">
+        <p class="text-gray-600 mb-8">
+            Our team is working diligently to create a beautiful, interactive space for soulful sharing. 
+            We appreciate your patience as we prepare this sacred digital circle.
+        </p>
+        
+        <div class="flex flex-col sm:flex-row justify-center gap-4">
+            <a href="mailto:hello@circleofsouls.com" class="bg-gradient-to-r from-purple-400 to-pink-400 px-8 py-3 rounded-full font-medium text-white text-lg inline-block ripple hover:shadow-lg transition-all duration-300">
+                <i class="fas fa-envelope mr-2"></i> Contact Us
+            </a>
+            <a href="#" class="bg-white px-8 py-3 rounded-full font-medium text-gray-700 text-lg inline-block ripple hover:shadow-lg transition-all duration-300 border border-gray-200">
+                <i class="fas fa-bell mr-2"></i> Get Notified
+            </a>
         </div>
         
-        <!-- Mobile menu -->
-        <div class="mobile-menu hidden md:hidden bg-white">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="#share" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-purple-500">Share</a>
-                <a href="#souls" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-purple-500">Soul Voices</a>
-                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-purple-500">About</a>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section id="hero" class="py-20 px-4 circle-bg">
-        <div class="max-w-4xl mx-auto text-center py-16 scroll-animate">
-            <h1 class="text-4xl md:text-6xl font-bold mb-6 font-serif text-gray-800">Circle of Souls</h1>
-            <p class="text-xl md:text-2xl mb-10 text-gray-600">A sacred space to share your truth, wisdom, and light with kindred spirits.</p>
-            <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="#share" class="bg-gradient-to-r from-purple-400 to-pink-400 px-8 py-3 rounded-full font-medium text-white text-lg inline-block ripple hover:shadow-lg transition-all duration-300">
-                    <i class="fas fa-feather-alt mr-2"></i> Share Your Soul
+        <div class="mt-12 pt-6 border-t border-gray-200">
+            <div class="flex justify-center space-x-6">
+                <a href="#" class="text-gray-500 hover:text-purple-500">
+                    <i class="fab fa-instagram text-2xl"></i>
                 </a>
-                <a href="#souls" class="bg-white px-8 py-3 rounded-full font-medium text-gray-700 text-lg inline-block ripple hover:shadow-lg transition-all duration-300 border border-gray-200">
-                    <i class="fas fa-heart mr-2"></i> Read Others
+                <a href="#" class="text-gray-500 hover:text-purple-500">
+                    <i class="fab fa-facebook text-2xl"></i>
+                </a>
+                <a href="#" class="text-gray-500 hover:text-purple-500">
+                    <i class="fab fa-twitter text-2xl"></i>
+                </a>
+                <a href="#" class="text-gray-500 hover:text-purple-500">
+                    <i class="fab fa-pinterest text-2xl"></i>
                 </a>
             </div>
+            <p class="text-gray-500 mt-4 text-sm">
+                &copy; 2023 Circle of Souls. All rights reserved.
+            </p>
         </div>
-    </section>
-
-    <!-- Share Form Section -->
-    <section id="share" class="py-16 px-4 bg-white">
-        <div class="max-w-2xl mx-auto scroll-animate">
-            <h2 class="text-3xl font-bold mb-8 text-center font-serif relative pb-2">
-                Share Your Soul Voice
-                <span class="absolute bottom-0 left-1/2 transform -translate-x-1/2 h-1 w-16 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full"></span>
-            </h2>
-            
-            <form name="soul-entry" method="POST" data-netlify="true" class="space-y-6">
-                <input type="hidden" name="form-name" value="soul-entry">
-                
-                <div>
-                    <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Name (optional)</label>
-                    <input type="text" id="name" name="name" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-300 focus:border-purple-400">
-                </div>
-                
-                <div>
-                    <label for="title" class="block text-sm font-medium text-gray-700 mb-1">Title</label>
-                    <input type="text" id="title" name="title" required class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-300 focus:border-purple-400">
-                </div>
-                
-                <div>
-                    <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Your Soul Message</label>
-                    <textarea id="message" name="message" rows="5" required class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-300 focus:border-purple-400"></textarea>
-                </div>
-                
-                <div>
-                    <label for="category" class="block text-sm font-medium text-gray-700 mb-1">Category</label>
-                    <select id="category" name="category" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-300 focus:border-purple-400">
-                        <option value="wisdom">Wisdom</option>
-                        <option value="question">Question</option>
-                        <option value="story">Personal Story</option>
-                        <option value="poetry">Poetry</option>
-                        <option value="other">Other</option>
-                    </select>
-                </div>
-                
-                <div class="flex items-center">
-                    <input id="anonymous" name="anonymous" type="checkbox" class="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded">
-                    <label for="anonymous" class="ml-2 block text-sm text-gray-700">Post anonymously</label>
-                </div>
-                
-                <div>
-                    <button type="submit" class="bg-gradient-to-r from-purple-500 to-pink-500 px-8 py-3 rounded-full font-medium text-white text-lg w-full ripple hover:shadow-lg transition-all duration-300">
-                        <i class="fas fa-paper-plane mr-2"></i> Share With The Circle
-                    </button>
-                </div>
-            </form>
-        </div>
-    </section>
-
-    <!-- Soul Voices Section -->
-    <section id="souls" class="py-16 px-4 bg-gray-50">
-        <div class="max-w-4xl mx-auto">
-            <h2 class="text-3xl font-bold mb-8 text-center font-serif relative pb-2 scroll-animate">
-                Soul Voices
-                <span class="absolute bottom-0 left-1/2 transform -translate-x-1/2 h-1 w-16 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full"></span>
-            </h2>
-            
-            <!-- Filter Controls -->
-            <div class="flex flex-wrap justify-center gap-2 mb-8 scroll-animate">
-                <button class="filter-btn px-4 py-2 rounded-full bg-purple-500 text-white text-sm" data-filter="all">All</button>
-                <button class="filter-btn px-4 py-2 rounded-full bg-white text-gray-700 text-sm border border-gray-200" data-filter="wisdom">Wisdom</button>
-                <button class="filter-btn px-4 py-2 rounded-full bg-white text-gray-700 text-sm border border-gray-200" data-filter="question">Questions</button>
-                <button class="filter-btn px-4 py-2 rounded-full bg-white text-gray-700 text-sm border border-gray-200" data-filter="story">Stories</button>
-                <button class="filter-btn px-4 py-2 rounded-full bg-white text-gray-700 text-sm border border-gray-200" data-filter="poetry">Poetry</button>
-            </div>
-            
-            <!-- Soul Entries Container -->
-            <div class="space-y-6" id="soul-entries">
-                <!-- Sample Entry 1 -->
-                <div class="soul-card p-6 rounded-lg shadow-md" data-category="wisdom">
-                    <div class="flex items-start mb-4">
-                        <div class="w-10 h-10 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 flex items-center justify-center text-white font-bold mr-3">
-                            S
-                        </div>
-                        <div>
-                            <h3 class="font-bold text-lg">The Wisdom of Letting Go</h3>
-                            <p class="text-sm text-gray-500">Posted by Sarah • 2 days ago</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-700 mb-4">
-                        Holding on creates suffering. The art of letting go isn't about losing something - it's about making space for what truly belongs. When we release our grip, we discover that what's meant for us will always find its way back.
-                    </p>
-                    <div class="flex items-center justify-between border-t border-gray-100 pt-4">
-                        <div class="flex items-center space-x-4">
-                            <button class="like-btn flex items-center text-gray-500 hover:text-red-500 transition-colors">
-                                <i class="far fa-heart mr-1"></i> <span>24</span>
-                            </button>
-                            <button class="comment-btn flex items-center text-gray-500 hover:text-purple-500 transition-colors">
-                                <i class="far fa-comment mr-1"></i> <span>5</span>
-                            </button>
-                        </div>
-                        <span class="text-xs px-2 py-1 rounded-full bg-purple-100 text-purple-600">Wisdom</span>
-                    </div>
-                    
-                    <!-- Comments Section -->
-                    <div class="comments mt-4 pl-4 border-l-2 border-purple-100 hidden">
-                        <!-- Comment 1 -->
-                        <div class="comment mb-4">
-                            <div class="flex items-start mb-2">
-                                <div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 text-xs font-bold mr-2">
-                                    M
-                                </div>
-                                <div>
-                                    <p class="text-sm font-medium">Michael</p>
-                                    <p class="text-xs text-gray-400">1 day ago</p>
-                                </div>
-                            </div>
-                            <p class="text-sm text-gray-600 ml-10">This resonates so deeply. I've been struggling with letting go of a relationship that no longer serves me. Your words give me courage.</p>
-                            <button class="text-xs text-gray-500 hover:text-purple-500 ml-10 mt-1 reply-btn">Reply</button>
-                            
-                            <!-- Reply Form (hidden by default) -->
-                            <div class="reply-form mt-2 ml-10">
-                                <textarea class="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-1 focus:ring-purple-300 focus:border-purple-400" placeholder="Write your reply..."></textarea>
-                                <button class="mt-1 px-3 py-1 bg-purple-500 text-white text-xs rounded hover:bg-purple-600 transition-colors">Post Reply</button>
-                            </div>
-                        </div>
-                        
-                        <!-- Comment 2 -->
-                        <div class="comment mb-4">
-                            <div class="flex items-start mb-2">
-                                <div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 text-xs font-bold mr-2">
-                                    A
-                                </div>
-                                <div>
-                                    <p class="text-sm font-medium">Aisha</p>
-                                    <p class="text-xs text-gray-400">20 hours ago</p>
-                                </div>
-                            </div>
-                            <p class="text-sm text-gray-600 ml-10">How do you know when it's time to let go versus when you should keep trying?</p>
-                            <button class="text-xs text-gray-500 hover:text-purple-500 ml-10 mt-1 reply-btn">Reply</button>
-                        </div>
-                        
-                        <!-- Add Comment Form -->
-                        <div class="add-comment mt-4">
-                            <div class="flex items-start">
-                                <div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 text-xs font-bold mr-2">
-                                    Y
-                                </div>
-                                <div class="flex-1">
-                                    <textarea class="comment-input w-full px-3 py-2 text-sm border-0 border-b focus:outline-none" placeholder="Add your comment..."></textarea>
-                                    <button class="mt-2 px-3 py-1 bg-purple-500 text-white text-xs rounded hover:bg-purple-600 transition-colors">Post Comment</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Sample Entry 2 -->
-                <div class="soul-card p-6 rounded-lg shadow-md" data-category="question">
-                    <div class="flex items-start mb-4">
-                        <div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 font-bold mr-3">
-                            A
-                        </div>
-                        <div>
-                            <h3 class="font-bold text-lg">How do you stay centered in chaos?</h3>
-                            <p class="text-sm text-gray-500">Posted anonymously • 1 week ago</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-700 mb-4">
-                        The world feels so overwhelming right now. Between work stress, family issues, and global events, I'm struggling to find my center. What practices help you stay grounded when everything feels like it's falling apart?
-                    </p>
-                    <div class="flex items-center justify-between border-t border-gray-100 pt-4">
-                        <div class="flex items-center space-x-4">
-                            <button class="like-btn flex items-center text-gray-500 hover:text-red-500 transition-colors">
-                                <i class="far fa-heart mr-1"></i> <span>18</span>
-                            </button>
-                            <button class="comment-btn flex items-center text-gray-500 hover:text-purple-500 transition-colors">
-                                <i class="far fa-comment mr-1"></i> <span>12</span>
-                            </button>
-                        </div>
-                        <span class="text-xs px-2 py-1 rounded-full bg-blue-100 text-blue-600">Question</span>
-                    </div>
-                    
-                    <!-- Comments Section -->
-                    <div class="comments mt-4 pl-4 border-l-2 border-purple-100 hidden">
-                        <!-- Comment 1 -->
-                        <div class="comment mb-4">
-                            <div class="flex items-start mb-2">
-                                <div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 text-xs font-bold mr-2">
-                                    T
-                                </div>
-                                <div>
-                                    <p class="text-sm font-medium">Thomas</p>
-                                    <p class="text-xs text-gray-400">6 days ago</p>
-                                </div>
-                            </div>
-                            <p class="text-sm text-gray-600 ml-10">Breathwork has been my anchor. Just 5 minutes of conscious breathing can reset my entire nervous system.</p>
-                            <button class="text-xs text-gray-500 hover:text-purple-500 ml-10 mt-1 reply-btn">Reply</button>
-                        </div>
-                        
-                        <!-- Comment 2 -->
-                        <div class="comment mb-4">
-                            <div class="flex items-start mb-2">
-                                <div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 text-xs font-bold mr-2">
-                                    L
-                                </div>
-                                <div>
-                                    <p class="text-sm font-medium">Lena</p>
-                                    <p class="text-xs text-gray-400">5 days ago</p>
-                                </div>
-                            </div>
-                            <p class="text-sm text-gray-600 ml-10">Nature is my sanctuary. Even just sitting under a tree or walking barefoot on grass helps me reconnect.</p>
-                            <button class="text-xs text-gray-500 hover:text-purple-500 ml-10 mt-1 reply-btn">Reply</button>
-                        </div>
-                        
-                        <!-- Add Comment Form -->
-                        <div class="add-comment mt-4">
-                            <div class="flex items-start">
-                                <div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 text-xs font-bold mr-2">
-                                    Y
-                                </div>
-                                <div class="flex-1">
-                                    <textarea class="comment-input w-full px-3 py-2 text-sm border-0 border-b focus:outline-none" placeholder="Add your comment..."></textarea>
-                                    <button class="mt-2 px-3 py-1 bg-purple-500 text-white text-xs rounded hover:bg-purple-600 transition-colors">Post Comment</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Sample Entry 3 -->
-                <div class="soul-card p-6 rounded-lg shadow-md" data-category="poetry">
-                    <div class="flex items-start mb-4">
-                        <div class="w-10 h-10 rounded-full bg-gradient-to-r from-pink-400 to-yellow-400 flex items-center justify-center text-white font-bold mr-3">
-                            J
-                        </div>
-                        <div>
-                            <h3 class="font-bold text-lg">The River's Whisper</h3>
-                            <p class="text-sm text-gray-500">Posted by Jamal • 3 weeks ago</p>
-                        </div>
-                    </div>
-                    <div class="text-gray-700 mb-4 italic">
-                        <p>The river doesn't argue with its path,</p>
-                        <p>It simply flows where it must go.</p>
-                        <p>I try to learn from water's wisdom,</p>
-                        <p>But my mind still fights the current.</p>
-                        <p>Perhaps surrender is the lesson,</p>
-                        <p>Not the destination.</p>
-                    </div>
-                    <div class="flex items-center justify-between border-t border-gray-100 pt-4">
-                        <div class="flex items-center space-x-4">
-                            <button class="like-btn flex items-center text-gray-500 hover:text-red-500 transition-colors">
-                                <i class="far fa-heart mr-1"></i> <span>42</span>
-                            </button>
-                            <button class="comment-btn flex items-center text-gray-500 hover:text-purple-500 transition-colors">
-                                <i class="far fa-comment mr-1"></i> <span>8</span>
-                            </button>
-                        </div>
-                        <span class="text-xs px-2 py-1 rounded-full bg-yellow-100 text-yellow-600">Poetry</span>
-                    </div>
-                    
-                    <!-- Comments Section -->
-                    <div class="comments mt-4 pl-4 border-l-2 border-purple-100 hidden">
-                        <!-- Comment 1 -->
-                        <div class="comment mb-4">
-                            <div class="flex items-start mb-2">
-                                <div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 text-xs font-bold mr-2">
-                                    R
-                                </div>
-                                <div>
-                                    <p class="text-sm font-medium">Riya</p>
-                                    <p class="text-xs text-gray-400">2 weeks ago</p>
-                                </div>
-                            </div>
-                            <p class="text-sm text-gray-600 ml-10">This is beautiful. The imagery of the river resonates deeply with my current journey.</p>
-                            <button class="text-xs text-gray-500 hover:text-purple-500 ml-10 mt-1 reply-btn">Reply</button>
-                        </div>
-                        
-                        <!-- Add Comment Form -->
-                        <div class="add-comment mt-4">
-                            <div class="flex items-start">
-                                <div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 text-xs font-bold mr-2">
-                                    Y
-                                </div>
-                                <div class="flex-1">
-                                    <textarea class="comment-input w-full px-3 py-2 text-sm border-0 border-b focus:outline-none" placeholder="Add your comment..."></textarea>
-                                    <button class="mt-2 px-3 py-1 bg-purple-500 text-white text-xs rounded hover:bg-purple-600 transition-colors">Post Comment</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Load More Button -->
-            <div class="text-center mt-8 scroll-animate">
-                <button class="bg-white px-6 py-3 rounded-full font-medium text-gray-700 border border-gray-200 hover:bg-gray-50 transition-colors">
-                    <i class="fas fa-plus-circle mr-2"></i> Load More Soul Voices
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="py-16 px-4 bg-white">
-        <div class="max-w-4xl mx-auto">
-            <h2 class="text-3xl font-bold mb-8 text-center font-serif relative pb-2 scroll-animate">
-                About Circle of Souls
-                <span class="absolute bottom-0 left-1/2 transform -translate-x-1/2 h-1 w-16 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full"></span>
-            </h2>
-            
-            <div class="grid md:grid-cols-2 gap-8 items-center scroll-animate">
-                <div>
-                    <p class="text-gray-700 mb-4">
-                        Circle of Souls is a sacred digital space where kindred spirits can share their truth, wisdom, and light with one another. 
-                        We believe that every soul has a unique voice that deserves to be heard.
-                    </p>
-                    <p class="text-gray-700 mb-4">
-                        Our mission is to create a supportive community where people feel safe to express their authentic selves, ask deep questions, 
-                        and connect through shared experiences and insights.
-                    </p>
-                    <p class="text-gray-700 mb-6">
-                        Whether you're sharing a moment of clarity, a personal struggle, or a creative expression, your voice matters here.
-                    </p>
-                    <div class="flex flex-col sm:flex-row gap-4">
-                        <a href="#share" class="bg-gradient-to-r from-purple-400 to-pink-400 px-6 py-3 rounded-full font-medium text-white text-center ripple hover:shadow-lg transition-all duration-300">
-                            <i class="fas fa-feather-alt mr-2"></i> Share Your Voice
-                        </a>
-                        <a href="#" class="bg-white px-6 py-3 rounded-full font-medium text-gray-700 text-center ripple hover:shadow-lg transition-all duration-300 border border-gray-200">
-                            <i class="fas fa-envelope mr-2"></i> Contact Us
-                        </a>
-                    </div>
-                </div>
-                <div class="flex justify-center">
-                    <div class="w-64 h-64 rounded-full bg-gradient-to-r from-purple-100 to-pink-100 flex items-center justify-center shadow-lg">
-                        <i class="fas fa-users text-6xl text-purple-400 opacity-70"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="py-12 px-4 bg-gray-900 text-gray-300">
-        <div class="max-w-6xl mx-auto">
-            <div class="grid md:grid-cols-4 gap-8">
-                <div>
-                    <a href="#" class="flex items-center mb-6">
-                        <div class="w-8 h-8 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 flex items-center justify-center mr-2">
-                            <i class="fas fa-circle-notch text-white text-xs animate-spin"></i>
-                        </div>
-                        <span class="font-bold text-xl font-serif text-white">Circle of Souls</span>
-                    </a>
-                    <p>
-                        A sacred space for authentic sharing and soulful connection.
-                    </p>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-bold text-white mb-4">Explore</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#share" class="hover:text-purple-300">Share Your Voice</a></li>
-                        <li><a href="#souls" class="hover:text-purple-300">Soul Voices</a></li>
-                        <li><a href="#about" class="hover:text-purple-300">About</a></li>
-                        <li><a href="#" class="hover:text-purple-300">Community Guidelines</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-bold text-white mb-4">Connect</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="hover:text-purple-300">Instagram</a></li>
-                        <li><a href="#" class="hover:text-purple-300">Facebook</a></li>
-                        <li><a href="#" class="hover:text-purple-300">Twitter</a></li>
-                        <li><a href="mailto:hello@circleofsouls.com" class="hover:text-purple-300">Email Us</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-bold text-white mb-4">Stay Updated</h3>
-                    <p class="mb-4">Subscribe to receive soulful inspiration and updates.</p>
-                    <form class="flex">
-                        <input type="email" placeholder="Your email" class="px-4 py-2 rounded-l text-gray-900 w-full">
-                        <button type="submit" class="bg-purple-500 hover:bg-purple-600 px-4 py-2 rounded-r text-white">
-                            <i class="fas fa-paper-plane"></i>
-                        </button>
-                    </form>
-                </div>
-            </div>
-            
-            <div class="border-t border-gray-800 mt-12 pt-8 text-center">
-                <p>&copy; 2023 Circle of Souls. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+    </div>
 
     <script>
-        // Mobile menu toggle
-        document.querySelector('.mobile-menu-button').addEventListener('click', function() {
-            document.querySelector('.mobile-menu').classList.toggle('hidden');
-        });
-        
-        // Filter entries by category
-        const filterButtons = document.querySelectorAll('.filter-btn');
-        const soulEntries = document.querySelectorAll('.soul-card');
-        
-        filterButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                // Update active filter button
-                filterButtons.forEach(btn => {
-                    btn.classList.remove('bg-purple-500', 'text-white');
-                    btn.classList.add('bg-white', 'text-gray-700', 'border');
-                });
+        // Ripple effect for buttons
+        document.querySelectorAll('.ripple').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
                 
-                this.classList.remove('bg-white', 'text-gray-700', 'border');
-                this.classList.add('bg-purple-500', 'text-white');
+                const x = e.clientX - e.target.getBoundingClientRect().left;
+                const y = e.clientY - e.target.getBoundingClientRect().top;
                 
-                // Filter entries
-                const filter = this.dataset.filter;
+                const ripples = document.createElement('span');
+                ripples.style.left = x + 'px';
+                ripples.style.top = y + 'px';
+                this.appendChild(ripples);
                 
-                soulEntries.forEach(entry => {
-                    if (filter === 'all' || entry.dataset.category === filter) {
-                        entry.style.display = 'block';
-                    } else {
-                        entry.style.display = 'none';
-                    }
-                });
+                setTimeout(() => {
+                    ripples.remove();
+                }, 1000);
             });
         });
         
-        // Toggle comments section
-        document.querySelectorAll('.comment-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                const commentsSection = this.closest('.soul-card').querySelector('.comments');
-                commentsSection.classList.toggle('hidden');
-            });
-        });
+        // Add floating souls dynamically
+        const sphere = document.querySelector('.sphere');
+        const soulIcons = ['fa-heart', 'fa-feather-alt', 'fa-star', 'fa-moon', 'fa-sun', 'fa-seedling', 'fa-dove', 'fa-spa'];
         
-        // Like functionality
-        document.querySelectorAll('.like-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                const icon = this.querySelector('i');
-                const count = this.querySelector('span');
-                
-                if (this.classList.contains('liked')) {
-                    // Unlike
-                    this.classList.remove('liked');
-                    icon.classList.remove('fas', 'text-red-500');
-                    icon.classList.add('far');
-                    count.textContent = parseInt(count.textContent) - 1;
-                } else {
-                    // Like
-                    this.classList.add('liked');
-                    icon.classList.remove('far');
-                    icon.classList.add('fas', 'text-red-500');
-                    count.textContent = parseInt(count.textContent) + 1;
-                }
-            });
-        });
-        
-        // Reply functionality
-        document.querySelectorAll('.reply-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                const replyForm = this.closest('.comment').querySelector('.reply-form');
-                replyForm.classList.toggle('active');
-            });
-        });
-        
-        // Comment input focus effect
-        document.querySelectorAll('.comment-input').forEach(input => {
-            input.addEventListener('focus', function() {
-                this.parentElement.classList.add('border-purple-400');
-            });
+        for (let i = 0; i < 12; i++) {
+            const angle = (i / 12) * 360;
+            const delay = Math.random() * 3;
+            const duration = 3 + Math.random() * 2;
             
-            input.addEventListener('blur', function() {
-                this.parentElement.classList.remove('border-purple-400');
-            });
-        });
-        
-        // Scroll animations
-        function checkScrollAnimations() {
-            const elements = document.querySelectorAll('.scroll-animate');
-            const windowHeight = window.innerHeight;
-            const triggerPoint = windowHeight * 0.8;
+            const soul = document.createElement('div');
+            soul.className = 'floating-soul';
+            soul.style.transform = `rotateY(${angle}deg) translateZ(150px)`;
+            soul.style.animation = `float ${duration}s ease-in-out infinite ${delay}s`;
             
-            elements.forEach(element => {
-                const elementPosition = element.getBoundingClientRect().top;
-                
-                if (elementPosition < triggerPoint) {
-                    element.classList.add('active');
-                }
-            });
-        }
-        
-        // Initial check
-        checkScrollAnimations();
-        
-        // Check on scroll
-        window.addEventListener('scroll', function() {
-            checkScrollAnimations();
-        });
-        
-        // Check on resize
-        window.addEventListener('resize', function() {
-            checkScrollAnimations();
-        });
-        
-        // Form submission success message
-        if (window.location.search.includes('form-submitted=true')) {
-            alert('Thank you for sharing your soul voice with the circle! Your message will be reviewed and posted soon.');
-            window.history.replaceState({}, document.title, window.location.pathname);
+            const icon = document.createElement('i');
+            icon.className = `fas ${soulIcons[i % soulIcons.length]}`;
+            soul.appendChild(icon);
+            
+            sphere.appendChild(soul);
         }
     </script>
 </body>
