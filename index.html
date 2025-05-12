@@ -1593,10 +1593,21 @@
 <script>
         
         // Mobile menu toggle
-        document.querySelector('.mobile-menu-button').addEventListener('click', function() {
-            document.querySelector('.mobile-menu').classList.toggle('hidden');
-        });
+        // Mobile Menü Toggle
+          const mobileMenuBtn = document.querySelector(".mobile-menu-button");
+          const mobileMenu = document.querySelector(".mobile-menu");
         
+          mobileMenuBtn.addEventListener("click", () => {
+            mobileMenu.classList.toggle("hidden");
+          });
+        
+          // Schließe das mobile Menü nach Klick auf einen Link
+          document.querySelectorAll(".mobile-menu a").forEach(link => {
+            link.addEventListener("click", () => {
+              mobileMenu.classList.add("hidden");
+            });
+          });
+                
         // Simple page navigation for the demo
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
@@ -2131,13 +2142,6 @@
         document.body.style.paddingRight = '0px';
       }
 
-       // Mobile Menü Toggle
-          // Schließe das mobile Menü nach Klick auf einen Link
-          document.querySelectorAll(".mobile-menu a").forEach(link => {
-            link.addEventListener("click", () => {
-              mobileMenu.classList.add("hidden");
-            });
-          });
         </script>
 
  
