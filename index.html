@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
@@ -41,6 +40,7 @@
         .journal-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         
         .journal-card::before {
@@ -66,6 +66,7 @@
             opacity: 0;
             transform: translateY(20px);
             transition: all 0.8s ease-out;
+            will-change: opacity, transform;
         }
         
         .scroll-animate.active {
@@ -136,6 +137,14 @@
             opacity: 0;
             transform: translateY(10px);
             transition: all 1s ease-out;
+            will-change: opacity, transform;
+            backface-visibility: hidden;
+            min-height: 4em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin: 0.5em 0;
         }
         
         .wisdom-text.active {
@@ -216,6 +225,7 @@
         .value-card:hover {
             transform: scale(1.05);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         
         /* Modal Styles */
@@ -708,6 +718,22 @@
         .energy-tracker {
             background: linear-gradient(135deg, rgba(216, 196, 232, 0.3), rgba(196, 232, 248, 0.3));
             backdrop-filter: blur(5px);
+        }
+
+        /* Today's Soul Message section specific fixes */
+        #wisdom .max-w-4xl {
+            min-height: 300px;
+        }
+        
+        #wisdom .bg-white.bg-opacity-70 {
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        #wisdom .relative.h-64 {
+            min-height: 256px;
         }
     </style>
 </head>
@@ -1553,447 +1579,415 @@
   </div>
 </div>
 
-
-
 <!-- Footer -->
-<footer class="py-12 px-4 bg-footer">
-<div class="max-w-6xl mx-auto">
-<div class="grid md:grid-cols-4 gap-8">
-<div>
-<a class="flex items-center mb-6" href="#">
-<i class="fas fa-seedling text-2xl text-purple-500 mr-2"></i>
-<span class="font-bold text-xl font-serif">SoulUnity</span>
-</a>
-<p>
-                        Building a new way of living based on authenticity, love, and spiritual evolution.
-                    </p>
-</div>
-<div>
-<h3 class="text-lg font-bold mb-4">Quick Links</h3>
-<ul class="space-y-2">
-<li><a class="hover:text-purple-500" href="#vision">Our Vision</a></li>
-<li><a class="hover:text-purple-500" href="#roadmap">Roadmap</a></li>
-<li><a class="hover:text-purple-500" href="#support">Support Us</a></li>
-<li><a class="hover:text-purple-500" href="#founder">Our Founder</a></li>
-</ul>
-</div>
-<div>
-<h3 class="text-lg font-bold mb-4">Community</h3>
-<ul class="space-y-2">
-<li><a class="hover:text-purple-500" href="https://instagram.com/soulinsights_" target="_blank">Instagram</a></li>
-<li><a href="#" onclick="openDiscordPopup()" class="...">Join our Discord</a></li>
-<li><a class="hover:text-purple-500" href="mailto:seekwith82@gmail.com">Contact Us</a></li>
-<li><a class="hover:text-purple-500" href="impressum.html">Impressum</a></li>
-</ul>
-</div>
-<div>
-<h3 class="text-lg font-bold mb-4">Stay Updated</h3>
-<p class="mb-4">Subscribe to our newsletter for updates and inspiration.</p>
-<div class="max-w-md mx-auto rounded-2xl shadow-md overflow-hidden">
-  <iframe
-    src="https://soulunity.substack.com/embed"
-    width="100%"
-    height="140"
-    style="border: 0; background: transparent;"
-    frameborder="0"
-    scrolling="no"
-  ></iframe>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="border-t border-purple-200 mt-12 pt-8 text-center">
-<p>© 2023 SoulUnity. All rights reserved.</p>
-</div>
-</div>
+<footer class="py-12 px-4 bg-gradient-to-r from-purple-100 to-blue-100">
+    <div class="max-w-6xl mx-auto">
+        <div class="grid md:grid-cols-4 gap-8">
+            <div>
+                <a class="flex items-center mb-6" href="#">
+                    <i class="fas fa-seedling text-2xl text-purple-500 mr-2"></i>
+                    <span class="font-bold text-xl font-serif text-gray-700">SoulUnity</span>
+                </a>
+                <p class="text-gray-600">
+                    Building a new way of living based on authenticity, love, and spiritual evolution.
+                </p>
+            </div>
+            <div>
+                <h3 class="text-lg font-bold mb-4 text-gray-700">Quick Links</h3>
+                <ul class="space-y-2">
+                    <li><a class="text-gray-600 hover:text-purple-500 transition" href="#vision">Our Vision</a></li>
+                    <li><a class="text-gray-600 hover:text-purple-500 transition" href="#roadmap">Roadmap</a></li>
+                    <li><a class="text-gray-600 hover:text-purple-500 transition" href="#support">Support Us</a></li>
+                    <li><a class="text-gray-600 hover:text-purple-500 transition" href="#founder">Our Founder</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-bold mb-4 text-gray-700">Community</h3>
+                <ul class="space-y-2">
+                    <li><a class="text-gray-600 hover:text-purple-500 transition" href="https://instagram.com/soulinsights_" target="_blank">Instagram</a></li>
+                    <li><a class="text-gray-600 hover:text-purple-500 transition" href="#" onclick="openDiscordPopup()">Join our Discord</a></li>
+                    <li><a class="text-gray-600 hover:text-purple-500 transition" href="mailto:seekwith82@gmail.com">Contact Us</a></li>
+                    <li><a class="text-gray-600 hover:text-purple-500 transition" href="impressum.html">Impressum</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-bold mb-4 text-gray-700">Stay Updated</h3>
+                <p class="text-gray-600 mb-4">Subscribe to our newsletter for updates and inspiration.</p>
+                <div class="max-w-md mx-auto rounded-2xl shadow-md overflow-hidden">
+                    <iframe
+                        src="https://soulunity.substack.com/embed"
+                        width="100%"
+                        height="140"
+                        style="border: 0; background: transparent;"
+                        frameborder="0"
+                        scrolling="no"
+                    ></iframe>
+                </div>
+            </div>
+        </div>
+        <div class="border-t border-purple-200 mt-12 pt-8 text-center text-gray-600">
+            <p>© 2023 SoulUnity. All rights reserved.</p>
+        </div>
+    </div>
 </footer>
 
-    <!-- Netlify Identity Widget (hidden unless needed) -->
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-    <div data-netlify-identity-menu style="display: none;"></div>
+<!-- Netlify Identity Widget (hidden unless needed) -->
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<div data-netlify-identity-menu style="display: none;"></div>
 
-    
 <script>
-        
-        // Mobile menu toggle
-        // Mobile Menü Toggle
-          const mobileMenuBtn = document.querySelector(".mobile-menu-button");
-          const mobileMenu = document.querySelector(".mobile-menu");
-        
-          mobileMenuBtn.addEventListener("click", () => {
-            mobileMenu.classList.toggle("hidden");
-          });
-        
-          // Schließe das mobile Menü nach Klick auf einen Link
-          document.querySelectorAll(".mobile-menu a").forEach(link => {
-            link.addEventListener("click", () => {
-              mobileMenu.classList.add("hidden");
-            });
-          });
-                
-        // Simple page navigation for the demo
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                if(this.getAttribute('href') === '#nft') {
-                    e.preventDefault();
-                    document.querySelectorAll('section').forEach(s => s.classList.add('hidden'));
-                    document.querySelector('#nft').classList.remove('hidden');
-                } else if(this.getAttribute('href') === '#donate') {
-                    e.preventDefault();
-                    document.querySelectorAll('section').forEach(s => s.classList.add('hidden'));
-                    document.querySelector('#donate').classList.remove('hidden');
-                } else if(this.getAttribute('href') === '#') {
-                    e.preventDefault();
-                    document.querySelectorAll('section').forEach(s => s.classList.remove('hidden'));
-                    document.querySelector('#nft').classList.add('hidden');
-                    document.querySelector('#donate').classList.add('hidden');
-                    window.scrollTo(0, 0);
-                } else if(this.getAttribute('href').startsWith('#')) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if(target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth'
-                        });
-                    }
+    // Mobile menu toggle
+    const mobileMenuBtn = document.querySelector(".mobile-menu-button");
+    const mobileMenu = document.querySelector(".mobile-menu");
+    
+    mobileMenuBtn.addEventListener("click", () => {
+        mobileMenu.classList.toggle("hidden");
+    });
+    
+    // Close mobile menu after clicking a link
+    document.querySelectorAll(".mobile-menu a").forEach(link => {
+        link.addEventListener("click", () => {
+            mobileMenu.classList.add("hidden");
+        });
+    });
+    
+    // Simple page navigation for the demo
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            if(this.getAttribute('href') === '#nft') {
+                e.preventDefault();
+                document.querySelectorAll('section').forEach(s => s.classList.add('hidden'));
+                document.querySelector('#nft').classList.remove('hidden');
+            } else if(this.getAttribute('href') === '#donate') {
+                e.preventDefault();
+                document.querySelectorAll('section').forEach(s => s.classList.add('hidden'));
+                document.querySelector('#donate').classList.remove('hidden');
+            } else if(this.getAttribute('href') === '#') {
+                e.preventDefault();
+                document.querySelectorAll('section').forEach(s => s.classList.remove('hidden'));
+                document.querySelector('#nft').classList.add('hidden');
+                document.querySelector('#donate').classList.add('hidden');
+                window.scrollTo(0, 0);
+            } else if(this.getAttribute('href').startsWith('#')) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if(target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
                 }
-            });
-        });
-        
-        // Copy wallet addresses
-        document.querySelectorAll('.fa-copy').forEach(icon => {
-            icon.addEventListener('click', function() {
-                const address = this.parentElement.querySelector('code').textContent;
-                navigator.clipboard.writeText(address).then(() => {
-                    const original = this.className;
-                    this.className = 'fas fa-check text-green-500';
-                    setTimeout(() => {
-                        this.className = original;
-                    }, 2000);
-                });
-            });
-        });
-        
-
-        // Modal functionality
-        const modal = document.getElementById('valueModal');
-        const modalTitle = document.getElementById('modalTitle');
-        const modalIcon = document.getElementById('modalIcon');
-        const modalMessage = document.getElementById('modalMessage');
-        const modalImage = document.getElementById('modalImage');
-        
-        function openModal(title, iconClass, message, imageUrl) {
-            modalTitle.textContent = title;
-            modalIcon.className = iconClass;
-            modalMessage.textContent = message;
-            modalImage.src = imageUrl;
-            modalImage.alt = title;
-            document.body.style.overflow = 'hidden';
-            document.body.style.paddingRight = '15px'; // <- Breite des Scrollbars
-            
-
-            // Set icon color based on value
-            if (title === 'Authenticity') modalIcon.style.color = '#8a6ea8';
-            else if (title === 'Independence') modalIcon.style.color = '#3b82f6';
-            else if (title === 'Spirituality') modalIcon.style.color = '#d946ef';
-            else if (title === 'Community') modalIcon.style.color = '#f59e0b';
-            else if (title === 'Evolution') modalIcon.style.color = '#10b981';
-            else if (title === 'Love & Light') modalIcon.style.color = '#ef4444';
-            
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-            document.body.style.paddingRight = '15px'; // <- Breite des Scrollbars
-        }
-        
-        function closeModal() {
-            modal.classList.remove('active');
-            document.body.style.overflow = 'auto';
-            document.body.style.paddingRight = '0px';
-        }
-        
-        // Close modal when clicking X, close button, or outside modal
-        document.querySelector('.modal-close').addEventListener('click', closeModal);
-        document.querySelector('.modal-close-btn').addEventListener('click', closeModal);
-        modal.addEventListener('click', function(e) {
-            if (e.target === modal) {
-                closeModal();
             }
+        });
+    });
+    
+    // Copy wallet addresses
+    document.querySelectorAll('.fa-copy').forEach(icon => {
+        icon.addEventListener('click', function() {
+            const address = this.parentElement.querySelector('code').textContent;
+            navigator.clipboard.writeText(address).then(() => {
+                const original = this.className;
+                this.className = 'fas fa-check text-green-500';
+                setTimeout(() => {
+                    this.className = original;
+                }, 2000);
+            });
+        });
+    });
+    
+    // Modal functionality
+    const modal = document.getElementById('valueModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalIcon = document.getElementById('modalIcon');
+    const modalMessage = document.getElementById('modalMessage');
+    const modalImage = document.getElementById('modalImage');
+    
+    function openModal(title, iconClass, message, imageUrl) {
+        modalTitle.textContent = title;
+        modalIcon.className = iconClass;
+        modalMessage.textContent = message;
+        modalImage.src = imageUrl;
+        modalImage.alt = title;
+        document.body.style.overflow = 'hidden';
+        document.body.style.paddingRight = '15px';
+        
+        // Set icon color based on value
+        if (title === 'Authenticity') modalIcon.style.color = '#8a6ea8';
+        else if (title === 'Independence') modalIcon.style.color = '#3b82f6';
+        else if (title === 'Spirituality') modalIcon.style.color = '#d946ef';
+        else if (title === 'Community') modalIcon.style.color = '#f59e0b';
+        else if (title === 'Evolution') modalIcon.style.color = '#10b981';
+        else if (title === 'Love & Light') modalIcon.style.color = '#ef4444';
+        
+        modal.classList.add('active');
+    }
+    
+    function closeModal() {
+        modal.classList.remove('active');
         document.body.style.overflow = 'auto';
         document.body.style.paddingRight = '0px';
-        });
-        
-        // Founder Modal Functions
-        function openFounderModal() {
-            const founderModal = document.getElementById('founderModal');
-            founderModal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-            document.body.style.paddingRight = '15px'; // <- Breite des Scrollbars
+    }
+    
+    // Close modal when clicking X, close button, or outside modal
+    document.querySelector('.modal-close').addEventListener('click', closeModal);
+    document.querySelector('.modal-close-btn').addEventListener('click', closeModal);
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            closeModal();
         }
-        
-        function closeFounderModal() {
-            const founderModal = document.getElementById('founderModal');
-            founderModal.classList.remove('active');
-            document.body.style.overflow = 'auto';
-            document.body.style.paddingRight = '0px';
+    });
+    
+    // Founder Modal Functions
+    function openFounderModal() {
+        const founderModal = document.getElementById('founderModal');
+        founderModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        document.body.style.paddingRight = '15px';
+    }
+    
+    function closeFounderModal() {
+        const founderModal = document.getElementById('founderModal');
+        founderModal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+        document.body.style.paddingRight = '0px';
+    }
+    
+    // Close founder modal when clicking outside
+    document.getElementById('founderModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeFounderModal();
         }
-        
-        // Close founder modal when clicking outside
-        document.getElementById('founderModal').addEventListener('click', function(e) {
-            if (e.target === this) {
+    });
+    
+    // Close modal with ESC key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            if (modal.classList.contains('active')) {
+                closeModal();
+            }
+            if (document.getElementById('founderModal').classList.contains('active')) {
                 closeFounderModal();
             }
-            document.body.style.overflow = 'auto';
-        document.body.style.paddingRight = '0px';
-        });
-        
-
-        // Close modal with ESC key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                if (modal.classList.contains('active')) {
-                    closeModal();
-                }
-                if (document.getElementById('founderModal').classList.contains('active')) {
-                    closeFounderModal();
-                }
-                document.body.style.overflow = 'auto';
-                 document.body.style.paddingRight = '0px';
-            }
-        
-        });
-        
-        // Dynamic background transitions
-        const sections = document.querySelectorAll('section[id]');
-        const body = document.body;
-        
-        const sectionColors = {
-            'hero': '#f0f9ff', // Pale sky blue
-            'vision': '#e8f5e9', // Light forest green
-            'about': '#fff8e1', // Warm cream with golden hue
-            'roadmap': '#f3e5f5', // Muted lavender
-            'community': '#f5f5dc', // Gentle sand beige
-            'support': '#ffe0b2', // Soft peach
-            'founder': '#f8d4b8', // Peach
-            'wisdom': '#f0f7ff', // Light blue
-            'journal': '#fff8e1' // Warm cream
-        };
-        
-        function checkSectionInView() {
-            const viewportHeight = window.innerHeight;
-            const triggerPoint = viewportHeight * 0.3; // 30% of viewport
-            
-            sections.forEach(section => {
-                const rect = section.getBoundingClientRect();
-                const sectionId = section.id;
-                
-                // Check if section is in view (30% threshold)
-                if (rect.top <= triggerPoint && rect.bottom >= triggerPoint) {
-                    if (sectionColors[sectionId]) {
-                        body.style.backgroundColor = sectionColors[sectionId];
-                    }
-                    
-                    // Highlight active nav link
-                    const navLink = document.querySelector(`.nav-link[href="#${sectionId}"]`);
-                    if (navLink) {
-                        document.querySelectorAll('.nav-link').forEach(link => {
-                            link.classList.remove('active');
-                        });
-                        navLink.classList.add('active');
-                    }
-                }
-            });
-        }
-        
-        // Scroll animations
-        function checkScrollAnimations() {
-            const elements = document.querySelectorAll('.scroll-animate');
-            const windowHeight = window.innerHeight;
-            const triggerPoint = windowHeight * 0.8;
-            
-            elements.forEach(element => {
-                const elementPosition = element.getBoundingClientRect().top;
-                
-                if (elementPosition < triggerPoint) {
-                    element.classList.add('active');
-                }
-            });
-        }
-        
-        // Wisdom Drops messages
-        const wisdomMessages = [
-            "You are the light you seek.",
-            "Freedom begins where fear ends.",
-            "Growth is sacred. Trust the unfolding.",
-            "Your soul knows the way. Listen.",
-            "Love is the only truth. All else is illusion.",
-            "Be still and know that you are enough.",
-            "The journey inward is the path home."
-        ];
-        
-        function changeWisdom() {
-            const wisdomElement = document.getElementById('wisdomMessage');
-            wisdomElement.classList.remove('active');
-            
-            setTimeout(() => {
-                const randomIndex = Math.floor(Math.random() * wisdomMessages.length);
-                wisdomElement.textContent = `"${wisdomMessages[randomIndex]}"`;
-                wisdomElement.classList.add('active');
-            }, 300);
-        }
-        
-        // Quote carousel
-        let currentQuote = 0;
-        const quotes = document.querySelectorAll('.quote-slide');
-        
-        function showQuote(index) {
-            quotes.forEach((quote, i) => {
-                quote.classList.toggle('active', i === index);
-            });
-        }
-        
-        function nextQuote() {
-            currentQuote = (currentQuote + 1) % quotes.length;
-            showQuote(currentQuote);
-        }
-        
-        function prevQuote() {
-            currentQuote = (currentQuote - 1 + quotes.length) % quotes.length;
-            showQuote(currentQuote);
-        }
-        
-        // Auto-rotate quotes
-        setInterval(nextQuote, 8000);
-        
-        // Energy tracker counter
-        function updateCounter() {
-            const counter = document.getElementById('soulCount');
-            let count = parseInt(counter.textContent);
-            if (count < 500) {
-                count += Math.floor(Math.random() * 3) + 1;
-                if (count > 500) count = 500;
-                counter.textContent = count;
-                
-                // Update progress bar
-                const progress = (count / 500) * 100;
-                document.querySelector('.bg-gradient-to-r').style.width = `${progress}%`;
+            if (document.getElementById('discord-modal').classList.contains('active')) {
+                closeDiscordPopup();
             }
         }
-        
-        setInterval(updateCounter, 30000);
-        
-        // Sticky navigation on scroll
-        window.addEventListener('scroll', function() {
-            const nav = document.querySelector('.sticky-nav');
-            if (window.scrollY > 50) {
-                nav.classList.add('scrolled');
-            } else {
-                nav.classList.remove('scrolled');
-            }
-            
-            // Show/hide scroll to top button
-            const scrollTop = document.querySelector('.scroll-top');
-            if (window.scrollY > 300) {
-                scrollTop.classList.add('active');
-            } else {
-                scrollTop.classList.remove('active');
-            }
-        });
-        
-        // Scroll to top
-        document.querySelector('.scroll-top').addEventListener('click', function() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-        
-        // Initial check
-        checkSectionInView();
-        checkScrollAnimations();
-        
-        // Check on scroll
-        window.addEventListener('scroll', function() {
-            checkSectionInView();
-            checkScrollAnimations();
-        });
-        
-        // Check on resize
-        window.addEventListener('resize', function() {
-            checkSectionInView();
-            checkScrollAnimations();
-        });
-        
-        // Activate wisdom text on load
-        setTimeout(() => {
-            document.getElementById('wisdomMessage').classList.add('active');
-        }, 500);
+    });
     
-        // Toggle between homepage and journal page
-        function showJournalPage() {
-            document.getElementById('homepage').classList.add('hidden');
-            document.getElementById('journal-page').classList.remove('hidden');
-            window.scrollTo(0, 0);
-        }
+    // Dynamic background transitions
+    const sections = document.querySelectorAll('section[id]');
+    const body = document.body;
+    
+    const sectionColors = {
+        'hero': '#f0f9ff',
+        'vision': '#e8f5e9',
+        'about': '#fff8e1',
+        'roadmap': '#f3e5f5',
+        'community': '#f5f5dc',
+        'support': '#ffe0b2',
+        'founder': '#f8d4b8',
+        'wisdom': '#f0f7ff',
+        'journal': '#fff8e1'
+    };
+    
+    function checkSectionInView() {
+        const viewportHeight = window.innerHeight;
+        const triggerPoint = viewportHeight * 0.3;
         
-        function showHomepage() {
-            document.getElementById('journal-page').classList.add('hidden');
-            document.getElementById('homepage').classList.remove('hidden');
-            window.scrollTo(0, 0);
-            document.getElementById('journal-page').classList.add('hidden');
-            document.getElementById('homepage').classList.remove('hidden');
-            window.scrollTo(0, 0);
-
-            // 🟢 Re-initialize Soul Message Section
-            const wisdomElement = document.getElementById('wisdomMessage');
-            wisdomElement.classList.remove('active');
-
-            // re-trigger activation
-            setTimeout(() => {
-                wisdomElement.classList.add('active');
-            }, 300);
-        }
-        
-        // Journal Modal Functions
-        function openJournalModal(title, date, modalId) {
-            const modal = document.getElementById(modalId);
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-            document.body.style.paddingRight = '15px'; // <- Breite des Scrollbars
-        }
-        
-        function closeJournalModal() {
-            const modals = document.querySelectorAll('.journal-modal-overlay');
-            modals.forEach(modal => {
-                modal.classList.remove('active');
-            });
-            document.body.style.overflow = 'auto';
-            document.body.style.paddingRight = '0px';
-        }
-            document.body.style.overflow = 'auto';
-            document.body.style.paddingRight = '0px';
-        // Close modal when clicking outside content
-        document.querySelectorAll('.journal-modal-overlay').forEach(modal => {
-            modal.addEventListener('click', function(e) {
-                if (e.target === modal) {
-                    closeJournalModal();
+        sections.forEach(section => {
+            const rect = section.getBoundingClientRect();
+            const sectionId = section.id;
+            
+            if (rect.top <= triggerPoint && rect.bottom >= triggerPoint) {
+                if (sectionColors[sectionId]) {
+                    body.style.backgroundColor = sectionColors[sectionId];
                 }
-                document.body.style.overflow = 'auto';
-            document.body.style.paddingRight = '0px';
-            });
+                
+                // Highlight active nav link
+                const navLink = document.querySelector(`.nav-link[href="#${sectionId}"]`);
+                if (navLink) {
+                    document.querySelectorAll('.nav-link').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    navLink.classList.add('active');
+                }
+            }
         });
+    }
+    
+    // Scroll animations
+    function checkScrollAnimations() {
+        const elements = document.querySelectorAll('.scroll-animate');
+        const windowHeight = window.innerHeight;
+        const triggerPoint = windowHeight * 0.8;
         
+        elements.forEach(element => {
+            const elementPosition = element.getBoundingClientRect().top;
+            
+            if (elementPosition < triggerPoint) {
+                element.classList.add('active');
+            }
+        });
+    }
+    
+    // Wisdom Drops messages
+    const wisdomMessages = [
+        "You are the light you seek.",
+        "Freedom begins where fear ends.",
+        "Growth is sacred. Trust the unfolding.",
+        "Your soul knows the way. Listen.",
+        "Love is the only truth. All else is illusion.",
+        "Be still and know that you are enough.",
+        "The journey inward is the path home."
+    ];
+    
+    function changeWisdom() {
+        const wisdomElement = document.getElementById('wisdomMessage');
+        const container = wisdomElement.parentElement;
         
-        // Close modal with ESC key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
+        // Set fixed height before change
+        container.style.minHeight = container.offsetHeight + 'px';
+        
+        wisdomElement.classList.remove('active');
+        
+        setTimeout(() => {
+            const randomIndex = Math.floor(Math.random() * wisdomMessages.length);
+            wisdomElement.textContent = `"${wisdomMessages[randomIndex]}"`;
+            wisdomElement.classList.add('active');
+            
+            // Reset height after transition
+            setTimeout(() => {
+                container.style.minHeight = '';
+            }, 1000);
+        }, 300);
+    }
+    
+    // Quote carousel
+    let currentQuote = 0;
+    const quotes = document.querySelectorAll('.quote-slide');
+    
+    function showQuote(index) {
+        quotes.forEach((quote, i) => {
+            quote.classList.toggle('active', i === index);
+        });
+    }
+    
+    function nextQuote() {
+        currentQuote = (currentQuote + 1) % quotes.length;
+        showQuote(currentQuote);
+    }
+    
+    function prevQuote() {
+        currentQuote = (currentQuote - 1 + quotes.length) % quotes.length;
+        showQuote(currentQuote);
+    }
+    
+    // Auto-rotate quotes
+    setInterval(nextQuote, 8000);
+    
+    // Energy tracker counter
+    function updateCounter() {
+        const counter = document.getElementById('soulCount');
+        let count = parseInt(counter.textContent);
+        if (count < 500) {
+            count += Math.floor(Math.random() * 3) + 1;
+            if (count > 500) count = 500;
+            counter.textContent = count;
+            
+            // Update progress bar
+            const progress = (count / 500) * 100;
+            document.querySelector('.bg-gradient-to-r').style.width = `${progress}%`;
+        }
+    }
+    
+    setInterval(updateCounter, 30000);
+    
+    // Sticky navigation on scroll
+    window.addEventListener('scroll', function() {
+        const nav = document.querySelector('.sticky-nav');
+        if (window.scrollY > 50) {
+            nav.classList.add('scrolled');
+        } else {
+            nav.classList.remove('scrolled');
+        }
+        
+        // Show/hide scroll to top button
+        const scrollTop = document.querySelector('.scroll-top');
+        if (window.scrollY > 300) {
+            scrollTop.classList.add('active');
+        } else {
+            scrollTop.classList.remove('active');
+        }
+    });
+    
+    // Scroll to top
+    document.querySelector('.scroll-top').addEventListener('click', function() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+    
+    // Journal Modal Functions
+    function openJournalModal(title, date, modalId) {
+        const modal = document.getElementById(modalId);
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        document.body.style.paddingRight = '15px';
+    }
+    
+    function closeJournalModal() {
+        const modals = document.querySelectorAll('.journal-modal-overlay');
+        modals.forEach(modal => {
+            modal.classList.remove('active');
+        });
+        document.body.style.overflow = 'auto';
+        document.body.style.paddingRight = '0px';
+    }
+    
+    // Close journal modal when clicking outside content
+    document.querySelectorAll('.journal-modal-overlay').forEach(modal => {
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
                 closeJournalModal();
             }
-            document.body.style.overflow = 'auto';
-            document.body.style.paddingRight = '0px';
         });
-                    
-        // Add hover effect to journal cards
+    });
+    
+    // Discord modal functions
+    function openDiscordPopup() {
+        document.getElementById('discord-modal').classList.add('active');
+        document.body.style.overflow = 'hidden';
+        document.body.style.paddingRight = '15px';
+    }
+    
+    function closeDiscordPopup() {
+        document.getElementById('discord-modal').classList.remove('active');
+        document.body.style.overflow = 'auto';
+        document.body.style.paddingRight = '0px';
+    }
+    
+    // Initial check
+    checkSectionInView();
+    checkScrollAnimations();
+    
+    // Check on scroll
+    window.addEventListener('scroll', function() {
+        checkSectionInView();
+        checkScrollAnimations();
+    });
+    
+    // Check on resize
+    window.addEventListener('resize', function() {
+        checkSectionInView();
+        checkScrollAnimations();
+    });
+    
+    // Activate wisdom text on load
+    setTimeout(() => {
+        document.getElementById('wisdomMessage').classList.add('active');
+    }, 500);
+
+     // Add hover effect to journal cards
         document.querySelectorAll('.journal-card').forEach(card => {
             card.addEventListener('mouseenter', function() {
                 this.style.transform = 'translateY(-5px)';
@@ -2021,153 +2015,6 @@
                 alert('Filtering by tag: ' + this.textContent);
             });
         });
-
-        // DOM Elements
-        const form = document.getElementById('reflectionForm');
-        const messagesContainer = document.getElementById('messagesContainer');
-        const loadingIndicator = document.getElementById('loadingIndicator');
-        const noMessages = document.getElementById('noMessages');
-        
-        // Load messages when page loads
-        document.addEventListener('DOMContentLoaded', () => {
-            loadMessages();
-            
-            // Set up form submission
-            form.addEventListener('submit', handleFormSubmit);
-        });
-        
-        // Form submission handler
-        async function handleFormSubmit(e) {
-            e.preventDefault();
-            
-            const formData = new FormData(form);
-            const data = {
-                name: formData.get('name') || 'Anonymous',
-                message: formData.get('message'),
-                timestamp: new Date().toISOString()
-            };
-            
-            try {
-                // Show loading state
-                const submitBtn = form.querySelector('button[type="submit"]');
-                submitBtn.disabled = true;
-                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Sharing...';
-                
-                // Save to Netlify function
-                const response = await fetch('/api/save-entry', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data)
-                });
-                
-                if (response.ok) {
-                    // Add the new message to the display
-                    addMessageToDisplay(data);
-                    
-                    // Reset form
-                    form.reset();
-                    
-                    // Show success feedback
-                    submitBtn.innerHTML = '<i class="fas fa-check mr-2"></i> Shared!';
-                    setTimeout(() => {
-                        submitBtn.innerHTML = 'Share with the Circle';
-                        submitBtn.disabled = false;
-                    }, 2000);
-                } else {
-                    throw new Error('Failed to save message');
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                alert('There was an error sharing your reflection. Please try again.');
-                form.querySelector('button[type="submit"]').innerHTML = 'Share with the Circle';
-                form.querySelector('button[type="submit"]').disabled = false;
-            }
-        }
-        
-        // Load messages from Netlify function
-        async function loadMessages() {
-            try {
-                const response = await fetch('/api/get-entries');
-                const messages = await response.json();
-                
-                // Hide loading indicator
-                loadingIndicator.classList.add('hidden');
-                
-                if (messages && messages.length > 0) {
-                    // Clear any existing messages
-                    messagesContainer.innerHTML = '';
-                    
-                    // Add each message to the display
-                    messages.forEach((message, index) => {
-                        // Add slight delay for staggered animation
-                        setTimeout(() => {
-                            addMessageToDisplay(message);
-                        }, index * 100);
-                    });
-                } else {
-                    noMessages.classList.remove('hidden');
-                }
-            } catch (error) {
-                console.error('Error loading messages:', error);
-                loadingIndicator.classList.add('hidden');
-                noMessages.classList.remove('hidden');
-                noMessages.querySelector('p').textContent = 'Error loading reflections. Please refresh the page.';
-            }
-        }
-        
-        // Add a message to the display
-        function addMessageToDisplay(message) {
-            noMessages.classList.add('hidden');
-            
-            const messageCard = document.createElement('div');
-            messageCard.className = 'message-card p-6 rounded-xl';
-            
-            // Format timestamp
-            const date = new Date(message.timestamp);
-            const formattedDate = date.toLocaleDateString('en-US', {
-                month: 'short',
-                day: 'numeric',
-                year: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
-            });
-            
-            messageCard.innerHTML = `
-                <div class="flex items-start mb-4">
-                    <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center mr-3 flex-shrink-0">
-                        <i class="fas fa-user text-purple-500"></i>
-                    </div>
-                    <div>
-                        <h3 class="font-medium text-purple-700">${message.name}</h3>
-                        <p class="text-xs text-purple-400">${formattedDate}</p>
-                    </div>
-                </div>
-                <p class="text-gray-700">${message.message}</p>
-            `;
-            
-            messagesContainer.prepend(messageCard);
-            
-            // Trigger animation
-            setTimeout(() => {
-                messageCard.classList.add('visible');
-            }, 50);
-        }
-
-        function openDiscordPopup() {
-        document.getElementById('discord-modal').classList.add('active');
-        document.body.style.overflow = 'hidden';
-        document.body.style.paddingRight = '15px'; // <- Breite des Scrollbars
-      }
-      function closeDiscordPopup() {
-        document.getElementById('discord-modal').classList.remove('active');
-        document.body.style.overflow = 'auto';
-        document.body.style.paddingRight = '0px';
-      }
-
-        </script>
-
- 
+</script>
 </body>
 </html>
