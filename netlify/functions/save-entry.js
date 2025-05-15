@@ -1,34 +1,40 @@
-const fs = require('fs');
-const path = require('path');
 
-exports.handler = async (event) => {
-  if (event.httpMethod !== 'POST') {
-    return { statusCode: 405, body: 'Method Not Allowed' };
+const { createClient } = require("@supabase/supabase-js");
+
+const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
+
+exports.handler = async function(event) {
+  if (event.httpMethod !== "POST") {
+    return { statusCode: 405, body: "Method Not Allowed" };
   }
 
-  const data = JSON.parse(event.body);
-  const entry = {
-    name: data.name || "Anonymous",
-    category: data.category || "Other",
-    message: data.message,
-    timestamp: new Date().toISOString()
-  };
+  try {
+    const data = JSON.parse(event.body);
+    const { name, message, category } = data;
 
-  const filePath = path.join("/tmp", "submissions.json");
-  let submissions = [];
+    if (!name || !message || !category) {
+      return { statusCode: 400, body: "Missing fields" };
+    }
 
-  if (fs.existsSync(filePath)) {
-    submissions = JSON.parse(fs.readFileSync(filePath));
+    const { error } = await supabase
+      .from("circle_posts")
+      .insert([{ name, message, category }]);
+
+    if (error) {
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ error: error.message })
+      };
+    }
+
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ success: true })
+    };
+  } catch (err) {
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: err.message })
+    };
   }
-
-  submissions.unshift(entry);
-  fs.writeFileSync(filePath, JSON.stringify(submissions, null, 2));
-
- 
-  return {
-    statusCode: 200,
-    body: JSON.stringify({ message: "Saved", entry })
-  };
-  
-
 };
