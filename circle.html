@@ -208,7 +208,7 @@
 </head>
 <body class="circle-bg min-h-screen flex flex-col items-center p-4 relative">
     <!-- Back to Home Button -->
-    <a href="/" class="back-home-btn text-gray-700 font-medium ripple flex items-center">
+    <a href="index.html" class="back-home-btn text-gray-700 font-medium ripple flex items-center">
         <i class="fas fa-arrow-left mr-2"></i>
         Back to Home
     </a>
@@ -320,28 +320,44 @@
                 </div>
                 
                 <div class="md:w-1/2">
-                    <h3 class="text-3xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500">
-                        Join the Conversation
-                    </h3>
-                    
-                    <div class="bg-white bg-opacity-70 rounded-xl p-6 mb-6">
+                <h3 class="text-3xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500">
+                    Join the Conversation
+                </h3>
+                
+                <div class="bg-white bg-opacity-70 rounded-xl p-6 mb-6">
+                    <form id="soul-form" name="soul-entry" method="POST" netlify data-netlify-honeypot="bot-field">
+                        <input type="hidden" name="form-name" value="soul-entry">
+                        <p class="hidden">
+                            <label>Don't fill this out: <input name="bot-field"></label>
+                        </p>
+
                         <div class="flex items-center mb-4">
                             <div class="w-10 h-10 rounded-full bg-gradient-to-r from-purple-200 to-pink-200 flex items-center justify-center mr-3">
                                 <i class="fas fa-user text-purple-600"></i>
                             </div>
-                            <input type="text" class="soul-input flex-grow" placeholder="What's your soul sharing today?">
+                            <input type="text" name="name" class="soul-input flex-grow" placeholder="Your name (optional)">
                         </div>
+
+                        <div class="mb-4">
+                            <textarea name="message" class="soul-input w-full" placeholder="What's your soul sharing today?" rows="4" required></textarea>
+                        </div>
+
                         <div class="flex flex-wrap mb-4">
-                            <span class="soul-tag"><i class="fas fa-heart mr-1"></i> Spiritual</span>
-                            <span class="soul-tag"><i class="fas fa-brain mr-1"></i> Mindful</span>
-                            <span class="soul-tag"><i class="fas fa-book mr-1"></i> Story</span>
-                            <span class="soul-tag"><i class="fas fa-question mr-1"></i> Question</span>
-                            <span class="soul-tag"><i class="fas fa-lightbulb mr-1"></i> Insight</span>
+                            <select name="category" class="soul-tag" required>
+                                <option value="">Choose Category</option>
+                                <option value="Reflections">Reflections</option>
+                                <option value="Visions">Visions</option>
+                                <option value="Quotes">Quotes</option>
+                                <option value="Wisdom">Wisdom</option>
+                                <option value="Other">Other</option>
+                            </select>
                         </div>
-                        <button class="w-full bg-gradient-to-r from-purple-400 to-pink-400 px-6 py-3 rounded-full font-medium text-white ripple hover:shadow-lg transition-all duration-300">
+
+                        <button type="submit" class="w-full bg-gradient-to-r from-purple-400 to-pink-400 px-6 py-3 rounded-full font-medium text-white ripple hover:shadow-lg transition-all duration-300">
                             Share With the Circle
                         </button>
-                    </div>
+                    </form>
+                </div>
                     
                     <h4 class="font-bold mb-4 text-gray-700">Recent Soul Shares</h4>
                     <div class="space-y-4">
@@ -393,6 +409,43 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Add success modal -->
+        <div id="success-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div class="bg-white rounded-xl p-6 max-w-sm mx-4 text-center soul-card">
+                <div class="text-green-500 text-4xl mb-3">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500">
+                    Shared with the Circle!
+                </h3>
+                <p class="text-gray-600">Your soul message is now part of the collective energy</p>
+            </div>
+        </div>
+
+        <!-- Entry Template -->
+        <template id="entry-template">
+            <div class="soul-card p-4" data-category="">
+                <div class="flex items-start mb-2">
+                    <div class="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center mr-3">
+                        <i class="fas fa-user text-purple-500 text-sm"></i>
+                    </div>
+                    <div>
+                        <h5 class="font-bold text-sm author-name">Anonymous Soul</h5>
+                        <p class="text-xs text-gray-500 post-time">Just now</p>
+                    </div>
+                </div>
+                <p class="text-gray-700 mb-2 post-content"></p>
+                <div class="flex items-center text-sm text-gray-500">
+                    <button class="flex items-center mr-4 hover:text-purple-500">
+                        <i class="far fa-heart mr-1"></i> <span>0</span>
+                    </button>
+                    <button class="flex items-center hover:text-purple-500">
+                        <i class="far fa-comment mr-1"></i> <span>0</span>
+                    </button>
+                </div>
+            </div>
+        </template>
         </div>
         
         <div class="text-center max-w-2xl mx-auto mb-16">
@@ -472,6 +525,49 @@
     </div>
 
     <script>
+        // Modified JavaScript for Netlify Functions
+        document.getElementById('soul-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const form = e.target;
+            const formData = new FormData(form);
+            
+            try {
+                // Show loading state
+                const submitBtn = form.querySelector('button[type="submit"]');
+                submitBtn.innerHTML = `<i class="fas fa-spinner animate-spin"></i> Sharing...`;
+                submitBtn.disabled = true;
+
+                // Submit to Netlify Function
+                const response = await fetch('/.netlify/functions/save-entry', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) throw new Error('Submission failed');
+                
+                // Add new entry
+                const template = document.getElementById('entry-template');
+                const clone = template.content.cloneNode(true);
+                
+                clone.querySelector('.post-content').textContent = formData.get('message');
+                clone.querySelector('.author-name').textContent = formData.get('name') || 'Anonymous Soul';
+                clone.querySelector('.soul-card').dataset.category = formData.get('category');
+                
+                document.getElementById('soul-entries').prepend(clone);
+                form.reset();
+
+                // Show success modal
+                const modal = document.getElementById('success-modal');
+                modal.classList.remove('hidden');
+                setTimeout(() => modal.classList.add('hidden'), 3000);
+
+            } catch (error) {
+                alert('Error sharing your message. Please try again.');
+            } finally {
+                submitBtn.innerHTML = `Share With the Circle`;
+                submitBtn.disabled = false;
+            }
+        });
         // Ripple effect for buttons
         document.querySelectorAll('.ripple').forEach(button => {
             button.addEventListener('click', function(e) {
