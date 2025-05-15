@@ -24,11 +24,7 @@ exports.handler = async (event) => {
   submissions.unshift(entry);
   fs.writeFileSync(filePath, JSON.stringify(submissions, null, 2));
 
-  return {
-    statusCode: 200,
-    body: JSON.stringify({ message: "Saved", entry })
-  };
-  exports.handler = async (event) => {
+exports.handler = async (event) => {
   try {
     if (event.httpMethod !== 'POST') {
       return { statusCode: 405, body: 'Method Not Allowed' };
@@ -43,5 +39,11 @@ exports.handler = async (event) => {
     return { statusCode: 500, body: JSON.stringify({ error: error.message }) };
   }
 };
+  
+  return {
+    statusCode: 200,
+    body: JSON.stringify({ message: "Saved", entry })
+  };
+  
 
 };
