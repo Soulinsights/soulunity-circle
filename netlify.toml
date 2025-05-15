@@ -1,6 +1,16 @@
 [build]
-  functions = "netlify/functions"
   publish = "."
+  functions = "netlify/functions"
+
+[[redirects]]
+  from = "/api/save-entry"
+  to = "/.netlify/functions/save-entry"
+  status = 200
+
+[[redirects]]
+  from = "/api/get-entries"
+  to = "/.netlify/functions/get-entries"
+  status = 200
 
 [[headers]]
   for = "/*"
