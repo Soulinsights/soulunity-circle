@@ -14,7 +14,7 @@ exports.handler = async (event) => {
     timestamp: new Date().toISOString()
   };
 
-  const filePath = path.join(__dirname, '../../data/submissions.json');
+  const filePath = path.join("/tmp", "submissions.json");
   let submissions = [];
 
   if (fs.existsSync(filePath)) {
