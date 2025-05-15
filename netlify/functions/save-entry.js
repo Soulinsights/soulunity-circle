@@ -1,40 +1,31 @@
-exports.handler = async (event) => {
-    try {
-        const data = JSON.parse(event.body);
-        
-        // Basic validation
-        if (!data.message) {
-            return {
-                statusCode: 400,
-                body: JSON.stringify({ error: "Message is required" })
-            };
-        }
+const fs = require('fs');
+const path = require('path');
 
-        // Here you would typically save to a database
-        // For now, we'll just return the data
-        return {
-            statusCode: 200,
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Headers': 'Content-Type',
-                'Access-Control-Allow-Methods': 'POST'
-            },
-            body: JSON.stringify({
-                message: "Entry saved successfully",
-                data: {
-                    ...data,
-                    timestamp: new Date().toISOString()
-                }
-            })
-        };
-    } catch (error) {
-        return {
-            statusCode: 500,
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ error: "Internal server error" })
-        };
-    }
+exports.handler = async (event) => {
+  if (event.httpMethod !== 'POST') {
+    return { statusCode: 405, body: 'Method Not Allowed' };
+  }
+
+  const data = JSON.parse(event.body);
+  const entry = {
+    name: data.name || "Anonymous",
+    category: data.category || "Other",
+    message: data.message,
+    timestamp: new Date().toISOString()
+  };
+
+  const filePath = path.join(__dirname, '../../data/submissions.json');
+  let submissions = [];
+
+  if (fs.existsSync(filePath)) {
+    submissions = JSON.parse(fs.readFileSync(filePath));
+  }
+
+  submissions.unshift(entry);
+  fs.writeFileSync(filePath, JSON.stringify(submissions, null, 2));
+
+  return {
+    statusCode: 200,
+    body: JSON.stringify({ message: "Saved", entry })
+  };
 };
