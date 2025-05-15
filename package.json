@@ -1,0 +1,7 @@
+{
+  "name": "soulunity-circle",
+  "version": "1.0.0",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.38.3"
+  }
+}
