@@ -660,5 +660,84 @@
             }
         });
     </script>
+    <!-- Success Modal -->
+<div id="success-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-xl p-6 max-w-sm mx-4 text-center soul-card">
+        <div class="text-green-500 text-4xl mb-3">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <h3 class="text-xl font-bold mb-2">Shared with the Circle!</h3>
+        <p class="text-gray-600">Your message is now part of the collective energy</p>
+    </div>
+</div>
+
+<!-- Error Modal -->
+<div id="error-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-xl p-6 max-w-sm mx-4 text-center soul-card">
+        <div class="text-red-500 text-4xl mb-3">
+            <i class="fas fa-times-circle"></i>
+        </div>
+        <h3 class="text-xl font-bold mb-2">Sharing Failed</h3>
+        <p class="text-gray-600" id="error-message"></p>
+    </div>
+</div>
+
+<script>
+document.getElementById('soul-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+    
+    try {
+        // Show loading state
+        const submitBtn = form.querySelector('button[type="submit"]');
+        submitBtn.innerHTML = `<i class="fas fa-spinner animate-spin"></i> Sharing...`;
+        submitBtn.disabled = true;
+
+        // Convert FormData to JSON
+        const jsonData = {};
+        formData.forEach((value, key) => jsonData[key] = value);
+
+        // Submit to Netlify Function
+        const response = await fetch('/.netlify/functions/save-entry', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(jsonData)
+        });
+
+        const result = await response.json();
+        
+        if (!response.ok) {
+            throw new Error(result.error || 'Submission failed');
+        }
+
+        // Add new entry
+        const template = document.getElementById('entry-template');
+        const clone = template.content.cloneNode(true);
+        
+        clone.querySelector('.post-content').textContent = jsonData.message;
+        clone.querySelector('.author-name').textContent = jsonData.name || 'Anonymous Soul';
+        clone.querySelector('.soul-card').dataset.category = jsonData.category;
+        
+        document.getElementById('soul-entries').prepend(clone);
+        form.reset();
+
+        // Show success modal
+        const modal = document.getElementById('success-modal');
+        modal.classList.remove('hidden');
+        setTimeout(() => modal.classList.add('hidden'), 3000);
+
+    } catch (error) {
+        const errorModal = document.getElementById('error-modal');
+        document.getElementById('error-message').textContent = error.message;
+        errorModal.classList.remove('hidden');
+        setTimeout(() => errorModal.classList.add('hidden'), 3000);
+    } finally {
+        const submitBtn = form.querySelector('button[type="submit"]');
+        submitBtn.innerHTML = `Share With the Circle`;
+        submitBtn.disabled = false;
+    }
+});
+</script>
 </body>
 </html>
