@@ -169,12 +169,34 @@
             transition: opacity 1s ease-in-out;
             position: absolute;
             width: 100%;
+            height: 100%; /* Add this */
+            top: 0;
+            left: 0;
+                margin: 0;
+    contain: content;
         }
         
         .quote-slide.active {
             opacity: 1;
         }
-        
+        /* 5. When Modal Opens */
+body.modal-open #wisdom {
+    filter: blur(2px);
+    pointer-events: none;
+}
+
+/* 6. Layer Promotion */
+.journal-modal-overlay, 
+.modal-overlay {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+/* 7. Stable Animations */
+.scroll-animate {
+    transform: translateZ(0);
+    will-change: transform, opacity;
+}
         /* Sticky navigation */
         .sticky-nav {
             position: sticky;
@@ -358,11 +380,12 @@
                 overflow-x: hidden;
                 position: relative;
                 width: 100%;
+                scrollbar-gutter: stable;
             }
             
             body {
                 overflow-x: hidden;
-                width: 100%;
+                width: 100% !important;
             }
             
             /* Ensure all elements stay within viewport */
@@ -393,7 +416,44 @@
                 font-size: 1rem;
             }
         }
-        
+        @media (max-width: 640px) {
+        /* Add smooth scroll alignment */
+        [id] {
+            scroll-margin-top: 80px; /* Adjust based on header height */
+        }
+
+        /* Fix section display */
+        #nft, #donate {
+            padding-top: 2rem;
+            min-height: 100vh;
+            display: block !important;
+        }
+    }
+        @media (max-width: 640px) {
+        /* Stack donation boxes vertically */
+        #donate .grid {
+            grid-template-columns: 1fr !important;
+            gap: 2rem;
+        }
+
+        /* Adjust donation box padding */
+        .donation-option {
+            padding: 1.5rem;
+            margin: 0 1rem;
+        }
+
+        /* Reduce crypto address font size */
+        #donate code {
+            font-size: 0.7rem;
+        }
+
+        /* Adjust button sizes */
+        #donate .btn-secondary, #donate .btn-primary {
+            padding: 0.75rem 1.5rem;
+            font-size: 0.9rem;
+        }
+    }
+    
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -751,6 +811,7 @@
         }
 
         /* Today's Soul Message section specific fixes */
+        
         #wisdom .max-w-4xl {
             min-height: 300px;
         }
@@ -760,11 +821,16 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+            transition: height 0.3s ease-out;
         }
         
         #wisdom .relative.h-64 {
+            height: 256px; /* Add fixed height */
             min-height: 256px;
+            contain: layout paint style;
+            
         }
+
     </style>
 </head>
 <body class="overflow-x-hidden">
@@ -1731,6 +1797,27 @@
             }
         });
     });
+
+    // Modify the click handler for donation/NFT buttons
+document.querySelectorAll('[href="#nft"], [href="#donate"]').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href').substring(1);
+        
+        // Hide all sections
+        document.querySelectorAll('section').forEach(s => s.classList.add('hidden'));
+        
+        // Show target section
+        const targetSection = document.getElementById(targetId);
+        targetSection.classList.remove('hidden');
+        
+        // Smooth scroll to top of section
+        window.scrollTo({
+            top: targetSection.offsetTop - 80, // Adjust for header height
+            behavior: 'smooth'
+        });
+    });
+});
     
     // Copy wallet addresses
     document.querySelectorAll('.fa-copy').forEach(icon => {
@@ -1893,25 +1980,26 @@
     ];
     
     function changeWisdom() {
-        const wisdomElement = document.getElementById('wisdomMessage');
-        const container = wisdomElement.parentElement;
+    const wisdomElement = document.getElementById('wisdomMessage');
+    const container = wisdomElement.parentElement;
+    
+    // Set fixed height using computed height
+    const currentHeight = container.offsetHeight;
+    container.style.height = `${currentHeight}px`;
+    
+    wisdomElement.classList.remove('active');
+    
+    setTimeout(() => {
+        const randomIndex = Math.floor(Math.random() * wisdomMessages.length);
+        wisdomElement.textContent = `"${wisdomMessages[randomIndex]}"`;
+        wisdomElement.classList.add('active');
         
-        // Set fixed height before change
-        container.style.minHeight = container.offsetHeight + 'px';
-        
-        wisdomElement.classList.remove('active');
-        
+        // Reset height after transition
         setTimeout(() => {
-            const randomIndex = Math.floor(Math.random() * wisdomMessages.length);
-            wisdomElement.textContent = `"${wisdomMessages[randomIndex]}"`;
-            wisdomElement.classList.add('active');
-            
-            // Reset height after transition
-            setTimeout(() => {
-                container.style.minHeight = '';
-            }, 1000);
-        }, 300);
-    }
+            container.style.height = '';
+        }, 1000);
+    }, 300);
+}
     
     // Quote carousel
     let currentQuote = 0;
