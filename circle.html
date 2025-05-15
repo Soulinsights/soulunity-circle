@@ -529,18 +529,16 @@
         document.getElementById('soul-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const form = e.target;
-            const formData = new FormData(form);
+            const data = {
+              name: form.name.value,
+              category: form.category.value,
+              message: form.message.value,
+            };
             
-            try {
-                // Show loading state
-                const submitBtn = form.querySelector('button[type="submit"]');
-                submitBtn.innerHTML = `<i class="fas fa-spinner animate-spin"></i> Sharing...`;
-                submitBtn.disabled = true;
-
-                // Submit to Netlify Function
-                const response = await fetch('/.netlify/functions/save-entry', {
-                    method: 'POST',
-                    body: formData
+            body: JSON.stringify(data),
+            headers: {
+              'Content-Type': 'application/json'
+            }
                 });
 
                 if (!response.ok) throw new Error('Submission failed');
