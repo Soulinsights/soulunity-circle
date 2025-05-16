@@ -8,7 +8,7 @@ exports.handler = async (event) => {
   const { post_id, comment } = JSON.parse(event.body);
 
   const { data, error } = await supabase
-    .from('comments')
+    .from('supabase_circle_comments.csv')
     .insert([{ post_id, comment }]);
 
   if (error) {
