@@ -359,8 +359,33 @@
                     </form>
                 </div>
                     <div id="soul-entries" class="space-y-4 mt-8">
-                      <!-- neue Einträge werden hier eingefügt -->
+                     
+                        <!-- neue Einträge werden hier eingefügt -->
+                    <div class="flex items-center mt-3 space-x-4 text-sm text-gray-600">
+                      <!-- Like Button -->
+                      <button onclick="likePost('POST_ID')" class="flex items-center hover:text-purple-500">
+                        <i class="far fa-heart mr-1"></i>
+                        <span id="like-count-POST_ID">❤️ Like</span>
+                      </button>
+                    
+                      <!-- Comment Button -->
+                      <button onclick="toggleComment('POST_ID')" class="flex items-center hover:text-purple-500">
+                        <i class="far fa-comment mr-1"></i>
+                        <span>💬 Comment</span>
+                      </button>
                     </div>
+                    
+                    <!-- Kommentarbereich (versteckt, bis geöffnet) -->
+                    <div id="comment-section-POST_ID" class="mt-3 hidden">
+                      <textarea id="comment-input-POST_ID" rows="2" placeholder="Write a comment..." class="w-full p-2 border rounded-md"></textarea>
+                      <button onclick="submitComment('POST_ID')" class="mt-2 px-4 py-1 bg-purple-600 text-white rounded hover:bg-purple-700">
+                        Submit
+                      </button>
+                    </div>
+                    </div>
+                    
+                    
+                    
                     <h4 class="font-bold mb-4 text-gray-700">Recent Soul Shares</h4>
                     <div class="space-y-4">
                         <div class="soul-card p-4">
@@ -527,6 +552,45 @@
     </div>
 
     <script>
+        function likePost(postId) {
+  fetch('/.netlify/functions/like-entry', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ post_id: postId })
+  })
+  .then(res => res.json())
+  .then(() => {
+    const counter = document.getElementById(`like-count-${postId}`);
+    if (counter) counter.innerText = "❤️ Liked!";
+  })
+  .catch(err => alert("Like failed: " + err.message));
+}
+
+function toggleComment(postId) {
+  const commentBox = document.getElementById(`comment-section-${postId}`);
+  if (commentBox) {
+    commentBox.classList.toggle('hidden');
+  }
+}
+
+function submitComment(postId) {
+  const commentText = document.getElementById(`comment-input-${postId}`).value;
+  if (!commentText.trim()) return;
+
+  fetch('/.netlify/functions/comment-entry', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ post_id: postId, comment: commentText })
+  })
+  .then(res => res.json())
+  .then(() => {
+    alert("Comment added!");
+    document.getElementById(`comment-input-${postId}`).value = "";
+  })
+  .catch(err => alert("Comment failed: " + err.message));
+}
+        
+        
         // Modified JavaScript for Netlify Functions
         document.getElementById('soul-form').addEventListener('submit', async (e) => {
             e.preventDefault();
