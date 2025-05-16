@@ -1,15 +1,20 @@
-const { createClient } = require('@supabase/supabase-js');
+const { createClient } = require("@supabase/supabase-js");
+const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
 
-exports.handler = async (event) => {
-  const supabase = createClient(
-    process.env.SUPABASE_URL,
-    process.env.SUPABASE_KEY
-  );
+exports.handler = async function(event) {
+  if (event.httpMethod !== "POST") {
+    return { statusCode: 405, body: "Method Not Allowed" };
+  }
 
   try {
-    const { name, message, category } = JSON.parse(event.body);
+    const data = JSON.parse(event.body);
+    const { name, message, category } = data;
 
-    const { data, error } = await supabase
+    if (!name || !message || !category) {
+      return { statusCode: 400, body: "Missing fields" };
+    }
+
+    const { error } = await supabase
       .from('circle_posts')
       .insert([{
         name: name || 'Anonymous Soul',
@@ -20,17 +25,18 @@ exports.handler = async (event) => {
       }])
       .single();
 
-    if (error) throw error;
+    if (error) {
+      return { statusCode: 500, body: JSON.stringify({ error: error.message }) };
+    }
 
     return {
       statusCode: 200,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
+      body: JSON.stringify({ success: true })
     };
-  } catch (error) {
+  } catch (err) {
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: error.message })
+      body: JSON.stringify({ error: err.message })
     };
   }
 };
