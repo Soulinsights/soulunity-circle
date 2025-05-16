@@ -23,7 +23,7 @@ exports.handler = async function(event) {
         likes: 0,
         comments: []
       }])
-      .single();
+      
 
     if (error) {
       return { statusCode: 500, body: JSON.stringify({ error: error.message }) };
