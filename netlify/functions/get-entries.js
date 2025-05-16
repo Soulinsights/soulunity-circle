@@ -1,5 +1,4 @@
 const { createClient } = require('@supabase/supabase-js');
-
 const supabase = createClient(
   process.env.SUPABASE_URL,
   process.env.SUPABASE_KEY
@@ -10,17 +9,17 @@ exports.handler = async () => {
     .from('circle_posts')
     .select('*')
     .order('timestamp', { ascending: false })
-    .limit(2);
+    .limit(2); // zeigt nur 2 Einträge an
 
   if (error) {
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: error.message }),
+      body: JSON.stringify({ error: error.message })
     };
   }
 
   return {
     statusCode: 200,
-    body: JSON.stringify(data),
+    body: JSON.stringify(data)
   };
 };
