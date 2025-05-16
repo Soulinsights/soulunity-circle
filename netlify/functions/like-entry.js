@@ -8,7 +8,7 @@ exports.handler = async (event) => {
   const { post_id } = JSON.parse(event.body);
 
   const { data, error } = await supabase
-    .from('likes')
+    .from('supabase_circle_likes')
     .insert([{ post_id }]);
 
   if (error) {
