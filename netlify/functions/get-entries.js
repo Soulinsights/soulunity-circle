@@ -7,7 +7,7 @@ const supabase = createClient(
 
 exports.handler = async () => {
   const { data, error } = await supabase
-    .from('circle_posts')
+    .from("circle_posts")
     .select('*')
     .order('timestamp', { ascending: false })
     .limit(2);
