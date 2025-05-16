@@ -1,15 +1,12 @@
-const { createClient } = require("@supabase/supabase-js");
+const { createClient } = require('@supabase/supabase-js');
 const supabase = createClient(
   process.env.SUPABASE_URL,
   process.env.SUPABASE_KEY
 );
 
-exports.handler = async (event) => {
+exports.handler = async function(event) {
   if (event.httpMethod !== 'POST') {
-    return {
-      statusCode: 405,
-      body: 'Method Not Allowed'
-    };
+    return { statusCode: 405, body: 'Method Not Allowed' };
   }
 
   try {
@@ -20,7 +17,7 @@ exports.handler = async (event) => {
       .insert([{ name, category, message }]);
 
     if (error) {
-      throw new Error(error.message);
+      return { statusCode: 500, body: JSON.stringify({ error: error.message }) };
     }
 
     return {
