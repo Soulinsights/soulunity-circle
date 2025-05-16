@@ -1,6 +1,4 @@
-
 const { createClient } = require("@supabase/supabase-js");
-
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
 
 exports.handler = async function(event) {
@@ -18,13 +16,15 @@ exports.handler = async function(event) {
 
     const { error } = await supabase
       .from("circle_posts")
-      .insert([{ name, message, category }]);
+      .insert([{
+        name,
+        message,
+        category,
+        timestamp: new Date().toISOString()
+      }]);
 
     if (error) {
-      return {
-        statusCode: 500,
-        body: JSON.stringify({ error: error.message })
-      };
+      return { statusCode: 500, body: JSON.stringify({ error: error.message }) };
     }
 
     return {
