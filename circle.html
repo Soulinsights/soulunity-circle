@@ -358,17 +358,14 @@
                         </button>
                     </form>
                 </div>
-                     <div id="soul-entries" class="space-y-4 mt-8">
-        <!-- Posts will be loaded dynamically -->
-    </div>
+                    <div id="soul-entries" class="space-y-4 mt-8">
+                     
+                        <!-- neue Einträge werden hier eingefügt -->
 
 
                         
                     <button class="w-full border-2 border-dashed border-purple-200 rounded-xl py-3 text-purple-500 font-medium hover:bg-purple-50 transition-all">
-                            <!-- Updated Load More Button -->
-    <a href="all-posts.html" class="w-full border-2 border-dashed border-purple-200 rounded-xl py-3 text-purple-500 font-medium hover:bg-purple-50 transition-all text-center">
-        <i class="fas fa-plus mr-2"></i> Load More Shares
-    </a>
+                            <i class="fas fa-plus mr-2"></i> Load More Shares
                         </button>
                     </div>
                 </div>
@@ -387,40 +384,30 @@
             </div>
         </div>
 
-           <template id="entry-template">
-        <div class="soul-card p-4" data-category="" data-id="">
-            <div class="flex items-start mb-2">
-                <div class="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center mr-3">
-                    <i class="fas fa-user text-purple-500 text-sm"></i>
+        <!-- Entry Template -->
+        <template id="entry-template">
+            <div class="soul-card p-4" data-category="">
+                <div class="flex items-start mb-2">
+                    <div class="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center mr-3">
+                        <i class="fas fa-user text-purple-500 text-sm"></i>
+                    </div>
+                    <div>
+                        <h5 class="font-bold text-sm author-name">Anonymous Soul</h5>
+                        <p class="text-xs text-gray-500 post-time">Just now</p>
+                    </div>
                 </div>
-                <div>
-                    <h5 class="font-bold text-sm author-name">Anonymous Soul</h5>
-                    <p class="text-xs text-gray-500 post-time">Just now</p>
-                </div>
-            </div>
-            <p class="text-gray-700 mb-2 post-content"></p>
-            <div class="flex items-center text-sm text-gray-500">
-                <button class="like-btn flex items-center mr-4 hover:text-purple-500">
-                    <i class="far fa-heart mr-1"></i> 0
-                </button>
-                <button class="comment-btn flex items-center hover:text-purple-500">
-                    <i class="far fa-comment mr-1"></i> 0
-                </button>
-            </div>
-            <div class="comment-section hidden mt-4">
-                <div class="flex items-center mb-2">
-                    <input type="text" class="comment-input soul-input flex-grow mr-2" 
-                        placeholder="Add a comment...">
-                    <button onclick="submitComment('${postId}')" 
-                        class="px-3 py-1 bg-purple-500 text-white rounded-lg hover:bg-purple-600">
-                        Post
+                <p class="text-gray-700 mb-2 post-content"></p>
+                <div class="flex items-center text-sm text-gray-500">
+                    <button class="flex items-center mr-4 hover:text-purple-500">
+                        <i class="far fa-heart mr-1"></i> <span>0</span>
+                    </button>
+                    <button class="flex items-center hover:text-purple-500">
+                        <i class="far fa-comment mr-1"></i> <span>0</span>
                     </button>
                 </div>
-                <div class="comments-container space-y-2"></div>
             </div>
+        </template>
         </div>
-    </template>
-       
         
         <div class="text-center max-w-2xl mx-auto mb-16">
             <h3 class="text-3xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500">
@@ -694,161 +681,27 @@ function submitComment(postId) {
 </div>
 
 <script>
-        // Fetch initial posts
-        (async function loadInitialPosts() {
-            try {
-                const response = await fetch('/.netlify/functions/get-entries?limit=2');
-                const posts = await response.json();
-                const container = document.getElementById('soul-entries');
-                
-                posts.forEach(post => {
-                    const clone = createPostElement(post);
-                    container.appendChild(clone);
-                });
-            } catch (error) {
-                console.error('Error loading posts:', error);
-            }
-        })();
+document.getElementById('soul-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+    
+    try {
+        // Show loading state
+        const submitBtn = form.querySelector('button[type="submit"]');
+        submitBtn.innerHTML = `<i class="fas fa-spinner animate-spin"></i> Sharing...`;
+        submitBtn.disabled = true;
 
-        // Post creation function
-        function createPostElement(post) {
-            const template = document.getElementById('entry-template');
-            const clone = template.content.cloneNode(true);
-            const postElement = clone.querySelector('.soul-card');
+        // Convert FormData to JSON
+        const jsonData = {};
+        formData.forEach((value, key) => jsonData[key] = value);
 
-            postElement.dataset.id = post.id;
-            clone.querySelector('.post-content').textContent = post.message;
-            clone.querySelector('.author-name').textContent = post.name || 'Anonymous Soul';
-            clone.querySelector('.post-time').textContent = new Date(post.created_at).toLocaleString();
-            
-            // Like button
-            const likeBtn = clone.querySelector('.like-btn');
-            likeBtn.innerHTML = `<i class="far fa-heart mr-1"></i> ${post.likes || 0}`;
-            likeBtn.onclick = () => likePost(post.id);
-            
-            // Comment button
-            const commentBtn = clone.querySelector('.comment-btn');
-            commentBtn.innerHTML = `<i class="far fa-comment mr-1"></i> ${post.comments_count || 0}`;
-            commentBtn.onclick = () => toggleComment(post.id);
-
-            return clone;
-        }
-
-        // Like functionality
-        async function likePost(postId) {
-            try {
-                const response = await fetch('/.netlify/functions/like-entry', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ post_id: postId })
-                });
-                
-                const result = await response.json();
-                const likeBtn = document.querySelector(`[data-id="${postId}"] .like-btn`);
-                likeBtn.innerHTML = `<i class="far fa-heart mr-1"></i> ${result.new_likes}`;
-            } catch (error) {
-                alert("Like failed: " + error.message);
-            }
-        }
-
-        // Comment functionality
-        let currentOpenComments = null;
-        function toggleComment(postId) {
-            const commentSection = document.querySelector(`[data-id="${postId}"] .comment-section`);
-            if (currentOpenComments && currentOpenComments !== commentSection) {
-                currentOpenComments.classList.add('hidden');
-            }
-            commentSection.classList.toggle('hidden');
-            currentOpenComments = commentSection.classList.contains('hidden') ? null : commentSection;
-        }
-
-        async function submitComment(postId) {
-            const input = document.querySelector(`[data-id="${postId}"] .comment-input`);
-            const text = input.value.trim();
-            
-            if (!text) return;
-
-            try {
-                const response = await fetch('/.netlify/functions/comment-entry', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        post_id: postId,
-                        comment: text
-                    })
-                });
-
-                const result = await response.json();
-                const commentsContainer = document.querySelector(`[data-id="${postId}"] .comments-container`);
-                
-                const commentDiv = document.createElement('div');
-                commentDiv.className = 'text-sm text-gray-600 ml-4 mt-2';
-                commentDiv.innerHTML = `
-                    <div class="flex items-center mb-1">
-                        <i class="fas fa-user text-purple-500 mr-2"></i>
-                        <span class="font-medium">${result.author || 'Anonymous'}</span>
-                        <span class="text-xs text-gray-400 ml-2">${new Date().toLocaleTimeString()}</span>
-                    </div>
-                    <p>${text}</p>
-                `;
-                
-                commentsContainer.appendChild(commentDiv);
-                input.value = '';
-                
-                // Update comment count
-                const commentBtn = document.querySelector(`[data-id="${postId}"] .comment-btn`);
-                const count = parseInt(commentBtn.textContent.match(/\d+/)[0]) + 1;
-                commentBtn.innerHTML = `<i class="far fa-comment mr-1"></i> ${count}`;
-
-            } catch (error) {
-                alert("Comment failed: " + error.message);
-            }
-        }
-
-        // Updated Form Submission
-        document.getElementById('soul-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const form = e.target;
-            const formData = new FormData(form);
-            const submitBtn = form.querySelector('button[type="submit"]');
-
-            try {
-                submitBtn.innerHTML = `<i class="fas fa-spinner animate-spin"></i> Sharing...`;
-                submitBtn.disabled = true;
-
-                const response = await fetch('/.netlify/functions/save-entry', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        name: formData.get('name'),
-                        message: formData.get('message'),
-                        category: formData.get('category')
-                    })
-                });
-
-                const newPost = await response.json();
-                const container = document.getElementById('soul-entries');
-                container.prepend(createPostElement(newPost));
-
-                // Show success modal
-                document.getElementById('success-modal').classList.remove('hidden');
-                setTimeout(() => {
-                    document.getElementById('success-modal').classList.add('hidden');
-                }, 3000);
-
-                form.reset();
-
-            } catch (error) {
-                document.getElementById('error-message').textContent = error.message;
-                document.getElementById('error-modal').classList.remove('hidden');
-                setTimeout(() => {
-                    document.getElementById('error-modal').classList.add('hidden');
-                }, 3000);
-            } finally {
-                submitBtn.innerHTML = `Share With the Circle`;
-                submitBtn.disabled = false;
-            }
-        });
+        // Submit to Netlify Function
+        const data = {
+  name: form.name.value,
+  category: form.category.value,
+  message: form.message.value
+};
 
 const response = await fetch('/.netlify/functions/save-entry', {
   method: 'POST',
