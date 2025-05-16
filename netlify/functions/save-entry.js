@@ -15,15 +15,13 @@ exports.handler = async function(event) {
     }
 
     const { error } = await supabase
-      .from('circle_posts')
+      .from("circle_posts")
       .insert([{
-        name: name || 'Anonymous Soul',
+        name,
         message,
         category,
-        likes: 0,
-        comments: []
-      }])
-      
+        timestamp: new Date().toISOString()
+      }]);
 
     if (error) {
       return { statusCode: 500, body: JSON.stringify({ error: error.message }) };
