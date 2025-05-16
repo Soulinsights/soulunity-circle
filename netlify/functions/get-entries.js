@@ -1,28 +1,26 @@
-const { createClient } = require("@supabase/supabase-js");
-const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
+const { createClient } = require('@supabase/supabase-js');
 
-exports.handler = async function() {
-  try {
-    const { data, error } = await supabase
-      .from("circle_posts")
-      .select("*")
-      .order("timestamp", { ascending: false });
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_KEY
+);
 
-    if (error) {
-      return {
-        statusCode: 500,
-        body: JSON.stringify({ error: error.message })
-      };
-    }
+exports.handler = async () => {
+  const { data, error } = await supabase
+    .from('circle_posts')
+    .select('*')
+    .order('timestamp', { ascending: false })
+    .limit(2);
 
-    return {
-      statusCode: 200,
-      body: JSON.stringify(data)
-    };
-  } catch (err) {
+  if (error) {
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: err.message })
+      body: JSON.stringify({ error: error.message }),
     };
   }
+
+  return {
+    statusCode: 200,
+    body: JSON.stringify(data),
+  };
 };
