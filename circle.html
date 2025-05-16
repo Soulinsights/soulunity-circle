@@ -335,7 +335,7 @@
                             <div class="w-10 h-10 rounded-full bg-gradient-to-r from-purple-200 to-pink-200 flex items-center justify-center mr-3">
                                 <i class="fas fa-user text-purple-600"></i>
                             </div>
-                           <input type="text" name="name" class="soul-input flex-grow w-full" placeholder="Your name (optional)">
+                            <input type="text" name="name" class="soul-input flex-grow" placeholder="Your name (optional)">
                         </div>
 
                         <div class="mb-4">
@@ -526,25 +526,20 @@ function submitComment(postId) {
         
         
         // Modified JavaScript for Netlify Functions
-       // Remove any duplicate form submission handlers and keep only this corrected version
-document.getElementById('soul-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const form = e.target;
-    const submitBtn = form.querySelector('button[type="submit"]');
-    
-    try {
-        submitBtn.innerHTML = `<i class="fas fa-spinner animate-spin"></i> Sharing...`;
-        submitBtn.disabled = true;
-
-        const response = await fetch('/.netlify/functions/save-entry', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                name: form.name.value,
-                category: form.category.value,
-                message: form.message.value
-            })
-        });
+        document.getElementById('soul-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const form = e.target;
+            const data = {
+              name: form.name.value,
+              category: form.category.value,
+              message: form.message.value,
+            };
+            
+            body: JSON.stringify(data),
+            headers: {
+              'Content-Type': 'application/json'
+            }
+                });
 
                 if (!response.ok) throw new Error('Submission failed');
                 
@@ -776,38 +771,6 @@ const response = await fetch('/.netlify/functions/save-entry', {
     }
   }
   document.addEventListener('DOMContentLoaded', loadRecentPosts);
-
-// Corrected Tab Functionality
-document.addEventListener('DOMContentLoaded', () => {
-    // Initialize first tab
-    const initialTab = document.querySelector('[data-tab="vision"]');
-    if (initialTab) {
-        initialTab.click();
-    }
-});
-
-// Tab functionality with proper activation
-const tabButtons = document.querySelectorAll('.tab-button');
-tabButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        // Remove active classes
-        tabButtons.forEach(btn => {
-            btn.classList.remove('active', 'text-purple-600');
-            btn.classList.add('text-gray-600');
-        });
-        
-        // Activate clicked tab
-        button.classList.add('active', 'text-purple-600');
-        button.classList.remove('text-gray-600');
-        
-        // Toggle content visibility
-        const tabId = button.dataset.tab;
-        document.querySelectorAll('.tab-content').forEach(content => {
-            content.classList.add('hidden');
-        });
-        document.getElementById(tabId).classList.remove('hidden');
-    });
-});
 </script>
 
 </body>
