@@ -407,6 +407,7 @@
                 </div>
             </div>
         </template>
+            <div id="soul-entries" class="space-y-4 mt-4"></div>
         </div>
         
         <div class="text-center max-w-2xl mx-auto mb-16">
@@ -745,6 +746,29 @@ const response = await fetch('/.netlify/functions/save-entry', {
         submitBtn.disabled = false;
     }
 });
+
+async function loadRecentPosts() {
+    const res = await fetch('/.netlify/functions/get-entries');
+    const entries = await res.json();
+
+    const container = document.getElementById('soul-entries');
+    const template = document.getElementById('entry-template');
+
+    container.innerHTML = ''; // Leeren
+
+    entries.forEach(entry => {
+      const clone = template.content.cloneNode(true);
+      clone.querySelector('.entry-name').textContent = entry.name || 'Anonymous';
+      clone.querySelector('.entry-message').textContent = entry.message;
+      clone.querySelector('.entry-category').textContent = entry.category;
+      clone.querySelector('.entry-timestamp').textContent = new Date(entry.timestamp).toLocaleString();
+
+      // Passe IDs für Like/Comment ggf. an
+      container.appendChild(clone);
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', loadRecentPosts);
 </script>
 </body>
 </html>
