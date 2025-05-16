@@ -1,19 +1,41 @@
 const { createClient } = require('@supabase/supabase-js');
-const supabase = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_KEY
-);
 
 exports.handler = async (event) => {
-  const { post_id } = JSON.parse(event.body);
+  const supabase = createClient(
+    process.env.SUPABASE_URL,
+    process.env.SUPABASE_KEY
+  );
 
-  const { data, error } = await supabase
-    .from('supabase_circle_likes')
-    .insert([{ post_id }]);
+  try {
+    const { post_id } = JSON.parse(event.body);
 
-  if (error) {
-    return { statusCode: 500, body: JSON.stringify({ error: error.message }) };
+    // Get current likes
+    const { data: post, error: fetchError } = await supabase
+      .from('circle_posts')
+      .select('likes')
+      .eq('id', post_id)
+      .single();
+
+    if (fetchError) throw fetchError;
+
+    // Update likes
+    const { data, error } = await supabase
+      .from('circle_posts')
+      .update({ likes: post.likes + 1 })
+      .eq('id', post_id)
+      .single();
+
+    if (error) throw error;
+
+    return {
+      statusCode: 200,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ new_likes: data.likes })
+    };
+  } catch (error) {
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: error.message })
+    };
   }
-
-  return { statusCode: 200, body: JSON.stringify({ success: true }) };
 };
