@@ -1,6 +1,4 @@
-
 const { createClient } = require("@supabase/supabase-js");
-
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
 
 exports.handler = async function() {
@@ -8,7 +6,7 @@ exports.handler = async function() {
     const { data, error } = await supabase
       .from("circle_posts")
       .select("*")
-      .order("created_at", { ascending: false });
+      .order("timestamp", { ascending: false });
 
     if (error) {
       return {
