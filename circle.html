@@ -758,26 +758,34 @@ const response = await fetch('/.netlify/functions/save-entry', {
     const container = document.getElementById('soul-entries');
     const template = document.getElementById('entry-template');
 
-    // Clear existing posts first
-    const existingPosts = container.querySelectorAll('.soul-card:not(#load-more-container)');
-    existingPosts.forEach(post => post.remove());
+    // Clear only post cards, preserve the load more button
+    const postsToRemove = Array.from(container.children).filter(child => 
+      child.classList.contains('soul-card') && !child.querySelector('button')
+    );
+    
+    postsToRemove.forEach(post => post.remove());
 
-    // Add all entries from server
+    // Add entries
     entries.forEach(entry => {
       const clone = template.content.cloneNode(true);
-      // ... populate clone ...
-      container.insertBefore(clone, container.firstChild);
+      clone.querySelector('.post-content').textContent = entry.message;
+      clone.querySelector('.author-name').textContent = entry.name || 'Anonymous Soul';
+      clone.querySelector('.post-time').textContent = new Date(entry.timestamp).toLocaleString();
+      clone.querySelector('.soul-card').dataset.category = entry.category;
+      
+      // Insert before the load more button
+      const loadMoreBtn = container.querySelector('button');
+      container.insertBefore(clone, loadMoreBtn);
     });
 
   } catch (error) {
     console.error("Loading failed:", error);
-    showErrorModal('Failed to load posts');
   }
 }
   // With this
   window.addEventListener('load', () => {
     loadRecentPosts();
-    setInterval(loadRecentPosts, 30000); // Optional: Refresh every 30s
+    // setInterval(loadRecentPosts, 30000); // Optional: Refresh every 30s
   });
 
     document.addEventListener('DOMContentLoaded', () => {
