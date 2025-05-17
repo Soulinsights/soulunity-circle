@@ -432,19 +432,26 @@ body.modal-open #wisdom {
         @media (max-width: 640px) {
         /* Stack donation boxes vertically */
         #donate .grid {
-            grid-template-columns: 1fr !important;
-            gap: 2rem;
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                width: 100%;
+                margin: 0;
+                padding: 0 1rem;
         }
 
         /* Adjust donation box padding */
         .donation-option {
-            padding: 1.5rem;
-            margin: 0 1rem;
+           padding: 1.2rem;
+           margin: 0;
+          width: 100%;
+          box-sizing: border-box;
         }
 
         /* Reduce crypto address font size */
         #donate code {
             font-size: 0.7rem;
+        word-wrap: break-word;
+        white-space: pre-wrap;
         }
 
         /* Adjust button sizes */
