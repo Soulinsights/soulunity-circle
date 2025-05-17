@@ -7,7 +7,7 @@ const supabase = createClient(
 exports.handler = async () => {
   const { data, error } = await supabase
     .from('circle_posts')
-    .select('*')
+    .select('id, name, category, message, timestamp')
     .order('timestamp', { ascending: false })
     //.limit(2); // zeigt nur 2 Einträge an
 
