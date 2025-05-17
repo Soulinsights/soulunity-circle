@@ -601,7 +601,17 @@
 
         // Modal functionality
         const readMoreBtn = document.getElementById('read-more-btn');
-        const closeModalBtn = document.getElementById('close-modal');
+        
+        //const closeModalBtn = document.getElementById('close-modal');
+        // Update JavaScript to handle both buttons
+        const closeModalBtn = document.querySelectorAll('#close-modal, .close-modal-btn');
+        closeModalBtn.forEach(btn => {
+            btn.addEventListener('click', function() {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+        
         const modal = document.getElementById('dream-modal');
 
         readMoreBtn.addEventListener('click', function() {
