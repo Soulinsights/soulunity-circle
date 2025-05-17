@@ -272,8 +272,8 @@
                 <button id="close-modal" class="text-earth-700 hover:text-sage-700 text-2xl">
                     <i class="fas fa-times"></i>
                 </button>
-                  
-            </div>
+                </div>  
+         </div>   
         </div>
     </div>
 
@@ -603,9 +603,9 @@
         // Modal functionality
         const readMoreBtn = document.getElementById('read-more-btn');
         
-        //const closeModalBtn = document.getElementById('close-modal');
-        const closeModalBtn = document.querySelectorAll('#close-modal, .close-modal-btn');
-        closeModalBtn.forEach(btn => {
+        const closeModalBtn = document.getElementById('close-modal');
+        const closeBtn = document.querySelectorAll('#close-modal, .close-modal-btn');
+        closeBtn.forEach(btn => {
             btn.addEventListener('click', function() {
                 modal.classList.remove('active');
                 document.body.style.overflow = '';
