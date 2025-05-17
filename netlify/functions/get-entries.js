@@ -19,7 +19,10 @@ exports.handler = async () => {
   }
 
   return {
-    statusCode: 200,
-    body: JSON.stringify(data)
-  };
+  statusCode: 200,
+  headers: {
+    'Cache-Control': 'no-cache, no-store, must-revalidate'
+  },
+  body: JSON.stringify(data)
+};
 };
