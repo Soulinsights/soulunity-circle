@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoulUnity - A Tribe Beyond Systems</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        earth: {
+                            100: '#f5f0e6',
+                            200: '#e3d8c0',
+                            300: '#d4c29b',
+                            400: '#c0a87d',
+                            500: '#a38f5e',
+                            600: '#857545',
+                            700: '#665c33',
+                            800: '#4a4425',
+                            900: '#2e2a16',
+                        },
+                        sage: {
+                            100: '#f0f4e8',
+                            200: '#d8e3c8',
+                            300: '#b8c9a8',
+                            400: '#8da67d',
+                            500: '#6b8559',
+                            600: '#516641',
+                            700: '#3a4a2e',
+                            800: '#26321e',
+                            900: '#151e11',
+                        },
+                        sunlight: {
+                            100: '#fff8e8',
+                            200: '#fcecc7',
+                            300: '#f8dda2',
+                            400: '#f4c97a',
+                            500: '#e8b04d',
+                            600: '#c59236',
+                            700: '#9e7427',
+                            800: '#755619',
+                            900: '#4a360e',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Open Sans"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'fade-in': 'fadeIn 1.5s ease-in-out',
+                        'slide-up': 'slideUp 1s ease-out'
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(50px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            scroll-behavior: smooth;
+            background-color: #f5f0e6;
+        }
+        
+        .hero-bg {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('18.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        
+        .dream-bg {
+            background-image: linear-gradient(rgba(245, 240, 230, 0.9), rgba(245, 240, 230, 0.9)), url('21.png');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .values-bg {
+            background-image: linear-gradient(rgba(245, 240, 230, 0.9), rgba(245, 240, 230, 0.9)), url('20.png');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .manifesto-bg {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('23.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal-content {
+            background-color: #f5f0e6;
+            padding: 2rem;
+            border-radius: 8px;
+            max-width: 800px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+        
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60%;
+            height: 3px;
+            background-color: #a38f5e;
+        }
+        
+        .value-card {
+            transition: all 0.3s ease;
+            transform: translateY(20px);
+            opacity: 0;
+        }
+        
+        .value-card.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .manifesto-item {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.5s ease;
+        }
+        
+        .manifesto-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        @media (max-width: 768px) {
+            .hero-bg, .manifesto-bg {
+                background-attachment: scroll;
+            }
+        }
+    </style>
+</head>
+<body class="text-earth-900">
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-earth-100 bg-opacity-90 backdrop-blur-sm shadow-sm">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <a href="#" class="text-2xl font-serif font-bold text-sage-700">SoulUnity</a>
+                <div class="hidden md:flex space-x-8">
+                    <a href="index.html#about" class="hover:text-sage-600 transition">Home</a>
+                    <a href="#dream" class="hover:text-sage-600 transition">Our Dream</a>
+                    <a href="#living" class="hover:text-sage-600 transition">How We Live</a>
+                    <a href="#cultivate" class="hover:text-sage-600 transition">What We Cultivate</a>
+                    <a href="#values" class="hover:text-sage-600 transition">Values</a>
+                    <a href="#tribe" class="hover:text-sage-600 transition">Join</a>
+                </div>
+                <button class="md:hidden focus:outline-none" id="mobile-menu-button">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+            <div class="md:hidden hidden mt-4" id="mobile-menu">
+                <div class="flex flex-col space-y-3">
+                    <a href="index.html#about" class="hover:text-sage-600 transition">Home</a>
+                    <a href="#dream" class="hover:text-sage-600 transition">Our Dream</a>
+                    <a href="#living" class="hover:text-sage-600 transition">How We Live</a>
+                    <a href="#cultivate" class="hover:text-sage-600 transition">What We Cultivate</a>
+                    <a href="#values" class="hover:text-sage-600 transition">Values</a>
+                    <a href="#tribe" class="hover:text-sage-600 transition">Join</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-bg min-h-screen flex items-center justify-center text-center text-white pt-20">
+        <div class="container mx-auto px-6 animate-fade-in">
+            <div class="max-w-4xl mx-auto">
+                <h1 class="text-4xl md:text-6xl font-serif font-bold mb-6 animate-slide-up">A Tribe Beyond Systems</h1>
+                <p class="text-xl md:text-2xl mb-10 animate-slide-up" style="animation-delay: 0.3s;">SoulUnity is a community where we live freely, grow our own food, evolve spiritually, and reconnect with the Earth.</p>
+                <a href="#dream" class="inline-block bg-sage-600 hover:bg-sage-700 text-white px-8 py-3 rounded-full transition animate-slide-up" style="animation-delay: 0.6s;">Discover Our Dream</a>
+            </div>
+            <div class="absolute bottom-10 left-0 right-0 flex justify-center">
+                <a href="#dream" class="animate-float text-white text-2xl">
+                    <i class="fas fa-chevron-down"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Dream Section -->
+    <section id="dream" class="py-20 dream-bg">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-serif font-bold mb-12 text-center section-title">Our Dream</h2>
+            <div class="max-w-3xl mx-auto">
+                <div class="bg-earth-100 bg-opacity-80 p-8 rounded-lg shadow-lg">
+                    <p class="text-lg mb-6">We dream of building a place where everyone is welcome — beyond religion, borders, race, or language. A place where we return to the natural rhythm of life, grow our food, heal with plants, and live in harmony with Earth.</p>
+                    <button id="read-more-btn" class="bg-sage-600 hover:bg-sage-700 text-white px-6 py-2 rounded-full transition">Read More</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="dream-modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-serif font-bold text-sage-700">Our Complete Vision</h3>
+                <button id="close-modal" class="text-earth-700 hover:text-sage-700 text-2xl">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="space-y-4">
+                <p>We dream of building a place where everyone is welcome — beyond religion, borders, race, or language. A place where we return to the natural rhythm of life, grow our food, heal with plants, and live in harmony with Earth.</p>               
+                <p>We dream of building an eco-friendly, spiritually conscious community—a sanctuary where authentic souls unite beyond societal norms, national borders, and religious beliefs.</p>
+                <p>In SoulUnity, there are no gurus or leaders. Life itself is our teacher. We evolve through meditation, yoga, Ayurveda, shamanism, and sacred simplicity. We cultivate not only the land, but our inner truth.</p>
+                <p>Technology supports us, but it does not rule us. We embrace decentralization and autonomy. We grow spiritually, materially, and emotionally — together, in honesty and presence.</p>
+                <p>We envision living harmoniously with nature, cultivating our own food and medicinal plants through permaculture, fostering self-sufficiency, and nurturing physical, mental, and spiritual health. Our village will embody simplicity, driven by principles of decentralization, mutual support, and innovative use of technology, such as renewable energy sources and decentralized communication networks.</p>
+                <p>Through SoulUnity, we aim to inspire a collective awakening, encouraging each individual to express their true selves freely, share wisdom across generations, and engage in practices that honor our interconnectedness with Earth and each other. Technology in our community serves humanity, enhancing our capabilities without overpowering our lives.</p>
+                <p>Our currency is connection. Our strength is self-responsibility. Our goal is to liberate ourselves — not by escaping the world, but by creating a new one.</p>
+                <p>Together, we are more than just a community—we are a family of explorers, dreamers, and creators committed to evolving consciously, supporting each other’s growth, and rediscovering the sacred beauty of simple, intentional living.</p>
+                <p class="font-serif italic text-sage-600">This is not an idea. This is a calling. And if your soul resonates, this might be your home too.</p>
+                <button id="close-modal" class="text-earth-700 hover:text-sage-700 text-2xl">
+                <i class="fas fa-times"></i>
+                </button>
+            
+            </div>
+        </div>
+    </div>
+
+    <!-- How We Live Section -->
+    <section id="living" class="py-20 bg-earth-100">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-serif font-bold mb-12 text-center section-title">How We Live</h2>
+            <div class="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+                <div class="bg-white p-8 rounded-lg shadow-lg">
+                    <div class="flex items-center mb-6">
+                        <div class="bg-sage-100 p-3 rounded-full mr-4">
+                            <i class="fas fa-leaf text-sage-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-serif font-bold text-sage-700">Eco-Friendly Living</h3>
+                    </div>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-sage-500 mt-1 mr-3"></i>
+                            <span>Permaculture gardens that work with nature's wisdom</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-sage-500 mt-1 mr-3"></i>
+                            <span>Composting toilets and water recycling systems</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-sage-500 mt-1 mr-3"></i>
+                            <span>Herbal medicine and natural healing practices</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-sage-500 mt-1 mr-3"></i>
+                            <span>Natural building with earth, bamboo, and recycled materials</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white p-8 rounded-lg shadow-lg">
+                    <div class="flex items-center mb-6">
+                        <div class="bg-sunlight-100 p-3 rounded-full mr-4">
+                            <i class="fas fa-microchip text-sunlight-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-serif font-bold text-sunlight-700">Empowered by Technology</h3>
+                    </div>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-sunlight-500 mt-1 mr-3"></i>
+                            <span>Off-grid solar power and renewable energy systems</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-sunlight-500 mt-1 mr-3"></i>
+                            <span>Open-source tools for community organization</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-sunlight-500 mt-1 mr-3"></i>
+                            <span>Peer-to-peer crypto economy for fair exchange</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-sunlight-500 mt-1 mr-3"></i>
+                            <span>Decentralized communication networks</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What We Cultivate Section -->
+    <section id="cultivate" class="py-20 bg-earth-200">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-serif font-bold mb-12 text-center section-title">What We Cultivate</h2>
+            <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                    <div class="bg-sage-100 w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-seedling text-sage-600 text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-serif font-bold mb-3 text-sage-700">Food Forests</h3>
+                    <p>Abundant, perennial food systems that mimic natural ecosystems and provide nourishment for all.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                    <div class="bg-sage-100 w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-spa text-sage-600 text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-serif font-bold mb-3 text-sage-700">Medicinal Gardens</h3>
+                    <p>Sacred spaces growing healing plants and herbs for physical, emotional and spiritual wellness.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                    <div class="bg-sage-100 w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-om text-sage-600 text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-serif font-bold mb-3 text-sage-700">Spiritual Spaces</h3>
+                    <p>Yoga decks, meditation areas, and fire circles for inner work and communal ceremonies.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Values Section -->
+    <section id="values" class="py-20 values-bg">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-serif font-bold mb-12 text-center section-title">Community Values</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-6 max-w-6xl mx-auto">
+                <div class="value-card bg-white bg-opacity-90 p-6 rounded-lg shadow-md text-center">
+                    <div class="bg-sage-100 w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-heart text-sage-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-serif font-bold mb-2 text-sage-700">Authenticity</h3>
+                    <p class="text-sm italic">"Be who you are and say what you feel, because those who mind don't matter and those who matter don't mind."</p>
+                </div>
+                <div class="value-card bg-white bg-opacity-90 p-6 rounded-lg shadow-md text-center">
+                    <div class="bg-sage-100 w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-feather-alt text-sage-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-serif font-bold mb-2 text-sage-700">Simplicity</h3>
+                    <p class="text-sm italic">"Simplicity is the ultimate sophistication. The ability to simplify means to eliminate the unnecessary so that the necessary may speak."</p>
+                </div>
+                <div class="value-card bg-white bg-opacity-90 p-6 rounded-lg shadow-md text-center">
+                    <div class="bg-sage-100 w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-mountain text-sage-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-serif font-bold mb-2 text-sage-700">Inner Growth</h3>
+                    <p class="text-sm italic">"The privilege of a lifetime is to become who you truly are. Your journey is your destination."</p>
+                </div>
+                <div class="value-card bg-white bg-opacity-90 p-6 rounded-lg shadow-md text-center">
+                    <div class="bg-sage-100 w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-tree text-sage-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-serif font-bold mb-2 text-sage-700">Respect for Nature</h3>
+                    <p class="text-sm italic">"We do not inherit the earth from our ancestors, we borrow it from our children. Nature is not a place to visit. It is home."</p>
+                </div>
+                <div class="value-card bg-white bg-opacity-90 p-6 rounded-lg shadow-md text-center">
+                    <div class="bg-sage-100 w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-network-wired text-sage-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-serif font-bold mb-2 text-sage-700">Decentralized Living</h3>
+                    <p class="text-sm italic">"In decentralization we find resilience. In autonomy we find freedom. In community we find strength."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Building the Tribe Section -->
+    <section id="tribe" class="py-20 bg-earth-300">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-serif font-bold mb-12 text-center section-title">Building the Tribe</h2>
+            <div class="max-w-4xl mx-auto">
+                <div class="relative">
+                    <!-- Timeline line -->
+                    <div class="absolute left-4 md:left-1/2 h-full w-1 bg-sage-500 transform -translate-x-1/2"></div>
+                    
+                    <!-- Timeline items -->
+                    <div class="space-y-12">
+                        <!-- Item 1 -->
+                        <div class="relative pl-12 md:pl-0 md:flex justify-between items-center">
+                            <div class="md:w-5/12 md:pr-8 md:text-right">
+                                <h3 class="text-xl font-serif font-bold text-sage-700">Online Community</h3>
+                                <p class="text-sm">Connecting through Instagram, Discord and virtual gatherings</p>
+                            </div>
+                            <div class="absolute left-0 md:left-1/2 w-8 h-8 rounded-full bg-sage-600 flex items-center justify-center transform -translate-x-1/2">
+                                <i class="fas fa-globe text-white"></i>
+                            </div>
+                            <div class="md:w-5/12 md:pl-8 mt-4 md:mt-0">
+                                <p class="text-sm">2024 - Present</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Item 2 -->
+                        <div class="relative pl-12 md:pl-0 md:flex justify-between items-center">
+                            <div class="md:w-5/12 md:pr-8 md:text-right">
+                                <p class="text-sm">2025</p>
+                            </div>
+                            <div class="absolute left-0 md:left-1/2 w-8 h-8 rounded-full bg-sage-600 flex items-center justify-center transform -translate-x-1/2">
+                                <i class="fas fa-search-location text-white"></i>
+                            </div>
+                            <div class="md:w-5/12 md:pl-8 mt-4 md:mt-0">
+                                <h3 class="text-xl font-serif font-bold text-sage-700">Land Search</h3>
+                                <p class="text-sm">Finding the perfect location for our first physical community</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Item 3 -->
+                        <div class="relative pl-12 md:pl-0 md:flex justify-between items-center">
+                            <div class="md:w-5/12 md:pr-8 md:text-right">
+                                <h3 class="text-xl font-serif font-bold text-sage-700">Pilot Community</h3>
+                                <p class="text-sm">Establishing the first sustainable village with core members</p>
+                            </div>
+                            <div class="absolute left-0 md:left-1/2 w-8 h-8 rounded-full bg-sage-600 flex items-center justify-center transform -translate-x-1/2">
+                                <i class="fas fa-home text-white"></i>
+                            </div>
+                            <div class="md:w-5/12 md:pl-8 mt-4 md:mt-0">
+                                <p class="text-sm">2026</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Item 4 -->
+                        <div class="relative pl-12 md:pl-0 md:flex justify-between items-center">
+                            <div class="md:w-5/12 md:pr-8 md:text-right">
+                                <p class="text-sm">2027+</p>
+                            </div>
+                            <div class="absolute left-0 md:left-1/2 w-8 h-8 rounded-full bg-sage-600 flex items-center justify-center transform -translate-x-1/2">
+                                <i class="fas fa-globe-americas text-white"></i>
+                            </div>
+                            <div class="md:w-5/12 md:pl-8 mt-4 md:mt-0">
+                                <h3 class="text-xl font-serif font-bold text-sage-700">Global Expansion</h3>
+                                <p class="text-sm">Creating a network of interconnected micro-villages worldwide</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-16">
+                    <h3 class="text-2xl font-serif font-bold mb-6 text-sage-800">Join the Dream. Be part of our Living Community.</h3>
+                    <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
+                        <a href="index.html#community" class="bg-sage-600 hover:bg-sage-700 text-white px-8 py-3 rounded-full transition">Join the Tribe</a>
+                        <a href="index.html#support" class="bg-sunlight-500 hover:bg-sunlight-600 text-white px-8 py-3 rounded-full transition">Support the Vision</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Visual Manifesto Section -->
+    <section class="manifesto-bg py-32 text-white">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto space-y-16">
+                <div class="manifesto-item text-center">
+                    <p class="text-2xl md:text-3xl font-serif italic">"We believe food is medicine."</p>
+                </div>
+                <div class="manifesto-item text-center" style="transition-delay: 0.2s;">
+                    <p class="text-2xl md:text-3xl font-serif italic">"We don't escape the world. We rebuild it."</p>
+                </div>
+                <div class="manifesto-item text-center" style="transition-delay: 0.4s;">
+                    <p class="text-2xl md:text-3xl font-serif italic">"We are not off-grid. We are in truth."</p>
+                </div>
+                <div class="manifesto-item text-center" style="transition-delay: 0.6s;">
+                    <p class="text-2xl md:text-3xl font-serif italic">"Our wealth is measured in relationships, not possessions."</p>
+                </div>
+                <div class="manifesto-item text-center" style="transition-delay: 0.8s;">
+                    <p class="text-2xl md:text-3xl font-serif italic">"The revolution begins within, then blossoms outward."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA + Contact Section -->
+    <section class="py-20 bg-earth-800 text-white">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold mb-8 text-center">Connect With Us</h2>
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div>
+                        <h3 class="text-xl font-serif font-bold mb-4">Stay Updated</h3>
+                        <form class="space-y-4">
+                            <div>
+                                <label for="name" class="block mb-1">Name</label>
+                                <input type="text" id="name" class="w-full px-4 py-2 rounded bg-earth-700 border border-earth-600 focus:outline-none focus:ring-2 focus:ring-sage-500">
+                            </div>
+                            <div>
+                                <label for="email" class="block mb-1">Email</label>
+                                <input type="email" id="email" class="w-full px-4 py-2 rounded bg-earth-700 border border-earth-600 focus:outline-none focus:ring-2 focus:ring-sage-500">
+                            </div>
+                            <div>
+                                <label for="message" class="block mb-1">Message</label>
+                                <textarea id="message" rows="3" class="w-full px-4 py-2 rounded bg-earth-700 border border-earth-600 focus:outline-none focus:ring-2 focus:ring-sage-500"></textarea>
+                            </div>
+                            <button type="submit" class="bg-sage-600 hover:bg-sage-700 text-white px-6 py-2 rounded-full transition">Send Message</button>
+                        </form>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-serif font-bold mb-4">Find Us Online</h3>
+                        <div class="space-y-6">
+                            <div class="flex items-center">
+                                <div class="bg-sage-600 w-10 h-10 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fab fa-instagram"></i>
+                                </div>
+                                <a href="https://instagram.com/soulinsights_" class="hover:text-sage-300 transition">@soulinsights_</a>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="bg-sage-600 w-10 h-10 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fab fa-discord"></i>
+                                </div>
+                                <a href="https://discord.gg/DvXXeYVkGe" class="hover:text-sage-300 transition">Join our Discord community</a>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="bg-sage-600 w-10 h-10 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <a href="mailto:seekwith82@gmail.com" class="hover:text-sage-300 transition">Mail us</a>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-10">
+                            <h3 class="text-xl font-serif font-bold mb-4">Support Our Vision</h3>
+                            <p class="mb-4">Help us acquire land and build the first SoulUnity village.</p>
+                            <a href="index.html#support" class="inline-block bg-sunlight-500 hover:bg-sunlight-600 text-white px-6 py-2 rounded-full transition">Donate Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-earth-900 text-white py-8">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <a href="#" class="text-2xl font-serif font-bold">SoulUnity</a>
+                    <p class="text-sm mt-1">A Tribe Beyond Systems</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="https://instagram.com/soulinsights_" class="hover:text-sage-300 transition"><i class="fab fa-instagram"></i></a>
+                    <a href="https://discord.gg/DvXXeYVkGe" class="hover:text-sage-300 transition"><i class="fab fa-discord"></i></a>
+                    <a href="https://soulunity.substack.com" class="hover:text-sage-300 transition"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+            <div class="border-t border-earth-700 mt-6 pt-6 text-sm text-center md:text-left">
+                <p>© 2025 SoulUnity. All rights reserved. | <a href="#" class="hover:text-sage-300 transition">Privacy Policy</a> | <a href="#" class="hover:text-sage-300 transition">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Modal functionality
+        const readMoreBtn = document.getElementById('read-more-btn');
+        const closeModalBtn = document.getElementById('close-modal');
+        const modal = document.getElementById('dream-modal');
+
+        readMoreBtn.addEventListener('click', function() {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        closeModalBtn.addEventListener('click', function() {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        // Close modal when clicking outside
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Animate value cards when scrolled into view
+        const valueCards = document.querySelectorAll('.value-card');
+        
+        function checkVisibility() {
+            valueCards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const isVisible = (rect.top <= window.innerHeight * 0.75);
+                
+                if (isVisible) {
+                    card.classList.add('visible');
+                }
+            });
+            
+            // Animate manifesto items
+            const manifestoItems = document.querySelectorAll('.manifesto-item');
+            manifestoItems.forEach((item, index) => {
+                const rect = item.getBoundingClientRect();
+                const isVisible = (rect.top <= window.innerHeight * 0.85);
+                
+                if (isVisible) {
+                    item.classList.add('visible');
+                }
+            });
+        }
+        
+        // Initial check
+        checkVisibility();
+        
+        // Check on scroll
+        window.addEventListener('scroll', checkVisibility);
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    const mobileMenu = document.getElementById('mobile-menu');
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
