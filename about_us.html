@@ -591,7 +591,9 @@
             </div>
         </div>
     </footer>
-
+<div id="successPopup" class="fixed top-4 right-4 bg-sage-600 text-white px-6 py-3 rounded-lg shadow-lg hidden transition-opacity duration-300">
+    Thank you! Your message has been received.
+</div>
     <script>
         // Mobile menu toggle
         document.getElementById('mobile-menu-button').addEventListener('click', function() {
@@ -685,12 +687,6 @@
                 }
             });
         });
-    </script>
-<div id="successPopup" class="fixed top-4 right-4 bg-sage-600 text-white px-6 py-3 rounded-lg shadow-lg hidden transition-opacity duration-300">
-    Thank you! Your message has been received.
-</div>
-
-<script>
     document.getElementById('contactForm').addEventListener('submit', async (e) => {
         e.preventDefault();
         
@@ -721,6 +717,9 @@
             console.error('Error:', error);
         }
     });
-</script>
+
+    </script>
+
+
 </body>
 </html>
