@@ -158,17 +158,12 @@
             height: 3px;
             background-color: #a38f5e;
         }
-        /* Add this animation class */
-        .animate-appear {
-            opacity: 1 !important;
-            transform: translateY(0) !important;
-        }
-
+        
         .value-card {
-    transition: all 0.5s ease; /* Increased duration for better effect */
-    transform: translateY(20px);
-    opacity: 0;
-}
+            transition: all 0.3s ease;
+            transform: translateY(20px);
+            opacity: 0;
+        }
         
         .value-card.visible {
             transform: translateY(0);
@@ -181,11 +176,10 @@
             transition: all 0.5s ease;
         }
         
-        .manifesto-item {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.8s ease; /* Increased duration and smooth timing */
-}
+        .manifesto-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
         
         @media (max-width: 768px) {
             .hero-bg, .manifesto-bg {
@@ -273,11 +267,11 @@
                 <p>Our currency is connection. Our strength is self-responsibility. Our goal is to liberate ourselves — not by escaping the world, but by creating a new one.</p>
                 <p>Together, we are more than just a community—we are a family of explorers, dreamers, and creators committed to evolving consciously, supporting each other’s growth, and rediscovering the sacred beauty of simple, intentional living.</p>
                 <p class="font-serif italic text-sage-600">This is not an idea. This is a calling. And if your soul resonates, this might be your home too.</p>
-               <div class="text-center mt-6">
+                
+                <div class="text-center mt-6">
                 <button id="close-modal" class="text-earth-700 hover:text-sage-700 text-2xl">
                     <i class="fas fa-times"></i>
                 </button>
-              </div>
             </div>
         </div>
     </div>
@@ -414,7 +408,7 @@
                     <p class="text-sm italic">"In decentralization we find resilience. In autonomy we find freedom. In community we find strength."</p>
                 </div>
             </div>
-       
+        </div>
     </section>
 
     <!-- Building the Tribe Section -->
@@ -517,7 +511,8 @@
                     <p class="text-2xl md:text-3xl font-serif italic">"The revolution begins within, then blossoms outward."</p>
                 </div>
             </div>
-     </section>
+        </div>
+    </section>
 
     <!-- CTA + Contact Section -->
     <section class="py-20 bg-earth-800 text-white">
@@ -527,7 +522,7 @@
                 <div class="grid md:grid-cols-2 gap-12">
                     <div>
                         <h3 class="text-xl font-serif font-bold mb-4">Stay Updated</h3>
-                        <form class="space-y-4" id="contactForm">
+                        <form class="space-y-4">
                             <div>
                                 <label for="name" class="block mb-1">Name</label>
                                 <input type="text" id="name" class="w-full px-4 py-2 rounded bg-earth-700 border border-earth-600 focus:outline-none focus:ring-2 focus:ring-sage-500">
@@ -540,7 +535,7 @@
                                 <label for="message" class="block mb-1">Message</label>
                                 <textarea id="message" rows="3" class="w-full px-4 py-2 rounded bg-earth-700 border border-earth-600 focus:outline-none focus:ring-2 focus:ring-sage-500"></textarea>
                             </div>
-                             <button type="submit" class="bg-sage-600 hover:bg-sage-700 text-white px-6 py-2 rounded-full transition">Send Message</button>
+                            <button type="submit" class="bg-sage-600 hover:bg-sage-700 text-white px-6 py-2 rounded-full transition">Send Message</button>
                         </form>
                     </div>
                     <div>
@@ -592,13 +587,11 @@
                 </div>
             </div>
             <div class="border-t border-earth-700 mt-6 pt-6 text-sm text-center md:text-left">
-                <p>© 2025 SoulUnity. All rights reserved. | <a href="impressum.html" class="hover:text-sage-300 transition">Impressum</a> | <a href="index.html" class="hover:text-sage-300 transition">Homepage</a></p>
+                <p>© 2025 SoulUnity. All rights reserved. | <a href="#" class="hover:text-sage-300 transition">Privacy Policy</a> | <a href="#" class="hover:text-sage-300 transition">Terms of Service</a></p>
             </div>
         </div>
     </footer>
-<div id="successPopup" class="fixed top-4 right-4 bg-sage-600 text-white px-6 py-3 rounded-lg shadow-lg hidden transition-opacity duration-300">
-    Thank you! Your message has been received.
-</div>
+
     <script>
         // Mobile menu toggle
         document.getElementById('mobile-menu-button').addEventListener('click', function() {
@@ -610,7 +603,6 @@
         const readMoreBtn = document.getElementById('read-more-btn');
         
         //const closeModalBtn = document.getElementById('close-modal');
-        // Update JavaScript to handle both buttons
         const closeModalBtn = document.querySelectorAll('#close-modal, .close-modal-btn');
         closeModalBtn.forEach(btn => {
             btn.addEventListener('click', function() {
@@ -618,7 +610,6 @@
                 document.body.style.overflow = '';
             });
         });
-        
         const modal = document.getElementById('dream-modal');
 
         readMoreBtn.addEventListener('click', function() {
@@ -641,37 +632,28 @@
 
         // Animate value cards when scrolled into view
         const valueCards = document.querySelectorAll('.value-card');
-
-        // Initial check when page loads
-        document.addEventListener('DOMContentLoaded', checkVisibility);
         
-        // Add resize listener
-        window.addEventListener('resize', checkVisibility);
         function checkVisibility() {
-    // For Value Cards
-    const valueCards = document.querySelectorAll('.value-card');
-    valueCards.forEach(card => {
-        const cardTop = card.getBoundingClientRect().top;
-        const cardBottom = card.getBoundingClientRect().bottom;
-        
-        if (cardTop < window.innerHeight && cardBottom > 0) {
-            card.classList.add('animate-appear');
+            valueCards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const isVisible = (rect.top <= window.innerHeight * 0.75);
+                
+                if (isVisible) {
+                    card.classList.add('visible');
+                }
+            });
+            
+            // Animate manifesto items
+            const manifestoItems = document.querySelectorAll('.manifesto-item');
+            manifestoItems.forEach((item, index) => {
+                const rect = item.getBoundingClientRect();
+                const isVisible = (rect.top <= window.innerHeight * 0.85);
+                
+                if (isVisible) {
+                    item.classList.add('visible');
+                }
+            });
         }
-    });
-
-    // For Manifesto Items
-    const manifestoItems = document.querySelectorAll('.manifesto-item');
-    manifestoItems.forEach((item, index) => {
-        const itemTop = item.getBoundingClientRect().top;
-        const itemBottom = item.getBoundingClientRect().bottom;
-        
-        if (itemTop < window.innerHeight * 0.8 && itemBottom > 0) {
-            // Add staggered delay
-            item.style.transitionDelay = `${index * 0.2}s`;
-            item.classList.add('animate-appear');
-        }
-    });
-}
         
         // Initial check
         checkVisibility();
@@ -701,39 +683,6 @@
                 }
             });
         });
-    document.getElementById('contactForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        const formData = {
-            name: document.getElementById('name').value,
-            email: document.getElementById('email').value,
-            message: document.getElementById('message').value
-        };
-
-        try {
-            const response = await fetch('/.netlify/functions/save-contact', {
-                method: 'POST',
-                body: JSON.stringify(formData)
-            });
-
-            if (response.ok) {
-                // Show popup
-                const popup = document.getElementById('successPopup');
-                popup.classList.remove('hidden');
-                setTimeout(() => {
-                    popup.classList.add('hidden');
-                }, 3000);
-                
-                // Reset form
-                document.getElementById('contactForm').reset();
-            }
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    });
-
     </script>
-
-
 </body>
 </html>
