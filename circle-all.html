@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>All Circle Posts</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://kit.fontawesome.com/yourkit.js" crossorigin="anonymous"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+
+  <div class="max-w-2xl mx-auto p-4">
+    <h1 class="text-2xl font-bold text-center text-purple-700 mb-4">All Shared Voices</h1>
+    <div id="all-entries" class="space-y-4 mt-6"></div>
+
+    <div class="text-center mt-6">
+      <a href="index.html" class="text-purple-600 hover:underline">
+        ← Back to Share Page
+      </a>
+    </div>
+  </div>
+
+  <!-- Template -->
+  <template id="entry-template">
+    <div class="soul-card bg-white p-4 rounded shadow">
+      <div class="flex items-start mb-2">
+        <div class="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center mr-3">
+          <i class="fas fa-user text-purple-500 text-sm"></i>
+        </div>
+        <div>
+          <h5 class="font-bold text-sm author-name">Anonymous Soul</h5>
+          <p class="text-xs text-gray-500 post-time">Just now</p>
+        </div>
+      </div>
+      <p class="text-gray-700 mb-2 post-content">Your message here...</p>
+    </div>
+  </template>
+
+  <!-- Script -->
+  <script>
+    async function loadAllPosts() {
+      try {
+        const res = await fetch('/.netlify/functions/get-entries');
+        const entries = await res.json();
+        const container = document.getElementById('all-entries');
+        const template = document.getElementById('entry-template');
+
+        container.innerHTML = '';
+        entries.forEach(entry => {
+          const clone = template.content.cloneNode(true);
+          clone.querySelector('.author-name').textContent = entry.name || 'Anonymous Soul';
+          clone.querySelector('.post-time').textContent =
+            entry.timestamp ? new Date(entry.timestamp).toLocaleString() : 'Just now';
+          clone.querySelector('.post-content').textContent = entry.message || '';
+          container.appendChild(clone);
+        });
+      } catch (e) {
+        console.error("Failed to load all posts:", e);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadAllPosts);
+  </script>
+</body>
+</html>
