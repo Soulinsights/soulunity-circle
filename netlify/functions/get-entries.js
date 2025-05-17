@@ -9,7 +9,7 @@ exports.handler = async () => {
     .from('circle_posts')
     .select('*')
     .order('timestamp', { ascending: false })
-    .limit(2); // zeigt nur 2 Einträge an
+    //.limit(2); // zeigt nur 2 Einträge an
 
   if (error) {
     return {
