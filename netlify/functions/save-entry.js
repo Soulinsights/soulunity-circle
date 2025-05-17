@@ -14,7 +14,7 @@ exports.handler = async function(event) {
 
     const { error } = await supabase
       .from('circle_posts')
-      .insert([{ name, category, message }]);
+      .insert([{ name, category, message, timestamp: new Date().toISOString()  }]);
 
     if (error) {
       return { statusCode: 500, body: JSON.stringify({ error: error.message }) };
