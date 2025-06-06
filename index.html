@@ -518,6 +518,11 @@ body.modal-open #wisdom {
             transition: transform 0.3s ease;
             }
 
+        .founder-modal-close-button:hover {
+            transform: rotate(90deg);
+            color: #8a6ea8;
+        }
+
         .modal-close:hover {
             transform: rotate(90deg);
             color: #8a6ea8;
@@ -557,15 +562,16 @@ body.modal-open #wisdom {
         
         /* Founder Modal Specific Styles */
         .founder-modal-content {
-            background: linear-gradient(135deg, rgba(248, 233, 216, 0.95) 0%, rgba(232, 216, 200, 0.95) 100%);
+            background-color: rgba(255, 255, 255, 0.95);
             border-radius: 16px;
             width: 90%;
-            max-width: 600px;
-            padding: 40px;
+            max-width: 500px;
+            padding: 30px;
             position: relative;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(216, 196, 232, 0.3);
-            backdrop-filter: blur(5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(232, 196, 216, 0.3);
+            max-height: 90vh;
+            overflow-y: auto;
         }
         
         .founder-image {
