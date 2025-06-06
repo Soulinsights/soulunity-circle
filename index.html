@@ -817,17 +817,19 @@ body.modal-open #wisdom {
         }
         
         #wisdom .bg-white.bg-opacity-70 {
-            min-height: 180px;
+            min-height: 10em;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            transition: height 0.3s ease-out;
+            /* transition: height 0.3s ease-out; */ /* Removed as per request */
         }
         
-        #wisdom .relative.h-64 {
-            height: 256px; /* Add fixed height */
-            min-height: 256px;
-            contain: layout paint style;
+        #wisdom .quote-carousel-container {
+            min-height: 10em;
+            transition: height 0.3s ease-out;
+            /* height: 256px; */ /* Removed as per request */
+            /* min-height: 256px; */ /* Removed as per request */
+            /* contain: layout paint style; */ /* Removed as per request */
             
         }
 
@@ -967,7 +969,7 @@ body.modal-open #wisdom {
                 </button>
 </div>
 <!-- Quote Carousel -->
-<div class="relative h-64 overflow-hidden rounded-lg bg-white bg-opacity-70 backdrop-filter backdrop-blur-sm scroll-animate">
+<div class="relative overflow-hidden rounded-lg bg-white bg-opacity-70 backdrop-filter backdrop-blur-sm scroll-animate quote-carousel-container">
 <div class="quote-slide active p-8">
 <i class="fas fa-quote-left text-3xl text-purple-300 mb-4"></i>
 <p class="text-xl md:text-2xl font-medium text-gray-700 mb-4">"The wound is the place where the Light enters you."</p>
