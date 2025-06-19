@@ -1401,7 +1401,7 @@ body.modal-open #wisdom {
 <span class="text-xl font-bold text-gray-700"><span id="soulCount">10</span> Souls have joined the Unity</span>
 </div>
 <div class="w-full bg-gray-200 rounded-full h-2.5">
-<div class="bg-gradient-to-r from-green-400 to-purple-500 h-2.5 rounded-full" style="width: 25%"></div>
+<div id="progressBar" class="bg-gradient-to-r from-green-400 to-purple-500 h-2.5 rounded-full" style="width: 25%"></div>
 </div>
 <p class="text-sm text-gray-500 mt-2">Help us reach our goal of 500 founding members</p>
 </div>
@@ -2044,7 +2044,7 @@ document.querySelectorAll('[href="#nft"], [href="#donate"]').forEach(btn => {
             
             // Update progress bar
             const progress = (count / 500) * 100;
-            document.querySelector('.bg-gradient-to-r').style.width = `${progress}%`;
+            document.getElementById('progressBar').style.width = `${progress}%`;
         }
     }
     
