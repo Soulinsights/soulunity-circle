@@ -40,7 +40,9 @@ npm install # if you want to locally test Netlify functions
    - Netlify will detect functions via `netlify.toml`
 
 ### 3. Done ✅
-- Form entries are stored in `/data/submissions.json`
+- Set the environment variables `SUPABASE_URL` and `SUPABASE_KEY` in your
+  Netlify project settings.
+- Form submissions are stored in the Supabase table `circle_posts`.
 - You can see live entries on your site after refreshing
 
 ## 📄 License
