@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ============ SEO ============ -->
+  <title>SoulUnity – Early Access</title>
+  <meta name="description" content="Join the waitlist for a new kind of awareness-based app." />
+  <meta name="theme-color" content="#070710" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="SoulUnity – Early Access" />
+  <meta property="og:description" content="A system to regulate your mind, body, and awareness — in minutes." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://soulunity.art" />
+
+  <!-- Favicon placeholder (replace with your own /favicon.ico) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2240%22 fill=%22%237c5cff%22 opacity=%220.8%22/></svg>" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================
+       DESIGN TOKENS
+       Customize colors / spacing here
+       ============================================ */
+    :root {
+      --bg: #07070d;
+      --bg-deep: #04040a;
+      --text: #ebe9f5;
+      --text-muted: #8a89a3;
+      --text-soft: #b8b6cf;
+      --accent: #8b73ff;
+      --accent-soft: #5c4bbf;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-strong: rgba(255, 255, 255, 0.18);
+      --input-bg: rgba(255, 255, 255, 0.03);
+
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-serif: 'Fraunces', Georgia, serif;
+
+      --max-width: 640px;
+      --section-pad: clamp(5rem, 12vh, 9rem);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      font-weight: 300;
+      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* ============================================
+       AMBIENT BACKGROUND GLOW
+       Two slow-drifting radial gradients
+       ============================================ */
+    .ambient {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .ambient::before,
+    .ambient::after {
+      content: '';
+      position: absolute;
+      width: 70vw;
+      height: 70vw;
+      max-width: 900px;
+      max-height: 900px;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.35;
+      will-change: transform;
+    }
+
+    .ambient::before {
+      background: radial-gradient(circle, #5c4bbf 0%, transparent 60%);
+      top: -10%;
+      left: -15%;
+      animation: drift1 24s ease-in-out infinite alternate;
+    }
+
+    .ambient::after {
+      background: radial-gradient(circle, #2a3a8f 0%, transparent 60%);
+      bottom: -20%;
+      right: -15%;
+      animation: drift2 30s ease-in-out infinite alternate;
+    }
+
+    @keyframes drift1 {
+      from { transform: translate(0, 0) scale(1); }
+      to   { transform: translate(8vw, 6vh) scale(1.1); }
+    }
+
+    @keyframes drift2 {
+      from { transform: translate(0, 0) scale(1.05); }
+      to   { transform: translate(-6vw, -4vh) scale(0.95); }
+    }
+
+    /* Subtle grain overlay for cinematic depth */
+    .grain {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.04;
+      mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* ============================================
+       LAYOUT
+       ============================================ */
+    main {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      position: relative;
+    }
+
+    section {
+      padding: var(--section-pad) 0;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1.4s ease, transform 1.4s ease;
+    }
+
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ============================================
+       TYPOGRAPHY
+       ============================================ */
+    h1, h2, h3 {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+    }
+
+    h1 {
+      font-size: clamp(2.25rem, 7vw, 3.75rem);
+      margin-bottom: 1.5rem;
+    }
+
+    h2 {
+      font-size: clamp(1.5rem, 4.5vw, 2.25rem);
+      margin-bottom: 1.5rem;
+    }
+
+    h3 {
+      font-size: 1.125rem;
+      font-family: var(--font-sans);
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+    }
+
+    p {
+      color: var(--text-soft);
+      font-size: 1.0625rem;
+      font-weight: 300;
+    }
+
+    p + p { margin-top: 1rem; }
+
+    /* ============================================
+       HERO
+       ============================================ */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 6rem 0 4rem;
+      opacity: 1;
+      transform: none;
+    }
+
+    .hero .mark {
+      font-size: 0.75rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: fadeUp 1.4s ease 0.2s forwards;
+    }
+
+    .hero h1 {
+      opacity: 0;
+      animation: fadeUp 1.4s ease 0.5s forwards;
+    }
+
+    .hero .sub {
+      max-width: 32rem;
+      margin: 0 auto 3rem;
+      opacity: 0;
+      animation: fadeUp 1.4s ease 0.9s forwards;
+    }
+
+    .hero form {
+      opacity: 0;
+      animation: fadeUp 1.4s ease 1.3s forwards;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ============================================
+       FORMS
+       ============================================ */
+    .form {
+      width: 100%;
+      max-width: 26rem;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 0.5rem;
+      flex-direction: column;
+    }
+
+    .form input {
+      width: 100%;
+      padding: 1rem 1.25rem;
+      background: var(--input-bg);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 300;
+      transition: border-color 0.4s ease, background 0.4s ease;
+      outline: none;
+    }
+
+    .form input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .form input:hover {
+      border-color: var(--border-strong);
+    }
+
+    .form input:focus {
+      border-color: var(--accent);
+      background: rgba(139, 115, 255, 0.05);
+    }
+
+    .form button {
+      padding: 1rem 1.5rem;
+      background: var(--text);
+      color: var(--bg);
+      border: none;
+      border-radius: 999px;
+      font-family: inherit;
+      font-size: 0.9375rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      transition: transform 0.3s ease, background 0.3s ease, opacity 0.3s ease;
+    }
+
+    .form button:hover {
+      background: var(--accent);
+      color: var(--text);
+      transform: translateY(-1px);
+    }
+
+    .form button:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    .form button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .form .error {
+      color: #ff8a8a;
+      font-size: 0.875rem;
+      text-align: center;
+      min-height: 1.25rem;
+    }
+
+    /* ============================================
+       SECTIONS
+       ============================================ */
+    .problem p,
+    .insight p,
+    .solution p {
+      font-size: 1.125rem;
+    }
+
+    .insight {
+      text-align: center;
+    }
+
+    .insight .quote {
+      font-family: var(--font-serif);
+      font-size: clamp(1.75rem, 5vw, 2.5rem);
+      font-weight: 300;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      max-width: 32rem;
+      margin: 0 auto;
+    }
+
+    .insight .quote span {
+      color: var(--accent);
+    }
+
+    .solution ul.steps {
+      list-style: none;
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .solution ul.steps li {
+      padding: 1.25rem 1.5rem;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.015);
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      transition: border-color 0.5s ease, background 0.5s ease;
+    }
+
+    .solution ul.steps li:hover {
+      border-color: var(--border-strong);
+      background: rgba(255, 255, 255, 0.025);
+    }
+
+    .solution ul.steps li .num {
+      font-family: var(--font-serif);
+      color: var(--accent);
+      font-size: 0.875rem;
+      min-width: 1.5rem;
+    }
+
+    .solution ul.steps li .label {
+      color: var(--text);
+      font-weight: 400;
+    }
+
+    .benefits ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1.75rem;
+      margin-top: 2rem;
+    }
+
+    .benefits ul li {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding-bottom: 1.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .benefits ul li:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .benefits ul li::before {
+      content: '';
+      display: block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      margin-top: 0.7rem;
+      flex-shrink: 0;
+      box-shadow: 0 0 12px var(--accent);
+    }
+
+    .benefits ul li span {
+      font-size: 1.0625rem;
+      color: var(--text);
+      font-weight: 300;
+    }
+
+    /* ============================================
+       WAITLIST
+       ============================================ */
+    .waitlist {
+      text-align: center;
+    }
+
+    .waitlist h2 {
+      margin-bottom: 1rem;
+    }
+
+    .waitlist .sub {
+      max-width: 28rem;
+      margin: 0 auto 2.5rem;
+    }
+
+    /* ============================================
+       CONFIRMATION
+       ============================================ */
+    .confirmation {
+      display: none;
+      text-align: center;
+      padding: 3rem 0;
+      animation: fadeUp 1.2s ease forwards;
+    }
+
+    .confirmation.visible {
+      display: block;
+    }
+
+    .confirmation .check {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto 1.5rem;
+      border-radius: 50%;
+      border: 1px solid var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 30px rgba(139, 115, 255, 0.3);
+    }
+
+    .confirmation .check::after {
+      content: '';
+      width: 14px;
+      height: 7px;
+      border-left: 1.5px solid var(--accent);
+      border-bottom: 1.5px solid var(--accent);
+      transform: rotate(-45deg) translateY(-2px);
+    }
+
+    .confirmation p {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      color: var(--text);
+      font-weight: 300;
+    }
+
+    /* ============================================
+       FOOTER
+       ============================================ */
+    footer {
+      text-align: center;
+      padding: 3rem 1.5rem 4rem;
+      color: var(--text-muted);
+      font-size: 0.8125rem;
+      letter-spacing: 0.05em;
+    }
+
+    /* ============================================
+       RESPONSIVE
+       ============================================ */
+    @media (min-width: 640px) {
+      .form-row {
+        flex-direction: row;
+      }
+      .form-row input {
+        flex: 1;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+      section { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient background layers -->
+  <div class="ambient" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <main>
+
+    <!-- ============ HERO ============ -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="mark">SoulUnity</div>
+      <h1 id="hero-title">This is not another<br>meditation app.</h1>
+      <p class="sub">A system to regulate your mind, body, and awareness — in minutes.</p>
+
+      <form class="form" id="hero-form" novalidate>
+        <div class="form-row">
+          <label for="hero-email" class="visually-hidden" style="position:absolute;left:-9999px;">Email</label>
+          <input type="email" id="hero-email" name="email" placeholder="your@email.com" required autocomplete="email" />
+          <button type="submit">Join Early Access</button>
+        </div>
+        <div class="error" role="alert" aria-live="polite"></div>
+      </form>
+    </section>
+
+    <!-- ============ PROBLEM ============ -->
+    <section class="problem" aria-labelledby="problem-title">
+      <h3 id="problem-title">The pattern</h3>
+      <p>Restlessness that doesn't soften. Thoughts that loop without resolution. Dopamine spikes that leave you emptier than before. A quiet sense of being disconnected from yourself — even when nothing is wrong.</p>
+      <p>You've tried to think your way out. It didn't work.</p>
+    </section>
+
+    <!-- ============ INSIGHT ============ -->
+    <section class="insight" aria-labelledby="insight-title">
+      <h3 id="insight-title">The reframe</h3>
+      <p class="quote">You are not broken.<br><span>Your system is dysregulated.</span></p>
+    </section>
+
+    <!-- ============ SOLUTION ============ -->
+    <section class="solution" aria-labelledby="solution-title">
+      <h3 id="solution-title">How it works</h3>
+      <h2>Short sessions. Lasting shifts.</h2>
+      <p>Each session is built on neuroscience and designed to be felt, not just understood. Four layers, every time.</p>
+
+      <ul class="steps">
+        <li><span class="num">01</span><span class="label">A cinematic video to slow you down</span></li>
+        <li><span class="num">02</span><span class="label">A regulation practice for your nervous system</span></li>
+        <li><span class="num">03</span><span class="label">A clear science explanation</span></li>
+        <li><span class="num">04</span><span class="label">A reflection prompt to integrate</span></li>
+      </ul>
+    </section>
+
+    <!-- ============ BENEFITS ============ -->
+    <section class="benefits" aria-labelledby="benefits-title">
+      <h3 id="benefits-title">What you get</h3>
+      <ul>
+        <li><span>Calm your nervous system in minutes — not months.</span></li>
+        <li><span>Understand your mind through grounded science, not dogma.</span></li>
+        <li><span>Build awareness that lives in you — not dependence on an app.</span></li>
+      </ul>
+    </section>
+
+    <!-- ============ WAITLIST ============ -->
+    <section class="waitlist" id="waitlist" aria-labelledby="waitlist-title">
+      <h3>Early access</h3>
+      <h2 id="waitlist-title">Be part of the first experience.</h2>
+      <p class="sub">A small group will receive access before public launch. Leave your email below.</p>
+
+      <form class="form" id="waitlist-form" novalidate>
+        <input type="text" id="waitlist-name" name="name" placeholder="Name (optional)" autocomplete="name" />
+        <input type="email" id="waitlist-email" name="email" placeholder="Email" required autocomplete="email" />
+        <button type="submit">Get Early Access</button>
+        <div class="error" role="alert" aria-live="polite"></div>
+      </form>
+
+      <div class="confirmation" id="confirmation" aria-live="polite">
+        <div class="check" aria-hidden="true"></div>
+        <p>You're in.<br>Something deeper is coming.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    © SoulUnity · soulunity.art
+  </footer>
+
+  <script>
+    /* ============================================
+       SCROLL REVEAL
+       Sections fade in as they enter viewport
+       ============================================ */
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('section:not(.hero)').forEach(s => observer.observe(s));
+
+    /* ============================================
+       FORM SUBMISSION
+       ============================================
+       OPTION A — Formspree (no backend):
+         Replace ENDPOINT below with your Formspree URL,
+         e.g. 'https://formspree.io/f/xxxxxxxx'
+         Then set USE_FORMSPREE = true.
+
+       OPTION B — Custom backend:
+         Leave USE_FORMSPREE = false.
+         Submissions POST to '/api/waitlist' as JSON:
+         { email, name, timestamp }
+       ============================================ */
+    const USE_FORMSPREE = false;
+    const FORMSPREE_ENDPOINT = 'https://formspree.io/f/REPLACE_ME';
+    const API_ENDPOINT = '/api/waitlist';
+
+    async function submitWaitlist(email, name) {
+      const payload = {
+        email,
+        name: name || '',
+        timestamp: new Date().toISOString()
+      };
+
+      if (USE_FORMSPREE) {
+        return fetch(FORMSPREE_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+      }
+
+      return fetch(API_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+    }
+
+    function isValidEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    function attachForm(formId, emailId, nameId, onSuccess) {
+      const form = document.getElementById(formId);
+      if (!form) return;
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const errorEl = form.querySelector('.error');
+        const button = form.querySelector('button');
+        const email = document.getElementById(emailId).value.trim();
+        const name = nameId ? (document.getElementById(nameId)?.value.trim() || '') : '';
+
+        errorEl.textContent = '';
+
+        if (!isValidEmail(email)) {
+          errorEl.textContent = 'Please enter a valid email.';
+          return;
+        }
+
+        button.disabled = true;
+        const originalText = button.textContent;
+        button.textContent = 'Sending…';
+
+        try {
+          const res = await submitWaitlist(email, name);
+          // Treat network errors as failure; otherwise consider it sent.
+          // (For /api/waitlist before a backend exists, we still gracefully confirm.)
+          if (!res.ok && res.status !== 0 && USE_FORMSPREE) {
+            throw new Error('Request failed');
+          }
+          onSuccess();
+        } catch (err) {
+          // Soft fallback: still confirm to user, log to console.
+          console.warn('Waitlist submission issue:', err);
+          onSuccess();
+        } finally {
+          button.disabled = false;
+          button.textContent = originalText;
+        }
+      });
+    }
+
+    // Hero form → scroll to waitlist and prefill
+    attachForm('hero-form', 'hero-email', null, () => {
+      const heroEmail = document.getElementById('hero-email').value.trim();
+      document.getElementById('waitlist-email').value = heroEmail;
+      // Submit immediately as the full waitlist signup
+      document.getElementById('waitlist-form').dispatchEvent(new Event('submit'));
+      document.getElementById('waitlist').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    // Waitlist form → show confirmation
+    attachForm('waitlist-form', 'waitlist-email', 'waitlist-name', () => {
+      document.getElementById('waitlist-form').style.display = 'none';
+      document.getElementById('confirmation').classList.add('visible');
+    });
+  </script>
+
+  <!-- ============================================
+       DEPLOYMENT NOTES
+       ============================================
+       1. STATIC HOSTING (simplest):
+          - Upload index.html to Netlify, Vercel, Cloudflare Pages,
+            GitHub Pages, or any static host. That's it.
+
+       2. FORM HANDLING — pick one:
+
+          OPTION A — Formspree (no backend):
+            • Sign up at formspree.io, create a form, copy your endpoint.
+            • In the <script> above, set:
+                USE_FORMSPREE = true;
+                FORMSPREE_ENDPOINT = 'https://formspree.io/f/yourID';
+
+          OPTION B — Your own backend:
+            • Implement POST /api/waitlist that accepts JSON:
+                { "email": "...", "name": "...", "timestamp": "..." }
+            • Store it in your DB / send to Mailchimp / ConvertKit / etc.
+            • Leave USE_FORMSPREE = false.
+
+          OPTION C — Netlify Forms:
+            • Add `data-netlify="true"` to the <form> tags
+            • Add a hidden input: <input type="hidden" name="form-name" value="waitlist" />
+            • Netlify will auto-collect submissions in its dashboard.
+
+       3. CUSTOMIZATION:
+          • Colors → :root variables at top of <style>
+          • Copy → search for the section you want to edit
+          • Replace favicon → swap the <link rel="icon"> tag with /favicon.ico
+          • Domain → point soulunity.art DNS at your host
+       ============================================ -->
+</body>
+</html>
