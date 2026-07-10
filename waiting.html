@@ -683,16 +683,16 @@
 
         try {
           const res = await submitWaitlist(email, name);
-          // Treat network errors as failure; otherwise consider it sent.
-          // (For /api/waitlist before a backend exists, we still gracefully confirm.)
-          if (!res.ok && res.status !== 0 && USE_FORMSPREE) {
-            throw new Error('Request failed');
+          // A non-OK HTTP response (404, 500, etc.) is a real failure — do not
+          // treat it as success. Network errors are caught below.
+          if (!res.ok) {
+            throw new Error('Request failed with status ' + res.status);
           }
           onSuccess();
         } catch (err) {
-          // Soft fallback: still confirm to user, log to console.
+          // Real failure — show it to the user instead of silently confirming.
           console.warn('Waitlist submission issue:', err);
-          onSuccess();
+          errorEl.textContent = 'Something went wrong. Please try again.';
         } finally {
           button.disabled = false;
           button.textContent = originalText;
